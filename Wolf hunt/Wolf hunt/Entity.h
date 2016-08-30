@@ -21,7 +21,7 @@ public:
 	float Health;
 	int Id;
 	enum class EntityType {
-		TypeLiving, TypePlayer, TypeGuard, TypeFlashbang,TypeEntity
+		TypeLiving, TypePlayer, TypeWolf, TypeHerd,TypeEntity
 	} Type;
 	Entity(World * world,Vector pos = Vector());
 	~Entity();

@@ -8,10 +8,10 @@ public:
 	int EvalTime;
 	Vector OldPosition;
 	Vector Position;
-	AIActionMove(EntityAI * owner,Vector pos);
+	AIActionMove(EntityWolf * owner,Vector pos);
 	~AIActionMove();
 	void Execute() override;
-	AIAction * CopySelf(EntityAI * newowner) override;
+	AIAction * CopySelf(EntityWolf * newowner) override;
 	void Mutate(float Factor) override;
 	std::string Description() override;
 };

@@ -2,20 +2,11 @@
 #include "World.h"
 #include <math.h>
 #include <iostream>
-#include "ItemSword.h"
-#include "ItemRifle.h"
-#include "ItemSMG.h"
-#include "ItemFlashBang.h"
 
 
 EntityPlayer::EntityPlayer(World * world,Vector pos) : EntityLiving(world,pos)
 {
 	MousePosition = Vector(0, 0);
-	ItemList[0] = new ItemSword();
-	ItemList[1] = new ItemRifle();
-	ItemList[2] = new ItemSMG();
-	ItemList[3] = new ItemFlashBang();
-	ItemCurrent = ItemList[0];
 	this->MaxForce = 25;
 	this->WalkForce = 10;
 	this->CurrentMaxForce = MaxForce * (Health / 100);
@@ -47,18 +38,10 @@ void EntityPlayer::Update()
 {
 	EntityLiving::Update();
 	UpdatePlayerAngle();
-	ItemCurrent->Update(worldObj);
 	Vector diff = Pos - PosOld;
-	ItemCurrent->ChangeSpeed(diff.Dot(diff));
 	this->CurrentMaxForce = MaxForce * (Health / 100);
 	this->CurrentWalkForce = CurrentWalkForce * (Health / 100);
 	this->CurrentMaxForce = MaxForce * (Health / 100);
-}
-void EntityPlayer::ChangeItemCurrent(int number)
-{
-	if (number < 4) {
-		ItemCurrent = ItemList[number];
-	}
 }
 void EntityPlayer::MoveForward()
 {
@@ -82,16 +65,4 @@ void EntityPlayer::SetSpeed(float speed)
 	{
 		MoveForce = speed;
 	}
-}
-void EntityPlayer::Flash(Vector Position)
-{
-	Vector dist = Position - Pos;
-	float Angle = 180 / 3.14 * atan2f(dist.Y, dist.X);
-	FlashTime = worldObj->FlashManager->MaxFlashTime * (1 - (abs(AngleDifference(Rot,Angle))/90));
-	if (FlashTime < 2)
-	{
-		FlashTime = 2;
-	}
-	//Make entire screen white
-	worldObj->FlashManager->AddFlashBangEvent(this,Position);
 }

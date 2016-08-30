@@ -4,8 +4,6 @@
 #include "EntityLiving.h"
 World::World(GameManager * gm)
 {
-	ResManager = gm->ResManager;
-	FlashManager = gm->FlashBangRenderer;
 	DeltaTime = 0.1F;
 	DeltaTimeSqrd = DeltaTime*DeltaTime;
 	this->rectangle = sf::RectangleShape(sf::Vector2f(10,10));
@@ -17,9 +15,9 @@ World::World(GameManager * gm)
 	CameraLoc = Vector();
 	EntityList = new Entity*[EntityCount];
 	WorldCollision = std::vector<Vector*>();
-	Floor = sf::RectangleShape(sf::Vector2f(ResManager->FloorTexture.getSize()));
-	Floor.setTexture(&ResManager->FloorTexture);
-	Floor.setPosition(sf::Vector2f(0, 0));
+	//Floor = sf::RectangleShape(sf::Vector2f(ResManager->FloorTexture.getSize()));
+	//Floor.setTexture(&ResManager->FloorTexture);
+	//Floor.setPosition(sf::Vector2f(0, 0));
 	for (int i = 0; i < EntityCount; ++i)
 	{
 		EntityList[i] = NULL;
@@ -182,8 +180,8 @@ void World::Collide()
 }
 void World::Render(GameManager * gm)
 {
-	Floor.setPosition(CameraLoc.X, CameraLoc.Y);
-	gm->Window.draw(Floor);
+	//Floor.setPosition(CameraLoc.X, CameraLoc.Y);
+	//gm->Window.draw(Floor);
 	for (int i = 0; i < EntityCount; ++i)
 	{
 		if (EntityList[i] != NULL)

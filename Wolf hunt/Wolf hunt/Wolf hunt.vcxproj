@@ -68,13 +68,19 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>..\..\SFML-2.3.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\SFML-2.3.2\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>openal32.lib;sfml-main-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -111,78 +117,38 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AIAction.cpp" />
-    <ClCompile Include="AIActionLook.cpp" />
     <ClCompile Include="AIActionMove.cpp" />
-    <ClCompile Include="AIActionShoot.cpp" />
     <ClCompile Include="CBRCase.cpp" />
     <ClCompile Include="CBRDiskManager.cpp" />
     <ClCompile Include="CBREnvironment.cpp" />
     <ClCompile Include="CBRInstance.cpp" />
-    <ClCompile Include="Element.cpp" />
-    <ClCompile Include="ElementButton.cpp" />
-    <ClCompile Include="ElementLable.cpp" />
-    <ClCompile Include="ElementTexture.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="EntityAI.cpp" />
-    <ClCompile Include="EntityFlashBang.cpp" />
-    <ClCompile Include="EntityFlashTurret.cpp" />
-    <ClCompile Include="EntityGuard.cpp" />
+    <ClCompile Include="EntityHerd.cpp" />
+    <ClCompile Include="EntityWolf.cpp" />
     <ClCompile Include="EntityLiving.cpp" />
-    <ClCompile Include="EntityPhysical.cpp" />
     <ClCompile Include="EntityPlayer.cpp" />
-    <ClCompile Include="EntitySwordEffect.cpp" />
-    <ClCompile Include="EntityTracerEffect.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Item.cpp" />
-    <ClCompile Include="ItemBlinder.cpp" />
-    <ClCompile Include="ItemFlashBang.cpp" />
     <ClCompile Include="ItemRayCaster.cpp" />
-    <ClCompile Include="ItemRifle.cpp" />
-    <ClCompile Include="ItemSMG.cpp" />
-    <ClCompile Include="ItemSword.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainMenu.cpp" />
-    <ClCompile Include="MenuBase.cpp" />
-    <ClCompile Include="RenderFlashBang.cpp" />
-    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AIAction.h" />
-    <ClInclude Include="AIActionLook.h" />
     <ClInclude Include="AIActionMove.h" />
-    <ClInclude Include="AIActionShoot.h" />
     <ClInclude Include="CBRCase.h" />
     <ClInclude Include="CBRDiskManager.h" />
     <ClInclude Include="CBREnvironment.h" />
     <ClInclude Include="CBRInstance.h" />
     <ClInclude Include="CBRWeight.h" />
-    <ClInclude Include="Element.h" />
-    <ClInclude Include="ElementButton.h" />
-    <ClInclude Include="ElementLable.h" />
-    <ClInclude Include="ElementTexture.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="EntityAI.h" />
-    <ClInclude Include="EntityFlashBang.h" />
-    <ClInclude Include="EntityFlashTurret.h" />
-    <ClInclude Include="EntityGuard.h" />
+    <ClInclude Include="EntityHerd.h" />
+    <ClInclude Include="EntityWolf.h" />
     <ClInclude Include="EntityLiving.h" />
-    <ClInclude Include="EntityPhysical.h" />
     <ClInclude Include="EntityPlayer.h" />
-    <ClInclude Include="EntitySwordEffect.h" />
-    <ClInclude Include="EntityTracerEffect.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Item.h" />
-    <ClInclude Include="ItemBlinder.h" />
-    <ClInclude Include="ItemFlashBang.h" />
     <ClInclude Include="ItemRayCaster.h" />
-    <ClInclude Include="ItemRifle.h" />
-    <ClInclude Include="ItemSMG.h" />
-    <ClInclude Include="ItemSword.h" />
-    <ClInclude Include="MainMenu.h" />
-    <ClInclude Include="MenuBase.h" />
-    <ClInclude Include="RenderFlashBang.h" />
-    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>

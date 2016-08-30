@@ -1,7 +1,5 @@
 #include "CBRCase.h"
-#include "AIActionLook.h"
 #include "AIActionMove.h"
-#include "AIActionShoot.h"
 #include <iostream>
 
 CBRCase::CBRCase()
@@ -31,19 +29,12 @@ void CBRCase::RandomiseMoves()
 	for (int i = 0; i < actions; ++i)
 	{
 		//Add random action
-		switch ((rand() % 4))
+		switch ((rand() % 1))
 		{
 		case 0:
-			Moves.push_back(new AIActionLook(NULL, Vector(MaxMove / 2,MaxMove / 2)));
+			Moves.push_back(new AIActionMove(NULL, Vector(MaxMove / 2, MaxMove / 2)));
 			break;
 		case 1:
-			Moves.push_back(new AIActionMove(NULL, Vector(MaxMove / 2, MaxMove / 2)));
-			break;
-		case 2:
-			Moves.push_back(new AIActionMove(NULL, Vector(MaxMove / 2, MaxMove / 2)));
-			break;
-		case 3:
-		case 4:
 			if (Moves.size() > 0) {
 				delete Moves.back();
 				Moves.pop_back();
@@ -63,7 +54,7 @@ void CBRCase::MutateCases(float subfactor)
 		(Moves[i])->Mutate(Factor);
 	}
 }
-void CBRCase::ApplyActionsToEntity(EntityAI * entity)
+void CBRCase::ApplyActionsToEntity(EntityWolf * entity)
 {
 	entity->ClearAIStack();
 	//std::cout << "Starting ai routine" << std::endl;

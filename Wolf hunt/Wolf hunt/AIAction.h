@@ -1,15 +1,15 @@
 #pragma once
-#include "EntityAI.h"
+#include "EntityWolf.h"
 //This class gets loaded into the Execute stack
 class AIAction
 {
 public:
-	EntityAI * Owner;
-	AIAction(EntityAI * owner);
+	EntityWolf * Owner;
+	AIAction(EntityWolf * owner);
 	~AIAction();
 	virtual void Execute();
 	void RemoveSelf();
-	virtual AIAction * CopySelf(EntityAI * newowner);
+	virtual AIAction * CopySelf(EntityWolf * newowner);
 	virtual void Mutate(float Factor);
 	virtual std::string Description();
 };

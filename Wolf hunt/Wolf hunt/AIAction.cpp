@@ -2,7 +2,7 @@
 
 
 
-AIAction::AIAction(EntityAI * owner)
+AIAction::AIAction(EntityWolf * owner)
 {
 	this->Owner = owner;
 }
@@ -21,7 +21,7 @@ void AIAction::RemoveSelf()
 	Owner->AIStack.pop();
 	delete this;
 }
-AIAction * AIAction::CopySelf(EntityAI * newowner)
+AIAction * AIAction::CopySelf(EntityWolf * newowner)
 {
 	AIAction * NewVer = new AIAction(newowner);
 	return NewVer;

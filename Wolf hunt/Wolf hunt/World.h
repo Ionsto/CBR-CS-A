@@ -2,8 +2,6 @@
 #include <SFML\Graphics.hpp>
 #include "Entity.h"
 #include "EntityPlayer.h"
-#include "ResourceManager.h"
-#include "RenderFlashBang.h"
 #include "CBRInstance.h"
 class GameManager;
 class World
@@ -16,8 +14,6 @@ public:
 	EntityPlayer * Player;
 	Entity ** EntityList;
 	sf::RectangleShape rectangle;
-	ResourceManager * ResManager;
-	RenderFlashBang * FlashManager;
 	Vector CameraLoc;
 	int EntityCount;
 	std::vector<Vector*> WorldCollision;

@@ -1,6 +1,5 @@
 #include "GameManager.h"
-#include "EntityGuard.h"
-#include "EntityFlashTurret.h"
+#include "EntityHerd.h"
 
 GameManager::GameManager()
 {
@@ -8,6 +7,7 @@ GameManager::GameManager()
 	WindowSize = Vector();
 	MouseState = MouseData();
 	WorldObj = NULL;
+	GameState = StateGame;
 	sf::Time timer = sf::Time();
 	int uwot = round(timer.asSeconds());
 	srand(uwot);
@@ -17,9 +17,6 @@ GameManager::GameManager()
 GameManager::~GameManager()
 {
 	delete WorldObj;
-	delete Mainmenu;
-	delete ResManager;
-	delete FlashBangRenderer;
 }
 
 void GameManager::Init()
@@ -29,7 +26,6 @@ void GameManager::Init()
 	std::cout << "Init game \n";
 	InitGraphics();
 	InitWorld();
-	Mainmenu = new MainMenu();
 
 }
 void GameManager::InitGraphics()
@@ -38,8 +34,6 @@ void GameManager::InitGraphics()
 	this->Window.create(sf::VideoMode(800, 800), "Entry");
 	WindowSize.X = Window.getSize().x;
 	WindowSize.Y = Window.getSize().y;
-	ResManager = new ResourceManager();
-	FlashBangRenderer = new RenderFlashBang(this);
 }
 void GameManager::MainLoop()
 {
@@ -57,7 +51,6 @@ void GameManager::Update()
 	{
 		Window.setMouseCursorVisible(true);
 		//web_core->Update();
-		Mainmenu->Update(this);
 	}
 	if (GameState == StateGame)
 	{
@@ -70,7 +63,6 @@ void GameManager::Update()
 			WorldObj->Player->MousePosition.Y = MouseState.MousePosition.Y - (WindowSize.Y / 2);
 		}
 		WorldObj->Update(this);
-		FlashBangRenderer->Update(this);
 	}
 }
 
@@ -79,12 +71,10 @@ void GameManager::Render()
 	Window.clear(sf::Color::Black);
 	if (GameState == StateMainMenu)
 	{
-		Mainmenu->Render(this);
 	}
 	if (GameState == StateGame)
 	{
 		WorldObj->Render(this);
-		FlashBangRenderer->Render(this);
 	}
 	Window.display();
 }
@@ -167,7 +157,7 @@ void GameManager::PollInput()
 			for (int i = 0; i < 9; ++i) {
 				if (this->KeyState[sf::Keyboard::Key::Num1 + i])
 				{
-					(this->WorldObj->Player)->ChangeItemCurrent(i);
+					//(this->WorldObj->Player)->ChangeItemCurrent(i);
 				}
 			}
 
@@ -181,7 +171,7 @@ void GameManager::PollInput()
 			}
 			if (this->MouseState.LeftMouseState == 1)
 			{
-				(this->WorldObj->Player)->UseItemCurrent();
+				//(this->WorldObj->Player)->UseItemCurrent();
 			}
 			if (this->MouseState.RightMouseState == 2)
 			{
@@ -215,10 +205,11 @@ void GameManager::InitWorld()
 	WorldObj->AddWorldCollision(Vector(178, 20), Vector(20, 20));
 	WorldObj->AddWorldCollision(Vector(178, 160), Vector(20, 20));
 	//Corridor
-	WorldObj->AddEntity(new EntityPlayer(WorldObj));
-	WorldObj->Player = (EntityPlayer*)WorldObj->EntityList[0];
-	WorldObj->AddEntity(new EntityAI(WorldObj,Vector(250,150)));
-	WorldObj->EntityList[0]->SetPosition(Vector(50, 50));
+	//WorldObj->AddEntity(new EntityPlayer(WorldObj));
+	//WorldObj->Player = (EntityPlayer*)WorldObj->EntityList[0];
+	WorldObj->AddEntity(new EntityWolf(WorldObj, Vector(250, 150)));
+	WorldObj->AddEntity(new EntityHerd(WorldObj, Vector(500, 500)));
+	//WorldObj->EntityList[0]->SetPosition(Vector(50, 50));
 	//WorldObj->EntityList[1]->SetPosition(Vector(50, 90));
 	//WorldObj->AddEntity(new EntityFlashTurret(WorldObj,Vector(100,100)));
 	//WorldObj->AddEntity(new EntityGuard(WorldObj,Vector(80,80)));

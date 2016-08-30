@@ -1,0 +1,9 @@
+﻿  GameManager.cpp
+c:\users\mpfs\contacts\documents\github\cbr-cs-a\wolf hunt\wolf hunt\gamemanager.cpp(12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\mpfs\contacts\documents\github\cbr-cs-a\wolf hunt\wolf hunt\gamemanager.cpp(35): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\mpfs\contacts\documents\github\cbr-cs-a\wolf hunt\wolf hunt\gamemanager.cpp(36): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\mpfs\contacts\documents\github\cbr-cs-a\wolf hunt\wolf hunt\gamemanager.cpp(60): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\mpfs\contacts\documents\github\cbr-cs-a\wolf hunt\wolf hunt\gamemanager.cpp(61): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\mpfs\contacts\documents\github\cbr-cs-a\wolf hunt\wolf hunt\gamemanager.cpp(130): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\mpfs\contacts\documents\github\cbr-cs-a\wolf hunt\wolf hunt\gamemanager.cpp(131): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+LINK : fatal error LNK1168: cannot open C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Wolf hunt\Debug\Wolf hunt.exe for writing

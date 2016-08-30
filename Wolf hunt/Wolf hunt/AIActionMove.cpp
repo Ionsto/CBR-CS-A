@@ -2,7 +2,7 @@
 #include <math.h>
 
 
-AIActionMove::AIActionMove(EntityAI * owner, Vector pos) : AIAction(owner)
+AIActionMove::AIActionMove(EntityWolf * owner, Vector pos) : AIAction(owner)
 {
 	Position = pos;
 	EvalCount = 0;
@@ -43,7 +43,7 @@ void AIActionMove::Execute()
 		RemoveSelf();
 	}
 }
-AIAction * AIActionMove::CopySelf(EntityAI * newowner)
+AIAction * AIActionMove::CopySelf(EntityWolf * newowner)
 {
 	AIAction * NewVer = new AIActionMove(newowner, this->Position);
 	return NewVer;

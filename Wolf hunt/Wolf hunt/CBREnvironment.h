@@ -5,29 +5,25 @@
 struct EntityInfo
 {
 	Entity::EntityType Type;
-	float FlashTime;
-	float Health;
-	float Rot;
 	Vector Position;
-	bool InfoKnown;
+	float Distance;
 	EntityInfo() {
 	};
 };
-class EntityAI;
+class EntityWolf;
 class CBREnvironment
 {
 public:
 	//Self info
 	EntityInfo Self;
 	//Exterier
-	EntityInfo Player;
+	EntityInfo Herd;
 	//Nearby simtype count
-	int SameEntitiesNearby;
-	EntityInfo NearbyFlashbang;
+	int HerdCount;
 	//This would be good to have, but it turns out this is a super complex problem
 	//std::vector<EntityInfo> OtherFactors;
 	CBREnvironment();
 	~CBREnvironment();
-	void Populate(EntityAI * entity);
+	void Populate(EntityWolf * entity);
 };
 

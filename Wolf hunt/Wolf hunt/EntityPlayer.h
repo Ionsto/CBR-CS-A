@@ -15,12 +15,10 @@ public:
 	~EntityPlayer();
 	void UpdatePlayerAngle();
 	void Update() override;
-	void ChangeItemCurrent(int number);
 	void MoveForward();
 	void MoveBackward();
 	void MoveLeft();
 	void MoveRight();
 	void SetSpeed(float Speed);
-	void Flash(Vector pos) override;
 };
 

@@ -21,12 +21,10 @@ float CBRInstance::DistanceInfo(EntityInfo a, EntityInfo b)
 	float DistanceTemp = 0;
 	float Distance = 0;
 	int WeightIter = 0;
-	DistanceTemp = DistanceWeights.FlashTime * abs(a.FlashTime - b.FlashTime);
-	Distance += DistanceTemp * DistanceTemp;
 	Vector dist = a.Position - b.Position;
 	DistanceTemp = DistanceWeights.Position * sqrt(dist.Dot(dist));
 	Distance += DistanceTemp * DistanceTemp;
-	DistanceTemp = DistanceWeights.Rotation * abs(Entity::AngleDifference(a.Rot,b.Rot));
+	DistanceTemp = DistanceWeights.Distance * abs(a.Distance - b.Distance);
 	Distance += DistanceTemp * DistanceTemp;
 	return sqrt(Distance);
 }
@@ -36,80 +34,13 @@ bool CBRInstance::AllPairsComp(float * a, float * b)
 }
 float CBRInstance::Distance(CBREnvironment a, CBREnvironment b)
 {
+	float TempDistance = 0;
 	float Distance = 0;
-	Distance += DistanceInfo(a.Self, b.Self);
-	//Distance += DistanceInfo(a.Player, b.Player);
-	//Analyse "other factors" this system generates pairs of entities
-	/*
-	For each element in a, find distance to each element in b
-	if the distance is smaller than that items current distance, claim it - if the distance is too great it cannot be claimed
-	an entity can only be claimed if they are the same type
-	*/
-	//0 is distance,1 is claiment in a
-	/*std::vector<std::vector<float*>> DistanceFromEachA;
-	std::vector<std::vector<int>> ClosestToB;
-	for (int i = 0; i < a.OtherFactors.size(); ++i)
-	{
-		std::vector<float*> TempDistances;
-		for (int j = 0; j < b.OtherFactors.size(); ++j)
-		{
-			float NewDistance;
-			int Claiment = -1;
-			EntityInfo bOtherInfo = b.OtherFactors.at(i);
-			EntityInfo aOtherInfo = a.OtherFactors.at(j);
-			if (bOtherInfo.Type != aOtherInfo.Type)
-			{
-				float Distance = DistanceInfo(aOtherInfo, bOtherInfo);
-				if (Distance < MaxArrayClaimentThreshold)
-				{
-					NewDistance = Distance;
-					Claiment = j;
-				}
-			}
-			TempDistances.push_back(new float[2]{ NewDistance,(float)Claiment });
-		}
-		DistanceFromEachA.push_back(TempDistances);
-	}
-	for (int i = 0; i < b.OtherFactors.size(); ++i)
-	{
-		float ClosestDistance;
-		int ClosestClaiment = -1;
-		for (int j = 0; j < a.OtherFactors.size(); ++j)
-		{
-			EntityInfo bOtherInfo = b.OtherFactors.at(i);
-			EntityInfo aOtherInfo = a.OtherFactors.at(j);
-			if (bOtherInfo.Type != aOtherInfo.Type)
-			{
-				float Distance = DistanceInfo(bOtherInfo, aOtherInfo);
-				if (Distance < MaxArrayClaimentThreshold)
-				{
-					if (ClosestClaiment == -1)
-					{
-						ClosestDistance = Distance;
-						ClosestClaiment = j;
-					}else if (Distance < ClosestDistance)
-					{
-						ClosestDistance = Distance;
-						ClosestClaiment = j;
-					}
-				}
-			}
-		}
-		ClosestToB.at(i).push_back(ClosestClaiment);
-	}
-	//Sort Distance to a
-	std::sort(DistanceFromEachA.front(), DistanceFromEachA.back(),CBRInstance::AllPairsComp);
-	//For each entity on A, find the closest B, if the closest A from that B is the first ent -> Remove both pairs
-	int i = 0;
-	while (i++ < DistanceFromEachA.size())
-	{
-		for (int j = 0; j < DistanceFromEachA.at(i).size(); ++j)
-		{
-			if(ClosestToB.at(j) == Distance)
-		}
-	}*/
-
-	return Distance;
+	TempDistance = DistanceInfo(a.Self, b.Self);
+	Distance += TempDistance * TempDistance;
+	TempDistance = DistanceInfo(a.Herd, b.Herd);
+	Distance += TempDistance * TempDistance;
+	return sqrt(Distance);
 }
 
 void CBRInstance::Load(std::string loc)
@@ -180,7 +111,8 @@ float CBRInstance::CalculateValue(CBREnvironment a)
 {
 	float Value = 0;
 	float ValueTemp = 0;
-	ValueTemp = ValueWeights.FlashTime * abs(a.Self.FlashTime);
+	//ValueTemp = ValueWeights.DistanceFromClosest * abs(a.Self.DistanceFromClosest);
+	ValueTemp = ValueWeights.Distance * abs(a.Self.Distance);
 	Value += ValueTemp * ValueTemp;
 	//ValueTemp = ValueWeights.Health * (
 	return sqrt(Value);
@@ -235,7 +167,7 @@ void CBRInstance::FeedBackCase(CBRCase * feedback)
 			else
 			{
 				--this->CaseBase.at(ClosestCase)->Validity;
-				if (this->CaseBase.at(ClosestCase)->CalculatedValueEnd > feedback->CalculatedValueEnd)
+				if (this->CaseBase.at(ClosestCase)->CalculatedValueEnd < feedback->CalculatedValueEnd)
 				{
 					std::cout << "Found Better case" << std::endl;
 					delete this->CaseBase.at(ClosestCase);
