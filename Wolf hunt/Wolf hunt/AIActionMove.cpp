@@ -2,9 +2,15 @@
 #include <math.h>
 
 
-AIActionMove::AIActionMove(EntityWolf * owner, Vector pos) : AIAction(owner)
+AIActionMove::AIActionMove(EntityWolf * owner, Vector delta) : AIAction(owner)
 {
-	Position = pos;
+	MoveToPosition = Vector();
+	if (Owner != NULL)
+	{
+		MoveToPosition += owner->Pos;
+	}
+	this->Delta = delta;
+	MoveToPosition += delta;
 	EvalCount = 0;
 	EvalTime = 200;
 	OldPosition = Vector(-FP_INFINITE,-FP_INFINITE);
@@ -18,7 +24,7 @@ AIActionMove::~AIActionMove()
 void AIActionMove::Execute()
 {
 	//Calculate 
-	Vector Distance = Position - Owner->Pos;
+	Vector Distance = MoveToPosition - Owner->Pos;
 	float DistanceSqrd = Distance.Dot(Distance);
 	if (DistanceSqrd > 10) {
 		Distance = Distance / sqrtf(DistanceSqrd);
@@ -45,16 +51,17 @@ void AIActionMove::Execute()
 }
 AIAction * AIActionMove::CopySelf(EntityWolf * newowner)
 {
-	AIAction * NewVer = new AIActionMove(newowner, this->Position);
+	AIAction * NewVer = new AIActionMove(newowner, this->Delta);
 	return NewVer;
 }
 void AIActionMove::Mutate(float Factor)
 {
 	Vector Delta = Vector(1, 1);
-	Delta = Delta * (((rand() % 200)/100.0) - 1) * 100 * Factor;
-	Position += Delta;
+	Delta.X = Delta.Y * (((rand() % 200) / 100.0) - 1) * 100 * Factor;
+	Delta.Y = Delta.Y * (((rand() % 200) / 100.0) - 1) * 100 * Factor;
+	this->Delta += Delta;
 }
 std::string AIActionMove::Description()
 {
-	return "Move to vector, " + std::to_string(Position.X) + ":" + std::to_string(Position.Y);
+	return "Move to vector, " + std::to_string(MoveToPosition.X) + ":" + std::to_string(MoveToPosition.Y);
 }

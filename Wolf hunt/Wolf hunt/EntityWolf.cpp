@@ -60,7 +60,7 @@ void EntityWolf::UpdateAI()
 		//Apply outcome
 		CBREnvironment CurrentSituation = CBREnvironment();
 		CurrentSituation.Populate(this);
-		CurrentCase->CalculatedValueEnd = AIInstance->CalculateValue(CurrentSituation) + CurrentCase->ExecutionTime * 0.001;
+		CurrentCase->CalculatedValueEnd = AIInstance->CalculateValue(CurrentSituation) / (CurrentCase->ExecutionTime / AIInstance->ValueWeights.ExecutionTime);
 		CurrentCase->EnviromentEnd = CurrentSituation;
 		AIInstance->FeedBackCase(CurrentCase);
 	}

@@ -185,6 +185,26 @@ void GameManager::PollInput()
 			}
 			WorldObj->CameraLoc = (WindowSize * 0.5) - this->WorldObj->Player->PosOld;
 		}
+		else
+		{
+			float MoveSpeed = 1;
+			if (this->KeyState[sf::Keyboard::Key::D])
+			{
+				WorldObj->CameraLoc.X -= MoveSpeed * WorldObj->DeltaTime;
+			}
+			if (this->KeyState[sf::Keyboard::Key::A])
+			{
+				WorldObj->CameraLoc.X += MoveSpeed * WorldObj->DeltaTime;
+			}
+			if (this->KeyState[sf::Keyboard::Key::S])
+			{
+				WorldObj->CameraLoc.Y -= MoveSpeed * WorldObj->DeltaTime;
+			}
+			if (this->KeyState[sf::Keyboard::Key::W])
+			{
+				WorldObj->CameraLoc.Y += MoveSpeed * WorldObj->DeltaTime;
+			}
+		}
 	}
 }
 void GameManager::Delete()
@@ -199,11 +219,10 @@ void GameManager::InitWorld()
 	}
 	WorldObj = new World(this);
 	//Entrance
-	WorldObj->AddWorldCollision(Vector(0, 0), Vector(20, 200));
-	WorldObj->AddWorldCollision(Vector(0, 0), Vector(200, 20));
-	WorldObj->AddWorldCollision(Vector(0, 180), Vector(200, 20));
-	WorldObj->AddWorldCollision(Vector(178, 20), Vector(20, 20));
-	WorldObj->AddWorldCollision(Vector(178, 160), Vector(20, 20));
+	WorldObj->AddWorldCollision(Vector(-20, -20), Vector(20, 1020));
+	WorldObj->AddWorldCollision(Vector(-20, -20), Vector(1000, 20));
+	WorldObj->AddWorldCollision(Vector(1000 + 20, 1000 + 20), Vector(20, -1020));
+	WorldObj->AddWorldCollision(Vector(1000 + 20, 1000 + 20), Vector(-1020, 20));
 	//Corridor
 	//WorldObj->AddEntity(new EntityPlayer(WorldObj));
 	//WorldObj->Player = (EntityPlayer*)WorldObj->EntityList[0];

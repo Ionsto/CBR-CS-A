@@ -1,5 +1,6 @@
 #include "CBRInstance.h"
-
+#include <vector>
+#include <algorithm>
 
 
 CBRInstance::CBRInstance()
@@ -49,6 +50,53 @@ void CBRInstance::Load(std::string loc)
 }
 CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 {
+	float EvalDistance = 50;
+	struct ClosePair {
+		float NewDist;
+		int CloseCase;
+		ClosePair(float d, int cc) { NewDist = d; CloseCase = cc; };
+		static bool SortComp(ClosePair a, ClosePair b)
+		{
+			return a.NewDist < b.NewDist;
+		}
+	};
+	std::vector<ClosePair> NearbyCases;
+	float distance = 0;
+	for (int i = 0; i < CaseBase.size(); ++i)
+	{
+		distance =Distance(sitrep, CaseBase.at(i)->EnviromentStart);
+		if (distance < EvalDistance)
+		{
+			NearbyCases.push_back(ClosePair(distance, i));
+		}
+	}
+	std::sort(NearbyCases.begin(), NearbyCases.end(),ClosePair::SortComp);
+	CBRCase * NewCase = new CBRCase();
+	NewCase->EnviromentStart = sitrep;
+	NewCase->CalculatedValueStart = CalculateValue(sitrep);
+	if (NearbyCases.size() == 0)
+	{
+		NewCase->RandomiseMoves();
+		std::cout << "Random moves" << std::endl;
+	}
+	else
+	{
+		if (NearbyCases.at(0).NewDist < SearchDistanceThreshold)
+		{
+			NewCase->MutateCases(0.2 * (0.1 + NearbyCases.at(0).NewDist));
+			if (rand() % 2 == 0)
+			{
+				NewCase->RandomiseMoves();
+			}
+			std::cout << "Partialy random case" << std::endl;
+		}
+		else
+		{
+			//Use linear regression of moves
+			//First we must compress the n dimentioned radius thing onto a 2d plane, where our regression will excel
+		}
+	}
+	/*
 	float ClosestDistance = 0;
 	int ClosestCase = -1;
 	float NewDist;
@@ -69,9 +117,6 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 			}
 		}
 	}
-	CBRCase * NewCase = new CBRCase();
-	NewCase->EnviromentStart = sitrep;
-	NewCase->CalculatedValueStart = CalculateValue(sitrep);
 	if (ClosestCase == -1)
 	{
 		//Gen a random case
@@ -97,14 +142,14 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 		else
 		{
 			//Adapt previouse cases for new enviroment
-			NewCase->MutateCases(0.5 * ClosestDistance);
+			NewCase->MutateCases(0.5 * (0.1 + ClosestDistance));
 			if (rand() % 2 == 0)
 			{
 				NewCase->RandomiseMoves();
 			}
 			std::cout << "Partialy random case" << std::endl;
 		}
-	}
+	}*/
 	return NewCase;
 }
 float CBRInstance::CalculateValue(CBREnvironment a)

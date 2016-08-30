@@ -7,8 +7,9 @@ public:
 	int EvalCount;
 	int EvalTime;
 	Vector OldPosition;
-	Vector Position;
-	AIActionMove(EntityWolf * owner,Vector pos);
+	Vector MoveToPosition;
+	Vector Delta;
+	AIActionMove(EntityWolf * owner,Vector Delta);
 	~AIActionMove();
 	void Execute() override;
 	AIAction * CopySelf(EntityWolf * newowner) override;

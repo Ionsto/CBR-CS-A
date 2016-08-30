@@ -29,10 +29,10 @@ void CBRCase::RandomiseMoves()
 	for (int i = 0; i < actions; ++i)
 	{
 		//Add random action
-		switch ((rand() % 1))
+		switch ((int)roundf(rand() % 2))
 		{
 		case 0:
-			Moves.push_back(new AIActionMove(NULL, Vector(MaxMove / 2, MaxMove / 2)));
+			Moves.push_back(new AIActionMove(NULL, Vector()));
 			break;
 		case 1:
 			if (Moves.size() > 0) {
@@ -44,6 +44,10 @@ void CBRCase::RandomiseMoves()
 		if (Moves.size() > 0) {
 			Moves.back()->Mutate(Factor);
 		}
+	}
+	if (Moves.size() > 2) {
+		delete Moves.back();
+		Moves.pop_back();
 	}
 }
 void CBRCase::MutateCases(float subfactor)
