@@ -24,6 +24,7 @@ public:
 	//std::vector<EntityInfo> OtherFactors;
 	CBREnvironment();
 	~CBREnvironment();
+	float * SelectParam(int id);
 	void Populate(EntityWolf * entity);
 };
 

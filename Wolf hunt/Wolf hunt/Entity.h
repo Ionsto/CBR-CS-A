@@ -20,7 +20,7 @@ public:
 	float Size;
 	float Health;
 	int Id;
-	enum class EntityType {
+	enum EntityType :int {
 		TypeLiving, TypePlayer, TypeWolf, TypeHerd,TypeEntity
 	} Type;
 	Entity(World * world,Vector pos = Vector());

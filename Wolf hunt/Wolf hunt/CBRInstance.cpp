@@ -94,6 +94,16 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 		{
 			//Use linear regression of moves
 			//First we must compress the n dimentioned radius thing onto a 2d plane, where our regression will excel
+			float Param;
+			float Grad;
+			for (int i = 0; i < NearbyCases.size(); ++i)
+			{
+				for (int IterParam = 0; IterParam < 6; ++IterParam)
+				{
+					float ParamOffset = CaseBase[NearbyCases[i].CloseCase]->EnviromentStart.SelectParam(IterParam) - NewCase->EnviromentStart.SelectParam(IterParam);
+
+				}
+			}
 		}
 	}
 	/*

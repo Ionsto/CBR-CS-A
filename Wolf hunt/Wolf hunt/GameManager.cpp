@@ -219,10 +219,10 @@ void GameManager::InitWorld()
 	}
 	WorldObj = new World(this);
 	//Entrance
-	WorldObj->AddWorldCollision(Vector(-20, -20), Vector(20, 1020));
-	WorldObj->AddWorldCollision(Vector(-20, -20), Vector(1000, 20));
-	WorldObj->AddWorldCollision(Vector(1000 + 20, 1000 + 20), Vector(20, -1020));
-	WorldObj->AddWorldCollision(Vector(1000 + 20, 1000 + 20), Vector(-1020, 20));
+	WorldObj->AddWorldCollision(Vector(-20, -20), Vector(20, 820));
+	WorldObj->AddWorldCollision(Vector(-20, -20), Vector(820, 20));
+	WorldObj->AddWorldCollision(Vector(820, 820), Vector(-20, -820));
+	WorldObj->AddWorldCollision(Vector(820, 820), Vector(-820, -20));
 	//Corridor
 	//WorldObj->AddEntity(new EntityPlayer(WorldObj));
 	//WorldObj->Player = (EntityPlayer*)WorldObj->EntityList[0];

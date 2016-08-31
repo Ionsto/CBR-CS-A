@@ -54,3 +54,27 @@ void CBREnvironment::Populate(EntityWolf * ent)
 		}
 	}
 }
+float * CBREnvironment::SelectParam(int id)
+{
+	switch (id)
+	{
+	case 0:
+		return &Self.Distance;
+		break;
+	case 1:
+		return &Self.Position.X;
+		break;
+	case 2:
+		return &Self.Position.Y;
+		break;
+	case 3:
+		return &Herd.Distance;
+		break;
+	case 4:
+		return &Herd.Position.X;
+		break;
+	case 5:
+		return &Herd.Position.Y;
+		break;
+	}
+}

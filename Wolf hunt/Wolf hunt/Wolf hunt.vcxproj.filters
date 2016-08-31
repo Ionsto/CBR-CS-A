@@ -138,7 +138,7 @@
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="EntityHerd.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
