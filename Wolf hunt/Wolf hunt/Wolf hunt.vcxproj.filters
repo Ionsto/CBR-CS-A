@@ -85,7 +85,7 @@
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="EntityHerd.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -50,7 +50,7 @@ void CBRInstance::Load(std::string loc)
 }
 CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 {
-	float EvalDistance = 50;
+	float EvalDistance = 100;
 	struct ClosePair {
 		float NewDist;
 		int CloseCase;
@@ -81,9 +81,13 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 	}
 	else
 	{
+		for (int i = 0; i < CaseBase[NearbyCases.at(0).CloseCase]->Moves.size(); ++i)
+		{
+			NewCase->Moves.push_back(CaseBase.at(NearbyCases.at(0).CloseCase)->Moves[i]->CopySelf(NULL));
+		}
 		if (NearbyCases.at(0).NewDist < SearchDistanceThreshold)
 		{
-			NewCase->MutateCases(0.2 * (0.1 + NearbyCases.at(0).NewDist));
+			NewCase->MutateCases(0.01 * (0.1 + NearbyCases.at(0).NewDist));
 			if (rand() % 2 == 0)
 			{
 				NewCase->RandomiseMoves();
@@ -94,17 +98,64 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 		{
 			//Use linear regression of moves
 			//First we must compress the n dimentioned radius thing onto a 2d plane, where our regression will excel
-			float Param;
-			float Grad;
-			for (int i = 0; i < NearbyCases.size(); ++i)
+			float Gradient = 0;
+			float Intercept = 0;
+			float MX = 0, MY = 0;
+			float SYY = 0, SXX = 0, SXSQRD = 0;
+			int n = NearbyCases.size();
+			for (int IterParam = 0; IterParam < 1; ++IterParam)
 			{
-				for (int IterParam = 0; IterParam < 6; ++IterParam)
+				for (int i = 0; i < n; ++i)
 				{
 					float ParamOffset = CaseBase[NearbyCases[i].CloseCase]->EnviromentStart.SelectParam(IterParam) - NewCase->EnviromentStart.SelectParam(IterParam);
-
+					MX += ParamOffset;
+					MY += NewCase->DeltaMovement.X;
 				}
+				MX /= n;
+				MY /= n;
+				for (int i = 0; i < n; ++i)
+				{
+					float x = CaseBase[NearbyCases[i].CloseCase]->EnviromentStart.SelectParam(IterParam) - NewCase->EnviromentStart.SelectParam(IterParam);
+					float y = NewCase->DeltaMovement.X;
+					SXX += (x - MX) * (y - MY);
+					SXSQRD += (x - MX) * (x - MX);
+				}
+				Gradient = SXX / SXSQRD;
+				Intercept = MY - (Gradient * MX);
+				NewCase->DeltaMovement.X = Intercept;
 			}
+			Gradient = 0;
+			Intercept = 0;
+			MX = 0, MY = 0;
+			SYY = 0, SXX = 0, SXSQRD = 0;
+			for (int IterParam = 0; IterParam < 1; ++IterParam)
+			{
+				for (int i = 0; i < n; ++i)
+				{
+					float ParamOffset = CaseBase[NearbyCases[i].CloseCase]->EnviromentStart.SelectParam(IterParam) - NewCase->EnviromentStart.SelectParam(IterParam);
+					MX += ParamOffset;
+					MY += NewCase->DeltaMovement.Y;
+				}
+				MX /= n;
+				MY /= n;
+				for (int i = 0; i < n; ++i)
+				{
+					float x = CaseBase[NearbyCases[i].CloseCase]->EnviromentStart.SelectParam(IterParam) - NewCase->EnviromentStart.SelectParam(IterParam);
+					float y = NewCase->DeltaMovement.X;
+					SXX += (x - MX) * (y - MY);
+					SXSQRD += (x - MX) * (x - MX);
+				}
+				Gradient = SXX / SXSQRD;
+				Intercept = MY - (Gradient * MX);
+				NewCase->DeltaMovement.Y = Intercept;
+			}
+
+			NewCase->MutateCases(1);
 		}
+	}
+	if (NewCase->CalculatedValueStart - NewCase->CalculatedValueEnd < 0)
+	{
+		NewCase->MutateCases(1);
 	}
 	/*
 	float ClosestDistance = 0;
@@ -167,7 +218,7 @@ float CBRInstance::CalculateValue(CBREnvironment a)
 	float Value = 0;
 	float ValueTemp = 0;
 	//ValueTemp = ValueWeights.DistanceFromClosest * abs(a.Self.DistanceFromClosest);
-	ValueTemp = ValueWeights.Distance * abs(a.Self.Distance);
+	ValueTemp = ValueWeights.Distance * abs(a.Herd.Distance);
 	Value += ValueTemp * ValueTemp;
 	//ValueTemp = ValueWeights.Health * (
 	return sqrt(Value);
@@ -181,6 +232,7 @@ void CBRInstance::FeedBackCase(CBRCase * feedback)
 	int ClosestCase = -1;
 	float NewDist;
 	bool Feedbackneeded = false;
+	std::cout << feedback->CalculatedValueEnd << std::endl;
 	for (int i = 0; i < CaseBase.size(); ++i)
 	{
 		if (ClosestCase == -1)
@@ -222,7 +274,7 @@ void CBRInstance::FeedBackCase(CBRCase * feedback)
 			else
 			{
 				--this->CaseBase.at(ClosestCase)->Validity;
-				if (this->CaseBase.at(ClosestCase)->CalculatedValueEnd < feedback->CalculatedValueEnd)
+				if (this->CaseBase.at(ClosestCase)->CalculatedValueEnd - this->CaseBase.at(ClosestCase)->CalculatedValueStart < feedback->CalculatedValueEnd - feedback->CalculatedValueStart)
 				{
 					std::cout << "Found Better case" << std::endl;
 					delete this->CaseBase.at(ClosestCase);

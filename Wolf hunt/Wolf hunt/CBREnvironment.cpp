@@ -15,11 +15,11 @@ void CBREnvironment::Populate(EntityWolf * ent)
 {
 	//this->Self.FlashTime = ent->FlashTime;
 	this->Self.Position = ent->Pos;
-	this->Self.Distance = 1000;
+	this->Self.Distance = -1;
 	this->Self.Type = ent->Type;
 	//this->Player.InfoKnown = ent->RayCaster.CanSeeEntity(ent, ent->worldObj->Player);
 	int SimilarEntityCloseCount = 0;
-	float DistanceToClosestHerd = -1;
+	float DistanceToClosestHerd = 1000000000000;
 	EntityInfo info = EntityInfo();
 	for (int i = 0; i < ent->worldObj->EntityCount; ++i)
 	{

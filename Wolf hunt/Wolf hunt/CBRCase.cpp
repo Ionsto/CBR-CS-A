@@ -1,6 +1,7 @@
 #include "CBRCase.h"
 #include "AIActionMove.h"
 #include <iostream>
+#include <sstream>
 
 CBRCase::CBRCase()
 {
@@ -8,6 +9,7 @@ CBRCase::CBRCase()
 	CalculatedValueEnd = 0;
 	CalculatedValueStart = 0;
 	ExecutionTime = 0;
+	DeltaMovement = Vector();
 }
 
 
@@ -26,7 +28,8 @@ void CBRCase::RandomiseMoves()
 	int MaxMove = 500;
 	int MaxLook = 520;
 	int actions = 1 + (rand() % 2);
-	for (int i = 0; i < actions; ++i)
+	MutateCases(Factor);
+	/*for (int i = 0; i < actions; ++i)
 	{
 		//Add random action
 		switch ((int)roundf(rand() % 2))
@@ -48,23 +51,40 @@ void CBRCase::RandomiseMoves()
 	if (Moves.size() > 2) {
 		delete Moves.back();
 		Moves.pop_back();
-	}
+	}*/
 }
 void CBRCase::MutateCases(float subfactor)
 {
-	float Factor = subfactor * (((rand() % 200)/200.0)-1);
-	for (int i = 0; i < Moves.size(); ++i)
-	{
-		(Moves[i])->Mutate(Factor);
+	float Factor = subfactor * (((rand() % 200)/100.0)-1);
+	DeltaMovement = DeltaMovement + Vector(rand() % 50, rand() % 50)*Factor;
+	float MaxMove = 100;
+	if (abs(DeltaMovement.X) > MaxMove) {
+		DeltaMovement.X = copysignf(MaxMove, DeltaMovement.X);
 	}
+	if (abs(DeltaMovement.Y) > MaxMove) {
+		DeltaMovement.Y = copysignf(MaxMove,DeltaMovement.Y);
+	}
+	//for (int i = 0; i < Moves.size(); ++i)
+	//{
+	//	(Moves[i])->Mutate(Factor);
+	//}
 }
 void CBRCase::ApplyActionsToEntity(EntityWolf * entity)
 {
-	entity->ClearAIStack();
+	entity->TargetLocation = entity->Pos + DeltaMovement;
+	/*entity->ClearAIStack();
 	//std::cout << "Starting ai routine" << std::endl;
 	for (int i = 0; i < Moves.size(); ++i)
 	{
 		entity->AIStack.push(Moves.at(i)->CopySelf(entity));
 		//std::cout << (Moves.at(i))->Description() << std::endl;
-	}
+	}*/
+}
+std::string CBRCase::Serialise()
+{
+	std::stringstream stream;
+	stream << this->CalculatedValueEnd << this->CalculatedValueStart << this->Validity << this->DeltaMovement.X << this->DeltaMovement.Y<<std::endl;
+}
+void CBRCase::Deserialise(std::string in) {
+
 }

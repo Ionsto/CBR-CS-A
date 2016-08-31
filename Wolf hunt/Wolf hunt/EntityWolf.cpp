@@ -10,9 +10,11 @@
 EntityWolf::EntityWolf(World * world, Vector pos) : EntityLiving(world,pos)
 {
 	AIUpdateCounter = 0;
-	AIUpdateMax = 100;
+	AIUpdateMax = 1000;
 	AIStack = std::queue<AIAction*>();
 	AIInstance = world->AIInstance;
+	TargetLocation = pos;
+	Displacement = 0;
 }
 
 
@@ -32,12 +34,14 @@ void EntityWolf::ClearAIStack()
 
 void EntityWolf::Update()
 {
+	Vector Diff = Pos - PosOld;
+	Displacement += Diff.Dot(Diff);
 	EntityLiving::Update();
 	if (!Alive) { 
 		return; 
 	}
 	//Execute the stack every frame
-	if (AIStack.size() > 0) {
+	/*if (AIStack.size() > 0) {
 		AIStack.front()->Execute();
 		++CurrentCase->ExecutionTime;
 	}
@@ -45,10 +49,25 @@ void EntityWolf::Update()
 	{
 		UpdateAI();
 		AIUpdateCounter = AIUpdateMax;
+	}*/
+	Vector Distance = TargetLocation - Pos;
+	float DistanceSqrd = Distance.Dot(Distance);
+	if (DistanceSqrd > 10) {
+		Distance = Distance / sqrtf(DistanceSqrd);
+		ApplyForce(Distance * MoveForce);
+	}
+	else
+	{
+		UpdateAI();
+		//AIUpdateCounter = AIUpdateMax;
 	}
 	if (AIUpdateCounter++ >= AIUpdateMax)
 	{
-		//UpdateAI();
+		if (Displacement < 2) 
+		{
+			UpdateAI();
+			Displacement = 0;
+		}	
 		AIUpdateCounter = 0;
 	}
 }
@@ -60,7 +79,7 @@ void EntityWolf::UpdateAI()
 		//Apply outcome
 		CBREnvironment CurrentSituation = CBREnvironment();
 		CurrentSituation.Populate(this);
-		CurrentCase->CalculatedValueEnd = AIInstance->CalculateValue(CurrentSituation) / (CurrentCase->ExecutionTime / AIInstance->ValueWeights.ExecutionTime);
+		CurrentCase->CalculatedValueEnd = AIInstance->CalculateValue(CurrentSituation);
 		CurrentCase->EnviromentEnd = CurrentSituation;
 		AIInstance->FeedBackCase(CurrentCase);
 	}
