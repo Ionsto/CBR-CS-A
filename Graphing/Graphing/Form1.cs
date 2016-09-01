@@ -18,6 +18,7 @@ namespace Graphing
         Random rnd = new Random();
         int CurrentPlot = 0;
         float Size = 360;
+        float RealWorldRandom = 2;
         public Form1()
         {
             InitializeComponent();
@@ -38,11 +39,11 @@ namespace Graphing
             float X = 0;
             while (X < Size)
             {
-                chart1.Series[Graph].Points.AddXY(X, GetY(X));
+                chart1.Series[Graph].Points.AddXY(X, GetY(X,0));
                 X += StepSize;
             }
         }
-        double GetY(float X)
+        double GetY(float X,float RND)
         {
             switch (CurrentPlot)
             {
@@ -64,34 +65,39 @@ namespace Graphing
             Case NewCase = new Case();
             NewCase.X = XValue;
             List<Case> NearbyCases= new List<Case>();
-            double Threshold = 10;
+            double NearestNeigborThreshold = 10;
+            double IdenticalPairThreshold = 5;
             foreach (Case c in CaseBase)
             {
-                if (NewCase.Distance(c) < Threshold)
+                if (NewCase.Distance(c) < NearestNeigborThreshold)
                 {
                     NearbyCases.Add(c);
                 }
             }
             NearbyCases.Sort();
+            NewCase.Y = 0;
+            if(NearbyCases.Count == 0)
+            {
+                NewCase.Y = 0;
+                NewCase.Mutate(5);
+            }
+            else
+            {
+                if(NewCase.Distance(NearbyCases[0]) < IdenticalPairThreshold)
+                {
+                    NewCase.Y = NearbyCases[0].Y;
+                }
+                else
+                {
+                    //Adapt
+
+                }
+            }
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string selected = e.ToString();
-            switch (selected)
-            {
-                case "Sine Squared":
-                    CurrentPlot = 0;
-                    break;
-                case "X Squared":
-                    CurrentPlot = 1;
-                    break;
-                case "X = Y":
-                    CurrentPlot = 2;
-                    break;
-                default:
-                    break;
-            }
+            CurrentPlot = ((ListBox)sender).SelectedIndex;
             GenerateGraph();
         }
     }
