@@ -13,11 +13,14 @@ namespace Graphing
             return this.X.CompareTo(cus.X);
         }
         Random rnd = new Random();
+        public int ChartID = 0;
         public double X;
         public double Y;
         public double DX = 1;
         public double[] DY = new double[4];
         public double Error = 0;
+        //This is all temp
+        public double TempDistance = 0;
         public double Distance(Case c)
         {
             double diff = 0;
@@ -33,7 +36,7 @@ namespace Graphing
             }
             return Math.Sqrt(diff);
         }
-        public void Mutate(float Factor)
+        public void Mutate(double Factor)
         {
             Y += (rnd.NextDouble() * 2 * Factor) - Factor;
         }
