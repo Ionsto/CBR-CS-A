@@ -20,6 +20,7 @@ namespace Graphing
         int CurrentPlot = 0;
         double Size = 360;
         double RealWorldRandom = 2;
+        double ChartMax = 1;
         public Form1()
         {
             InitializeComponent();
@@ -35,6 +36,8 @@ namespace Graphing
         }
         void GenerateGraph()
         {
+            chart1.ChartAreas[0].AxisY.Maximum = Double.NaN;
+            chart1.ChartAreas[0].AxisY.Minimum = Double.NaN;
             chart1.Series[Graph].Points.Clear();
             chart1.Series[Cases].Points.Clear();
             int StepSize = 1;
@@ -44,6 +47,8 @@ namespace Graphing
                 chart1.Series[Graph].Points.AddXY(X, GetY(X,0));
                 X += StepSize;
             }
+            chart1.ChartAreas[0].RecalculateAxesScale();
+            ChartMax = chart1.ChartAreas[0].AxisY.Maximum;
         }
         double GetY(double X,double RND)
         {
@@ -61,65 +66,80 @@ namespace Graphing
         }
         private void Update_Tick(object sender, EventArgs e)
         {
-            //Calculate new value
-            double XValue = rnd.NextDouble() * Size;
-            Case NewCase = new Case();
-            NewCase.X = XValue;
-            double RandCase = 0.5;
-            NewCase.DY[0] = GetY(NewCase.X - (NewCase.DX * 2), RandCase);
-            NewCase.DY[1] = GetY(NewCase.X - (NewCase.DX), RandCase);
-            NewCase.DY[2] = GetY(NewCase.X + (NewCase.DX), RandCase);
-            NewCase.DY[3] = GetY(NewCase.X + (NewCase.DX * 2), RandCase);
-            List<Case> NearbyCases= new List<Case>();
-            double NearestNeigborThreshold = 100;
-            double IdenticalPairThreshold = 15;
-            foreach (Case c in CaseBase)
+            for (int zzz = 0; zzz < 200; ++zzz)
             {
-                c.TempDistance = NewCase.Distance(c);
-                if (c.TempDistance < NearestNeigborThreshold)
+                //Calculate new value
+                double StepSize = 10;
+                double XValue = Math.Round(rnd.NextDouble() * Size / StepSize) * StepSize;
+                Case NewCase = new Case();
+                NewCase.X = XValue;
+                double RandCase = 0;
+                NewCase.DY[0] = GetY(NewCase.X - (NewCase.DX * 2), RandCase);
+                NewCase.DY[1] = GetY(NewCase.X - (NewCase.DX), RandCase);
+                NewCase.DY[2] = GetY(NewCase.X + (NewCase.DX), RandCase);
+                NewCase.DY[3] = GetY(NewCase.X + (NewCase.DX * 2), RandCase);
+                List<Case> NearbyCases = new List<Case>();
+                double NearestNeigborThreshold = 100;
+                double IdenticalPairThreshold = 20;
+                double MinAddDistance = 0;
+                foreach (Case c in CaseBase)
                 {
-                    NearbyCases.Add(c);
-                }
-            }
-            NearbyCases.Sort();
-            NewCase.Y = 0;
-            if(NearbyCases.Count == 0)
-            {
-                NewCase.Y = 0;
-                NewCase.Mutate(100);
-            }
-            else
-            {
-                if(NearbyCases[0].TempDistance < IdenticalPairThreshold)
-                {
-                    NewCase.Y = NearbyCases[0].Y;
-                    NewCase.Mutate(NearbyCases[0].Error * 0.01);
-                    NewCase.Error = GetY(NewCase.X, 0) - NewCase.Y;
-                    if (Math.Abs(NewCase.Error) < Math.Abs(NearbyCases[0].Error))
+                    c.TempDistance = NewCase.Distance(c);
+                    if (c.TempDistance < NearestNeigborThreshold)
                     {
-                        CaseBase.Remove(NearbyCases[0]);
+                        NearbyCases.Add(c);
                     }
+                }
+                NearbyCases.Sort();
+                NewCase.Y = 0;
+                if (NearbyCases.Count == 0)
+                {
+                    NewCase.Y = 0;
+                    NewCase.Mutate(100 * (rnd.NextDouble() - 0.5));
                 }
                 else
                 {
-                    //Adapt
-                    double MaxDistance = NearbyCases.Last<Case>().TempDistance;
-                    double Y = 0;
-                    double AvDist = 0;
-                    foreach (Case c in NearbyCases)
+                    if (NearbyCases[0].TempDistance < IdenticalPairThreshold)
                     {
-                        Y += c.Y * (1-(c.TempDistance/MaxDistance)) * (1/(Math.Abs(c.Error)+0.1));
-                        AvDist += Math.Abs(c.TempDistance);
+                        NewCase.Y = NearbyCases[0].Y;
+                        NewCase.Mutate((NearbyCases[0].Error * 0.01) + 0.1);
+                        NewCase.Error = GetY(NewCase.X, 0) - NewCase.Y;
+                        if (Math.Abs(NewCase.Error) < Math.Abs(NearbyCases[0].Error))
+                        {
+                            CaseBase.Remove(NearbyCases[0]);
+                        }
                     }
-                    Y /= NearbyCases.Count;
-                    AvDist /= NearbyCases.Count;
-                    NewCase.Y = Y;
-                    NewCase.Error = GetY(NewCase.X, 0) - NewCase.Y;
-                    NewCase.Mutate((double)Math.Sqrt(AvDist) * NewCase.Error);
+                    else
+                    {
+                        //Adapt
+                        double MaxDistance = NearbyCases.Last<Case>().TempDistance;
+                        double Y = 0;
+                        double AvDist = 0;
+                        foreach (Case c in NearbyCases)
+                        {
+                            Y += c.Y * (1 - (c.TempDistance / MaxDistance)) * (1 / (Math.Abs(c.Error) + 0.1));
+                            AvDist += Math.Abs(c.TempDistance);
+                        }
+                        Y /= NearbyCases.Count;
+                        AvDist /= NearbyCases.Count;
+                        NewCase.Y = Y;
+                        NewCase.Mutate((double)Math.Sqrt(AvDist));
+                    }
+                }
+                NewCase.Error = GetY(NewCase.X, 0) - NewCase.Y;
+                if (NearbyCases.Count == 0)
+                {
+                    CaseBase.Add(NewCase);
+                }
+                else
+                {
+
+                    if (Math.Abs(NearbyCases[0].TempDistance) > Math.Abs(MinAddDistance))
+                    {
+                        CaseBase.Add(NewCase);
+                    }
                 }
             }
-            NewCase.Error = GetY(NewCase.X, 0) - NewCase.Y;
-            CaseBase.Add(NewCase);
         }
         
 
@@ -137,6 +157,8 @@ namespace Graphing
             {
                 chart1.Series[Cases].Points.AddXY(C.X, C.Y);
             }
+            chart1.ChartAreas[0].AxisY.Maximum = ChartMax;
+            chart1.ChartAreas[0].AxisY.Minimum = 0;
         }
     }
 }

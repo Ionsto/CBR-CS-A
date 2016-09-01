@@ -26,9 +26,9 @@ namespace Graphing
             double diff = 0;
             double tempdiff;
             tempdiff = (X - c.X);
-            diff += tempdiff * tempdiff;
-            tempdiff = (Y - c.Y);
-            diff += tempdiff * tempdiff;
+            //diff += tempdiff * tempdiff;
+            //tempdiff = (Y - c.Y);
+            //diff += tempdiff * tempdiff;
             for (int i = 0; i < 4; ++i)
             {
                 tempdiff = (DY[i] - c.DY[i]);
@@ -38,7 +38,7 @@ namespace Graphing
         }
         public void Mutate(double Factor)
         {
-            Y += (rnd.NextDouble() * 2 * Factor) - Factor;
+            Y += (rnd.NextDouble() * Factor);
         }
     }
 }
