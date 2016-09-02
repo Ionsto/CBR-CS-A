@@ -64,6 +64,7 @@ namespace Graphing
                     return 0;
             }
         }
+
         private void Update_Tick(object sender, EventArgs e)
         {
             for (int zzz = 0; zzz < 200; ++zzz)
@@ -74,13 +75,9 @@ namespace Graphing
                 Case NewCase = new Case();
                 NewCase.X = XValue;
                 double RandCase = 0;
-                NewCase.DY[0] = GetY(NewCase.X - (NewCase.DX * 2), RandCase);
-                NewCase.DY[1] = GetY(NewCase.X - (NewCase.DX), RandCase);
-                NewCase.DY[2] = GetY(NewCase.X + (NewCase.DX), RandCase);
-                NewCase.DY[3] = GetY(NewCase.X + (NewCase.DX * 2), RandCase);
                 List<Case> NearbyCases = new List<Case>();
-                double NearestNeigborThreshold = 100;
-                double IdenticalPairThreshold = 20;
+                double NearestNeigborThreshold = 50;
+                double IdenticalPairThreshold = 5;
                 double MinAddDistance = 0;
                 foreach (Case c in CaseBase)
                 {
@@ -95,7 +92,8 @@ namespace Graphing
                 if (NearbyCases.Count == 0)
                 {
                     NewCase.Y = 0;
-                    NewCase.Mutate(100 * (rnd.NextDouble() - 0.5));
+                    NewCase.Mutate(10 * (rnd.NextDouble() - 0.5));
+                    CaseBase.Add(NewCase);
                 }
                 else
                 {
@@ -103,11 +101,12 @@ namespace Graphing
                     {
                         NewCase.Y = NearbyCases[0].Y;
                         NewCase.Mutate((NearbyCases[0].Error * 0.01) + 0.1);
-                        NewCase.Error = GetY(NewCase.X, 0) - NewCase.Y;
+                        NewCase.Error = Math.Abs(GetY(NewCase.X, 0) - NewCase.Y);
                         if (Math.Abs(NewCase.Error) < Math.Abs(NearbyCases[0].Error))
                         {
                             CaseBase.Remove(NearbyCases[0]);
                         }
+                        CaseBase.Add(NewCase);
                     }
                     else
                     {
@@ -124,24 +123,53 @@ namespace Graphing
                         AvDist /= NearbyCases.Count;
                         NewCase.Y = Y;
                         NewCase.Mutate((double)Math.Sqrt(AvDist));
-                    }
-                }
-                NewCase.Error = GetY(NewCase.X, 0) - NewCase.Y;
-                if (NearbyCases.Count == 0)
-                {
-                    CaseBase.Add(NewCase);
-                }
-                else
-                {
+                        if (Math.Abs(NearbyCases[0].TempDistance) > Math.Abs(MinAddDistance))
+                        {
+                            CaseBase.Add(NewCase);
+                        }
 
-                    if (Math.Abs(NearbyCases[0].TempDistance) > Math.Abs(MinAddDistance))
-                    {
-                        CaseBase.Add(NewCase);
                     }
+                }
                 }
             }
+            public double[] weightedLinearRegression(List<Double> dataX, List<Double> dataY, List<Double> weights)
+            {
+                double xw = 0;
+                double x = 0;
+                double yw = 0;
+                double y = 0;
+                double a = 0;
+                double b = 0;
+
+	            // compute the weighted averages
+	            for(var i = 0; i<dataX.Count; i++){
+		            xw += dataX[i] * weights[i];
+		            yw += dataY[i] * weights[i];
+		            x += dataX[i];
+		            y += dataY[i];
+	            }
+                double weightedX = xw / x;
+	            double weightedY = yw / y;
+                // compute the gradient and intercept
+                for (var i = 0; i < dataX.Count; i++)
+                {
+                    a += (dataY[i] - weightedY) * (dataX[i] - weightedX) * weights[i];
+                    b += (dataX[i] - weightedX) * (dataX[i] - weightedX) * weights[i];
+                }
+
+                double gradient = a / b;
+                double intercept = (weightedY - weightedX) * gradient;
+                //var string = 'y = ' + Math.round(gradient*100) / 100 + 'x + ' + Math.round(intercept*100) / 100;
+	            //var results = [];
+
+	        //interpolate result
+	        //for (int i = 0; i<dataX.Count; i++) {
+            //    var coordinate = [dataX[i], dataX[i] * gradient + intercept];
+            //    results.push(coordinate);
+            //}
+
+	        return double[3] = { gradient, intercept,r};
         }
-        
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -7,3 +7,12 @@ C:\Users\mpfs\Documents\GitHub\CBR-CS-A\Graphing\Graphing\obj\Debug\Graphing.exe
 C:\Users\mpfs\Documents\GitHub\CBR-CS-A\Graphing\Graphing\obj\Debug\Graphing.pdb
 C:\Users\mpfs\Documents\GitHub\CBR-CS-A\Graphing\Graphing\bin\Debug\Graphing.pdb
 C:\Users\mpfs\Documents\GitHub\CBR-CS-A\Graphing\Graphing\obj\Debug\Graphing.csprojResolveAssemblyReference.cache
+C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Graphing\Graphing\bin\Debug\Graphing.exe.config
+C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Graphing\Graphing\obj\Debug\Graphing.exe
+C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Graphing\Graphing\obj\Debug\Graphing.pdb
+C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Graphing\Graphing\obj\Debug\Graphing.csprojResolveAssemblyReference.cache
+C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Graphing\Graphing\obj\Debug\Graphing.Form1.resources
+C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Graphing\Graphing\obj\Debug\Graphing.Properties.Resources.resources
+C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Graphing\Graphing\obj\Debug\Graphing.csproj.GenerateResource.Cache
+C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Graphing\Graphing\bin\Debug\Graphing.exe
+C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Graphing\Graphing\bin\Debug\Graphing.pdb
