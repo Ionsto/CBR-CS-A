@@ -14,8 +14,8 @@ namespace Graphing
         }
         Random rnd = new Random();
         public int ChartID = 0;
-        public double X;
-        public double Y;
+        public double X = 0;
+        public double Y = 0;
         public double Error = 0;
         //This is all temp
         public double TempDistance = 0;
@@ -29,7 +29,7 @@ namespace Graphing
         }
         public void Mutate(double Factor)
         {
-            Y += (rnd.NextDouble() * Factor);
+            Y += ((rnd.NextDouble()-0.5) * Factor);
         }
     }
 }
