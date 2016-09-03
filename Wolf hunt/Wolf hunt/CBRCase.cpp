@@ -10,6 +10,7 @@ CBRCase::CBRCase()
 	CalculatedValueStart = 0;
 	ExecutionTime = 0;
 	DeltaMovement = Vector();
+	DeltaValue = 0;
 }
 
 
@@ -56,7 +57,7 @@ void CBRCase::RandomiseMoves()
 void CBRCase::MutateCases(float subfactor)
 {
 	float Factor = subfactor * (((rand() % 200)/100.0)-1);
-	DeltaMovement = DeltaMovement + Vector(rand() % 50, rand() % 50)*Factor;
+	DeltaMovement = DeltaMovement + Vector(0, rand() % 50)*Factor;
 	float MaxMove = 100;
 	if (abs(DeltaMovement.X) > MaxMove) {
 		DeltaMovement.X = copysignf(MaxMove, DeltaMovement.X);
@@ -84,6 +85,7 @@ std::string CBRCase::Serialise()
 {
 	std::stringstream stream;
 	stream << this->CalculatedValueEnd << this->CalculatedValueStart << this->Validity << this->DeltaMovement.X << this->DeltaMovement.Y<<std::endl;
+	return "Kappa";
 }
 void CBRCase::Deserialise(std::string in) {
 

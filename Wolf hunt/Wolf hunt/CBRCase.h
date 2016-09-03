@@ -18,6 +18,7 @@ public:
 	//This should have the total outcome, and also the calculated outcome of the situation
 	CBREnvironment EnviromentEnd;
 	float CalculatedValueEnd;
+	float DeltaValue;
 	//This is the amount of times the case has created similar outcomes
 	int Validity;
 	int ExecutionTime;

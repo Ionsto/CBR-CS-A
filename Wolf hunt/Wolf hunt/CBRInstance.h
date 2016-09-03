@@ -8,6 +8,15 @@
 class CBRInstance
 {
 public:
+	struct ClosePair {
+		float NewDist;
+		int CloseCase;
+		ClosePair(float d, int cc) { NewDist = d; CloseCase = cc; };
+		static bool SortComp(ClosePair a, ClosePair b)
+		{
+			return a.NewDist < b.NewDist;
+		}
+	};
 	//Case base
 	std::vector<CBRCase*> CaseBase;
 	CBRDiskManager * CaseBaseLoader;
@@ -16,7 +25,9 @@ public:
 	//Value weightings
 	CBRWeight ValueWeights;
 	float UnclaimedOtherPenalty;
-	float SearchDistanceThreshold;
+	float IdenticalCaseThreshold;
+	float MinInsertionThreshold;
+	float NearestNeighborDistance;
 	float ValidityDistanceThreshold;
 	float MaxArrayClaimentThreshold;
 	//Some form of mapping for parametors of the case base
@@ -29,9 +40,11 @@ public:
 	float DistanceInfo(EntityInfo a, EntityInfo b);
 	//Gives distance in two cases according to this Instance
 	float Distance(CBREnvironment a, CBREnvironment b);
+	void Save(std::string loadloc);
 	void Load(std::string loadloc);
 	void FeedBackCase(CBRCase * Case);
 	CBRCase * GetCase(CBREnvironment sitrep);
+	void WeightedLinearRegression(std::vector<CBRCase*> cases,int paramx,int paramy,float * intercept, float * gradient, float * error);
 	float CalculateValue(CBREnvironment siterep);
 	static bool AllPairsComp(float * a, float * b);
 };

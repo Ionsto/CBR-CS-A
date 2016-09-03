@@ -6,10 +6,14 @@
 CBRInstance::CBRInstance()
 {
 	this->CaseBase = std::vector<CBRCase*>();
-	SearchDistanceThreshold = 15;
+	MinInsertionThreshold = 15;
+	IdenticalCaseThreshold = 50;
+	NearestNeighborDistance = 100;
+	ValidityDistanceThreshold = 10;
 	UnclaimedOtherPenalty = 1;
 	DistanceWeights = CBRWeightDistance();
 	ValueWeights = CBRWeightValue();
+	NearestNeighborDistance = 100;
 }
 
 
@@ -33,39 +37,36 @@ bool CBRInstance::AllPairsComp(float * a, float * b)
 {
 	return a[1] < b[1];
 }
+//Minimise
 float CBRInstance::Distance(CBREnvironment a, CBREnvironment b)
 {
 	float TempDistance = 0;
 	float Distance = 0;
-	TempDistance = DistanceInfo(a.Self, b.Self);
+	TempDistance = a.Herd.Distance - b.Herd.Distance;// DistanceInfo(a.Self, b.Self);
 	Distance += TempDistance * TempDistance;
-	TempDistance = DistanceInfo(a.Herd, b.Herd);
-	Distance += TempDistance * TempDistance;
+	//TempDistance = DistanceInfo(a.Herd, b.Herd);
+	//Distance += TempDistance * TempDistance;
 	return sqrt(Distance);
 }
+void CBRInstance::WeightedLinearRegression(std::vector<CBRCase*> cases, int paramx, int paramy, float * intercept, float * gradient, float * error)
+{
+}
+void CBRInstance::Save(std::string loc)
+{
 
+}
 void CBRInstance::Load(std::string loc)
 {
 
 }
 CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 {
-	float EvalDistance = 100;
-	struct ClosePair {
-		float NewDist;
-		int CloseCase;
-		ClosePair(float d, int cc) { NewDist = d; CloseCase = cc; };
-		static bool SortComp(ClosePair a, ClosePair b)
-		{
-			return a.NewDist < b.NewDist;
-		}
-	};
 	std::vector<ClosePair> NearbyCases;
 	float distance = 0;
 	for (int i = 0; i < CaseBase.size(); ++i)
 	{
-		distance =Distance(sitrep, CaseBase.at(i)->EnviromentStart);
-		if (distance < EvalDistance)
+		distance = Distance(sitrep, CaseBase.at(i)->EnviromentStart);
+		if (distance < NearestNeighborDistance)
 		{
 			NearbyCases.push_back(ClosePair(distance, i));
 		}
@@ -81,16 +82,17 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 	}
 	else
 	{
+		NewCase->DeltaMovement = CaseBase[NearbyCases.at(0).CloseCase]->DeltaMovement;
 		for (int i = 0; i < CaseBase[NearbyCases.at(0).CloseCase]->Moves.size(); ++i)
 		{
 			NewCase->Moves.push_back(CaseBase.at(NearbyCases.at(0).CloseCase)->Moves[i]->CopySelf(NULL));
 		}
-		if (NearbyCases.at(0).NewDist < SearchDistanceThreshold)
+		if (NearbyCases.at(0).NewDist < IdenticalCaseThreshold)
 		{
-			NewCase->MutateCases(0.01 * (0.1 + NearbyCases.at(0).NewDist));
+			NewCase->MutateCases(CaseBase[NearbyCases.at(0).CloseCase]->CalculatedValueEnd * 0.01);
 			if (rand() % 2 == 0)
 			{
-				NewCase->RandomiseMoves();
+				//NewCase->RandomiseMoves();
 			}
 			std::cout << "Partialy random case" << std::endl;
 		}
@@ -157,62 +159,9 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 	{
 		NewCase->MutateCases(1);
 	}
-	/*
-	float ClosestDistance = 0;
-	int ClosestCase = -1;
-	float NewDist;
-	for (int i = 0; i < CaseBase.size();++i)
-	{
-		if (ClosestCase == -1)
-		{
-			ClosestCase = i;
-			ClosestDistance = Distance(sitrep, CaseBase.at(i)->EnviromentStart);
-		}
-		else
-		{
-			NewDist = Distance(sitrep, CaseBase.at(i)->EnviromentStart);
-			if (abs(NewDist) < abs(ClosestDistance))
-			{
-				ClosestDistance = NewDist;
-				ClosestCase = i;
-			}
-		}
-	}
-	if (ClosestCase == -1)
-	{
-		//Gen a random case
-		NewCase->RandomiseMoves();
-		std::cout << "Random moves" << std::endl;
-	}
-	else {
-		for (int i = 0; i < CaseBase[ClosestCase]->Moves.size(); ++i)
-		{
-			NewCase->Moves.push_back(CaseBase.at(ClosestCase)->Moves[i]->CopySelf(NULL));
-		}
-		if (ClosestDistance > SearchDistanceThreshold)
-		{
-			//Gen a partialy random case
-			//ISSUES
-			NewCase->MutateCases(0.1);
-			if (rand() % 4 == 0)
-			{
-				NewCase->RandomiseMoves();
-			}
-			std::cout << "Previouse case" << std::endl;
-		}
-		else
-		{
-			//Adapt previouse cases for new enviroment
-			NewCase->MutateCases(0.5 * (0.1 + ClosestDistance));
-			if (rand() % 2 == 0)
-			{
-				NewCase->RandomiseMoves();
-			}
-			std::cout << "Partialy random case" << std::endl;
-		}
-	}*/
 	return NewCase;
 }
+//Needs to minimise
 float CBRInstance::CalculateValue(CBREnvironment a)
 {
 	float Value = 0;
@@ -252,14 +201,12 @@ void CBRInstance::FeedBackCase(CBRCase * feedback)
 	}
 	if (ClosestCase == -1)
 	{
-		//Gen a random case
 		this->CaseBase.push_back(feedback);
 		Feedbackneeded = true;
 	}
 	else {
-		if (ClosestDistance > SearchDistanceThreshold)
+		if (ClosestDistance > MinInsertionThreshold)
 		{
-			//Gen a partialy random case
 			this->CaseBase.push_back(feedback);
 			Feedbackneeded = true;
 		}
@@ -267,21 +214,21 @@ void CBRInstance::FeedBackCase(CBRCase * feedback)
 		{
 			//Adapt previouse cases for new enviroment		
 			float Dist = Distance(feedback->EnviromentEnd, CaseBase.at(ClosestCase)->EnviromentEnd);
-			if (Dist < ValidityDistanceThreshold)
+			/*if (Dist < ValidityDistanceThreshold)
 			{
 				++this->CaseBase.at(ClosestCase)->Validity;
 			}
 			else
 			{
-				--this->CaseBase.at(ClosestCase)->Validity;
-				if (this->CaseBase.at(ClosestCase)->CalculatedValueEnd - this->CaseBase.at(ClosestCase)->CalculatedValueStart < feedback->CalculatedValueEnd - feedback->CalculatedValueStart)
+				--this->CaseBase.at(ClosestCase)->Validity;*/
+				if (feedback->DeltaValue <  this->CaseBase.at(ClosestCase)->DeltaValue)
 				{
 					std::cout << "Found Better case" << std::endl;
 					delete this->CaseBase.at(ClosestCase);
 					this->CaseBase.at(ClosestCase) = feedback;
 					Feedbackneeded = true;
 				}
-			}
+			//}
 		}
 	}
 	if (!Feedbackneeded)

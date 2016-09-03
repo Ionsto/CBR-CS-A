@@ -44,6 +44,7 @@ World::~World()
 		delete WorldCollision.at(i);
 	}
 	WorldCollision.clear();
+	AIInstance->Save("./AI/case.txt");
 	delete AIInstance;
 }
 

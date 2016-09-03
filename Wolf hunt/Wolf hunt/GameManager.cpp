@@ -135,6 +135,7 @@ void GameManager::PollInput()
 		float Force = 10;
 		if (this->KeyState[sf::Keyboard::Key::R])
 		{
+			this->KeyState[sf::Keyboard::Key::R] = false;
 			this->InitWorld();
 		}
 		if (this->WorldObj->Player != NULL) {
@@ -227,7 +228,7 @@ void GameManager::InitWorld()
 	//WorldObj->AddEntity(new EntityPlayer(WorldObj));
 	//WorldObj->Player = (EntityPlayer*)WorldObj->EntityList[0];
 	WorldObj->AddEntity(new EntityWolf(WorldObj, Vector(250, 150)));
-	WorldObj->AddEntity(new EntityHerd(WorldObj, Vector(500, 500)));
+	WorldObj->AddEntity(new EntityHerd(WorldObj, Vector(250, 500)));
 	//WorldObj->EntityList[0]->SetPosition(Vector(50, 50));
 	//WorldObj->EntityList[1]->SetPosition(Vector(50, 90));
 	//WorldObj->AddEntity(new EntityFlashTurret(WorldObj,Vector(100,100)));
