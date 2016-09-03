@@ -43,7 +43,7 @@ namespace Graphing
             chart1.Series[Cases].Points.Clear();
             int StepSize = 1;
             double X = 0;
-            while (X < Size)
+            while (X <= Size)
             {
                 chart1.Series[Graph].Points.AddXY(X, GetY(X,0));
                 X += StepSize;
@@ -68,7 +68,7 @@ namespace Graphing
 
         private void Update_Tick(object sender, EventArgs e)
         {
-            for (int zzz = 0; zzz < 200; ++zzz)
+            for (int zzz = 0; zzz < 1000; ++zzz)
             {
                 //Calculate new value
                 double StepSize = 10;
@@ -77,9 +77,9 @@ namespace Graphing
                 NewCase.X = XValue;
                 double RandCase = 0;
                 List<Case> NearbyCases = new List<Case>();
-                double NearestNeigborThreshold = 50;
-                double IdenticalPairThreshold = 10;
-                double MinAddDistance = 20;
+                double NearestNeigborThreshold = 100;
+                double IdenticalPairThreshold = 40;
+                double MinAddDistance = 60;
                 foreach (Case c in CaseBase)
                 {
                     c.TempDistance = NewCase.Distance(c);
@@ -102,19 +102,19 @@ namespace Graphing
                     if (Math.Abs(NearbyCases[0].TempDistance) < IdenticalPairThreshold)
                     {
                         NewCase.Y = NearbyCases[0].Y;
-                        NewCase.Mutate((NearbyCases[0].Error * 1.9));
+                        NewCase.Mutate((NearbyCases[0].Error * 1));
                         NewCase.Error = Math.Abs(GetY(NewCase.X, 0) - NewCase.Y);
                         if (NewCase.Error < NearbyCases[0].Error)
                         {
                             CaseBase.Add(NewCase);
-                        }
-                        while (Math.Abs(NearbyCases[0].TempDistance) < IdenticalPairThreshold)
-                        {
-                            CaseBase.Remove(NearbyCases[0]);
-                            NearbyCases.Remove(NearbyCases[0]);
-                            if (NearbyCases.Count == 0)
+                            while (Math.Abs(NearbyCases[0].TempDistance) < IdenticalPairThreshold)
                             {
-                                break;
+                                CaseBase.Remove(NearbyCases[0]);
+                                NearbyCases.Remove(NearbyCases[0]);
+                                if (NearbyCases.Count == 0)
+                                {
+                                    break;
+                                }
                             }
                         }
 
@@ -124,7 +124,7 @@ namespace Graphing
                         //Adapt
                         double[] Vars = weightedLinearRegression(NearbyCases);
                         NewCase.Y = Vars[1];
-                        NewCase.Mutate(Vars[2] * 1.9);
+                        NewCase.Mutate(Vars[2] * 1);
                         NewCase.Error = Math.Abs(GetY(NewCase.X, 0) - NewCase.Y);
                         if (Math.Abs(NearbyCases[0].TempDistance) > Math.Abs(MinAddDistance))
                         {
