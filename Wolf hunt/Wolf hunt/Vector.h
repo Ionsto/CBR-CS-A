@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 class Vector {
 public:
 	float X, Y;
@@ -45,4 +46,12 @@ public:
 	{
 		return Vector(X / v, Y / v);
 	}
+	friend std::iostream& operator<<(std::iostream& ios, const Vector& einf){
+		ios << einf.X << einf.Y;
+		return ios;
+	};
+	friend std::iostream& operator>>(std::iostream& ios, const Vector& einf){
+		ios >> einf.X >> einf.Y;
+		return ios;
+	};
 };

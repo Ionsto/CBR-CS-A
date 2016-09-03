@@ -78,3 +78,25 @@ float * CBREnvironment::SelectParam(int id)
 		break;
 	}
 }
+std::iostream& operator<<(std::iostream& ios, const EntityInfo& env)
+{
+	ios << env.Type\
+		<< env.Position\
+		<< env.Distance;
+	return ios;
+}
+std::iostream& operator>>(std::iostream& ios, const EntityInfo& env)
+{
+	ios >> env.Type\
+		>> env.Position\
+		>> env.Distance;
+	return ios;
+}
+std::iostream& operator<<(std::iostream& ios, const CBREnvironment& env)
+{
+	return ios;
+}
+std::iostream& operator>>(std::iostream& ios, const CBREnvironment& env)
+{
+	return ios;
+}

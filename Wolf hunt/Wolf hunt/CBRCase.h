@@ -2,6 +2,7 @@
 #include <queue>
 #include "CBREnvironment.h"
 #include "AIAction.h"
+#include <iostream>
 class CBRCase
 {
 public:
@@ -27,7 +28,7 @@ public:
 	void RandomiseMoves();
 	void ApplyActionsToEntity(EntityWolf * entity); 
 	void MutateCases(float subfactor);
-	std::string Serialise();
-	void Deserialise(std::string input);
+	friend std::iostream& operator<<(std::iostream& ios, const CBRCase& cbrc);
+	friend std::iostream& operator>>(std::iostream& ios, const CBRCase& cbrc);
 };
 

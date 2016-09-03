@@ -1,6 +1,5 @@
 #include "CBRCase.h"
 #include "AIActionMove.h"
-#include <iostream>
 #include <sstream>
 
 CBRCase::CBRCase()
@@ -84,9 +83,34 @@ void CBRCase::ApplyActionsToEntity(EntityWolf * entity)
 std::string CBRCase::Serialise()
 {
 	std::stringstream stream;
-	stream << this->CalculatedValueEnd << this->CalculatedValueStart << this->Validity << this->DeltaMovement.X << this->DeltaMovement.Y<<std::endl;
-	return "Kappa";
+	stream << this->CalculatedValueEnd;
+	stream << this->CalculatedValueStart;
+	stream << this->Validity; 
+	stream << this->DeltaMovement.X;
+	stream << this->DeltaMovement.Y;
+	stream << this->EnviromentStart.Serialise();
+	stream << this->EnviromentEnd.Serialise();
+	return stream.str();
 }
-void CBRCase::Deserialise(std::string in) {
-
+std::iostream& operator<<(std::iostream& ios, const CBRCase& cbrc)
+{
+	ios << cbrc.CalculatedValueEnd \
+	<< cbrc.CalculatedValueStart\
+	<< cbrc.Validity\
+	<< cbrc.DeltaMovement.X\
+	<< cbrc.DeltaMovement.Y\
+	<< cbrc.EnviromentStart\
+	<< cbrc.EnviromentEnd;
+	return ios;
+}
+std::iostream& operator>>(std::iostream& ios, const CBRCase& cbrc)
+{
+	ios >> cbrc.CalculatedValueEnd \
+		>> cbrc.CalculatedValueStart\
+		>> cbrc.Validity\
+		>> cbrc.DeltaMovement.X\
+		>> cbrc.DeltaMovement.Y\
+		>> cbrc.EnviromentStart\
+		>> cbrc.EnviromentEnd;
+	return ios;
 }
