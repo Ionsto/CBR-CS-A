@@ -131,6 +131,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemRayCaster.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Vector.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>

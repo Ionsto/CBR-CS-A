@@ -2,56 +2,18 @@
 #include <iostream>
 class Vector {
 public:
-	float X, Y;
-	Vector(float x = 0,float y = 0)
-	{
-		this->X = x;
-		this->Y = y;
-	};
-	float Dot(const Vector v) 
-	{
-		return (v.X * X) + (v.Y * Y);
-	}
-	Vector operator+(const Vector v)
-	{
-		return Vector(X + v.X, Y + v.Y);
-	}
-	void operator+=(const Vector v)
-	{
-		this->X += v.X;
-		this->Y += v.Y;
-	}
-	void operator-=(const Vector v)
-	{
-		this->X -= v.X;
-		this->Y -= v.Y;
-	}
-	Vector operator/(const Vector v)
-	{
-		return Vector(X / v.X, Y / v.Y);
-	}
-	Vector operator*(const Vector v)
-	{
-		return Vector(X * v.X, Y * v.Y);
-	}
-	Vector operator-(const Vector v)
-	{
-		return Vector(X - v.X, Y - v.Y);
-	}
-	Vector operator*(const float v)
-	{
-		return Vector(X * v, Y * v);
-	}
-	Vector operator/(const float v)
-	{
-		return Vector(X / v, Y / v);
-	}
-	friend std::iostream& operator<<(std::iostream& ios, const Vector& einf){
-		ios << einf.X << einf.Y;
-		return ios;
-	};
-	friend std::iostream& operator>>(std::iostream& ios, const Vector& einf){
-		ios >> einf.X >> einf.Y;
-		return ios;
-	};
+	float X;
+	float Y;
+	Vector(float x = 0, float y = 0);
+	float Dot(const Vector v);
+	Vector operator+(const Vector v);
+	void operator+=(const Vector v);
+	void operator-=(const Vector v);
+	Vector operator/(const Vector v);
+	Vector operator*(const Vector v);
+	Vector operator-(const Vector v);
+	Vector operator*(const float v);
+	Vector operator/(const float v);
+	friend std::ostream& operator<<(std::ostream& ios, const Vector& einf);
+	friend std::istream& operator>>(std::istream& ios, Vector& einf);
 };

@@ -1,2 +1,39 @@
-﻿  Wolf hunt.vcxproj -> C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Wolf hunt\Debug\Wolf hunt.exe
-  Wolf hunt.vcxproj -> C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Wolf hunt\Debug\Wolf hunt.pdb (Partial PDB)
+﻿Build started 03/09/2016 21:52:19.
+     1>Project "C:\Users\mpfs\Documents\GitHub\CBR-CS-A\Wolf hunt\Wolf hunt\Wolf hunt.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Item.cpp Vector.cpp
+         Vector.cpp
+         Item.cpp
+     1>c:\users\mpfs\documents\github\cbr-cs-a\wolf hunt\wolf hunt\item.cpp(28): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+     1>c:\users\mpfs\documents\github\cbr-cs-a\wolf hunt\wolf hunt\item.cpp(53): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+     1>c:\users\mpfs\documents\github\cbr-cs-a\wolf hunt\wolf hunt\item.cpp(31): warning C4101: 't': unreferenced local variable
+     1>c:\users\mpfs\documents\github\cbr-cs-a\wolf hunt\wolf hunt\item.cpp(69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+     1>c:\users\mpfs\documents\github\cbr-cs-a\wolf hunt\wolf hunt\item.cpp(106): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+     1>c:\users\mpfs\documents\github\cbr-cs-a\wolf hunt\wolf hunt\item.cpp(110): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+     1>c:\users\mpfs\documents\github\cbr-cs-a\wolf hunt\wolf hunt\item.cpp(160): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\mpfs\documents\github\cbr-cs-a\wolf hunt\wolf hunt\item.cpp(191): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\mpfs\Documents\GitHub\CBR-CS-A\Wolf hunt\Debug\Wolf hunt.exe" /INCREMENTAL /NOLOGO openal32.lib "sfml-main-d.lib" "sfml-system-d.lib" "sfml-window-d.lib" "sfml-graphics-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG:FASTLINK /PDB:"C:\Users\mpfs\Documents\GitHub\CBR-CS-A\Wolf hunt\Debug\Wolf hunt.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\mpfs\Documents\GitHub\CBR-CS-A\Wolf hunt\Debug\Wolf hunt.lib" /MACHINE:X86 Debug\AIAction.obj
+         Debug\AIActionMove.obj
+         Debug\CBRCase.obj
+         Debug\CBRDiskManager.obj
+         Debug\CBREnvironment.obj
+         Debug\CBRInstance.obj
+         Debug\Entity.obj
+         Debug\EntityHerd.obj
+         Debug\EntityWolf.obj
+         Debug\EntityLiving.obj
+         Debug\EntityPlayer.obj
+         Debug\GameManager.obj
+         Debug\Item.obj
+         Debug\ItemRayCaster.obj
+         Debug\main.obj
+         Debug\Vector.obj
+         Debug\World.obj
+         Wolf hunt.vcxproj -> C:\Users\mpfs\Documents\GitHub\CBR-CS-A\Wolf hunt\Debug\Wolf hunt.exe
+     1>Done Building Project "C:\Users\mpfs\Documents\GitHub\CBR-CS-A\Wolf hunt\Wolf hunt\Wolf hunt.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.20

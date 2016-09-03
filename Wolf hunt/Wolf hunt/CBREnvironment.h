@@ -4,13 +4,13 @@
 #include "Entity.h"
 struct EntityInfo
 {
-	Entity::EntityType Type;
+	int Type;
 	Vector Position;
 	float Distance;
 	EntityInfo() {
 	};
-	friend std::iostream& operator<<(std::iostream& ios, const EntityInfo& einf);
-	friend std::iostream& operator>>(std::iostream& ios, const EntityInfo& einf);
+	friend std::ostream& operator<<(std::ostream& ios, const EntityInfo& einf);
+	friend std::istream& operator>>(std::istream& ios, EntityInfo& einf);
 };
 class EntityWolf;
 class CBREnvironment
@@ -28,7 +28,7 @@ public:
 	~CBREnvironment();
 	float * SelectParam(int id);
 	void Populate(EntityWolf * entity);
-	friend std::iostream& operator<<(std::iostream& ios, const CBREnvironment& env);
-	friend std::iostream& operator>>(std::iostream& ios, const CBREnvironment& env);
+	friend std::ostream& operator<<(std::ostream& ios, const CBREnvironment& env);
+	friend std::istream& operator>>(std::istream& ios, CBREnvironment& env);
 };
 

@@ -28,7 +28,7 @@ public:
 	void RandomiseMoves();
 	void ApplyActionsToEntity(EntityWolf * entity); 
 	void MutateCases(float subfactor);
-	friend std::iostream& operator<<(std::iostream& ios, const CBRCase& cbrc);
-	friend std::iostream& operator>>(std::iostream& ios, const CBRCase& cbrc);
+	friend std::ostream& operator<<(std::ostream& ios, const CBRCase& cbrc);
+	friend std::istream& operator>>(std::istream& ios, CBRCase& cbrc);
 };
 
