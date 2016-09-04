@@ -136,7 +136,7 @@ void GameManager::PollInput()
 		if (this->KeyState[sf::Keyboard::Key::R])
 		{
 			this->KeyState[sf::Keyboard::Key::R] = false;
-			for (int i = 0; i < 6; ++i) {
+			for (int i = 0; i < 2; ++i) {
 				this->WorldObj->EntityList[i]->SetPosition(Vector(rand() % 750, rand() % 750) + Vector(20, 20));
 			}
 			//this->InitWorld();
@@ -231,10 +231,10 @@ void GameManager::InitWorld()
 	//WorldObj->AddEntity(new EntityPlayer(WorldObj));
 	//WorldObj->Player = (EntityPlayer*)WorldObj->EntityList[0];
 	WorldObj->AddEntity(new EntityWolf(WorldObj, Vector(250, 150)));
-	WorldObj->AddEntity(new EntityWolf(WorldObj, Vector(300, 150)));
-	WorldObj->AddEntity(new EntityWolf(WorldObj, Vector(350, 150)));
-	WorldObj->AddEntity(new EntityWolf(WorldObj, Vector(400, 150)));
-	WorldObj->AddEntity(new EntityWolf(WorldObj, Vector(450, 150)));
+	//WorldObj->AddEntity(new EntityWolf(WorldObj, Vector(300, 150)));
+	//WorldObj->AddEntity(new EntityWolf(WorldObj, Vector(350, 150)));
+	//WorldObj->AddEntity(new EntityWolf(WorldObj, Vector(400, 150)));
+	//WorldObj->AddEntity(new EntityWolf(WorldObj, Vector(450, 150)));
 	WorldObj->AddEntity(new EntityHerd(WorldObj, Vector(250, 500)));
 	//WorldObj->EntityList[0]->SetPosition(Vector(50, 50));
 	//WorldObj->EntityList[1]->SetPosition(Vector(50, 90));

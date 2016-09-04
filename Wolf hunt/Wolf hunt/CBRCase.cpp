@@ -67,7 +67,7 @@ void CBRCase::MutateCases(float subfactor)
 {
 	float MaxMoveRand = 1;
 	float Factor = MaxMoveRand * subfactor * (((rand() % 200) / 100.0) - 1);
-	//DeltaMovement.X += Factor;
+	DeltaMovement.X += Factor;
 	Factor = MaxMoveRand * subfactor * (((rand() % 200) / 100.0) - 1);
 	DeltaMovement.Y += Factor;
 	float MaxMove = 100;
