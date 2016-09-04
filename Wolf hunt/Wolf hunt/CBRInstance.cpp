@@ -6,14 +6,13 @@
 CBRInstance::CBRInstance()
 {
 	this->CaseBase = std::vector<CBRCase*>();
-	MinInsertionThreshold = 100;
-	IdenticalCaseThreshold = 100;
+	MinInsertionThreshold = 10;
+	IdenticalCaseThreshold = 10;
 	NearestNeighborDistance = 500;
-	ValidityDistanceThreshold = 50;
+	ValidityDistanceThreshold = 10;
 	UnclaimedOtherPenalty = 1;
 	DistanceWeights = CBRWeightDistance();
 	ValueWeights = CBRWeightValue();
-	NearestNeighborDistance = 100;
 }
 
 
@@ -30,7 +29,7 @@ float CBRInstance::DistanceInfo(EntityInfo a, EntityInfo b)
 	Distance += DistanceTemp * DistanceTemp;
 	DistanceTemp = DistanceWeights.Position * dist.Y;
 	Distance += DistanceTemp * DistanceTemp;
-	DistanceTemp = DistanceWeights.Distance * abs(a.Distance - b.Distance);
+	DistanceTemp = DistanceWeights.Distance * (a.Distance - b.Distance);
 	Distance += DistanceTemp * DistanceTemp;
 	return sqrt(Distance);
 }
@@ -45,6 +44,8 @@ float CBRInstance::Distance(CBREnvironment a, CBREnvironment b)
 	float Distance = 0;
 	TempDistance = DistanceInfo(a.Herd, b.Herd);
 	Distance += TempDistance * TempDistance;
+	//TempDistance = DistanceInfo(a.Self, b.Self);
+	//Distance += TempDistance * TempDistance;
 	//TempDistance = DistanceInfo(a.Herd, b.Herd);
 	//Distance += TempDistance * TempDistance;
 	return sqrt(Distance);
@@ -78,16 +79,16 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 	NewCase->CalculatedValueStart = CalculateValue(sitrep);
 	if (NearbyCases.size() == 0)
 	{
-		NewCase->RandomiseMoves();
-		std::cout << "Random moves" << std::endl;
+		NewCase->MutateCases(50);
+		//std::cout << "Random moves" << std::endl;
 	}
 	else
 	{
 		NewCase->DeltaMovement = CaseBase[NearbyCases.at(0).CloseCase]->DeltaMovement;
-		for (int i = 0; i < CaseBase[NearbyCases.at(0).CloseCase]->Moves.size(); ++i)
-		{
-			NewCase->Moves.push_back(CaseBase.at(NearbyCases.at(0).CloseCase)->Moves[i]->CopySelf(NULL));
-		}
+		//for (int i = 0; i < CaseBase[NearbyCases.at(0).CloseCase]->Moves.size(); ++i)
+		//{
+		//	NewCase->Moves.push_back(CaseBase.at(NearbyCases.at(0).CloseCase)->Moves[i]->CopySelf(NULL));
+		//}
 		if (NearbyCases.at(0).NewDist < IdenticalCaseThreshold)
 		{
 			NewCase->MutateCases(CaseBase[NearbyCases.at(0).CloseCase]->CalculatedValueEnd * 0.01);
@@ -95,7 +96,7 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 			{
 				//NewCase->RandomiseMoves();
 			}
-			std::cout << "Partialy random case" << std::endl;
+			//std::cout << "Partialy random case" << std::endl;
 		}
 		else
 		{
@@ -129,8 +130,9 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 			}*/
 			float MeanError = 0;
 			int InParamCount = 3;
-			int OutParamCount = 2;
+			int OutParamCount = 1;
 			int NearbyCasesCount = NearbyCases.size();
+			NewCase->DeltaMovement = Vector();
 			for (int InParam = 0; InParam < InParamCount; ++InParam)
 			{
 				for (int OutParam = 0; OutParam < OutParamCount; ++OutParam)
@@ -145,13 +147,15 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 					float SStotal = 0;
 					float ExpectedY = 0;
 					float rsqd = 0;
+					float ErrorFactor = 0.001;
 					// compute the weighted averages
 					for (int i = 0; i < NearbyCasesCount; i++)
 					{
-						xw += CaseBase[NearbyCases[i].CloseCase]->EnviromentStart.GetInputParams(InParam) * DivZero(1, CaseBase[NearbyCases[i].CloseCase]->CalculatedValueEnd);
-						yw += CaseBase[NearbyCases[i].CloseCase]->GetOutputParams(OutParam) * DivZero(1, CaseBase[NearbyCases[i].CloseCase]->CalculatedValueEnd);
-						x += CaseBase[NearbyCases[i].CloseCase]->EnviromentStart.GetInputParams(InParam);
-						y += CaseBase[NearbyCases[i].CloseCase]->GetOutputParams(OutParam);
+						CBRCase * CaseIter = CaseBase[NearbyCases[i].CloseCase];
+						xw += CaseIter->EnviromentStart.GetInputParams(InParam) * DivZero(1, CaseIter->CalculatedValueEnd * ErrorFactor);
+						yw += CaseIter->GetOutputParams(OutParam) * DivZero(1, CaseIter->CalculatedValueEnd * ErrorFactor);
+						x += CaseIter->EnviromentStart.GetInputParams(InParam);
+						y += CaseIter->GetOutputParams(OutParam);
 					}
 					double weightedX = DivZero(xw, x);
 					double weightedY = DivZero(yw, y);
@@ -159,8 +163,9 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 					// compute the gradient and intercept
 					for (int i = 0; i < NearbyCasesCount; i++)
 					{
-						a += (CaseBase[NearbyCases[i].CloseCase]->GetOutputParams(OutParam) - weightedY) * (CaseBase[NearbyCases[i].CloseCase]->EnviromentStart.GetInputParams(InParam) - weightedX) * CaseBase[NearbyCases[i].CloseCase]->CalculatedValueEnd;
-							b += (CaseBase[NearbyCases[i].CloseCase]->EnviromentStart.GetInputParams(InParam) - weightedX) * (CaseBase[NearbyCases[i].CloseCase]->EnviromentStart.GetInputParams(InParam) - weightedX) * CaseBase[NearbyCases[i].CloseCase]->CalculatedValueEnd;
+						CBRCase * CaseIter = CaseBase[NearbyCases[i].CloseCase];
+						a += (CaseIter->GetOutputParams(OutParam) - weightedY) * (CaseIter->EnviromentStart.GetInputParams(InParam) - weightedX) * CaseIter->CalculatedValueEnd * ErrorFactor;
+						b += (CaseIter->EnviromentStart.GetInputParams(InParam) - weightedX) * (CaseIter->EnviromentStart.GetInputParams(InParam) - weightedX) * CaseIter->CalculatedValueEnd * ErrorFactor;
 					}
 					double gradient = DivZero(a, b);
 					double intercept = (weightedY - weightedX) * gradient;
@@ -169,10 +174,11 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 
 					for (int i = 0; i < NearbyCasesCount; i++)
 					{
-						ExpectedY = (gradient * CaseBase[NearbyCases[i].CloseCase]->EnviromentStart.GetInputParams(InParam)) + intercept;
-						SSres += (CaseBase[NearbyCases[i].CloseCase]->GetOutputParams(OutParam) - weightedY) * (CaseBase[NearbyCases[i].CloseCase]->GetOutputParams(OutParam) - weightedY);
-						SSres += (CaseBase[NearbyCases[i].CloseCase]->GetOutputParams(OutParam) - ExpectedY) * (CaseBase[NearbyCases[i].CloseCase]->GetOutputParams(OutParam) - ExpectedY);
-						MeanError += CaseBase[NearbyCases[i].CloseCase]->CalculatedValueEnd;
+						CBRCase * CaseIter = CaseBase[NearbyCases[i].CloseCase];
+						ExpectedY = (gradient * CaseIter->EnviromentStart.GetInputParams(InParam)) + intercept;
+						SSres += (CaseIter->GetOutputParams(OutParam) - weightedY) * (CaseIter->GetOutputParams(OutParam) - weightedY);
+						SStotal += (CaseIter->GetOutputParams(OutParam) - ExpectedY) * (CaseIter->GetOutputParams(OutParam) - ExpectedY);
+						MeanError += CaseIter->CalculatedValueEnd;
 					}
 					//MeanError = DivZero(MeanError, NearbyCasesCount);
 					rsqd = 1 - DivZero(SSres, SStotal);
@@ -185,7 +191,8 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 			{
 				NewCase->GetOutputParams(OutParam) = NewCase->GetOutputParams(OutParam) / OutParamCount;
 			}
-			NewCase->MutateCases(MeanError * 0.5);
+			NewCase->MutateCases(5);
+			//std::cout << "Weighted case" << std::endl;
 		}
 	}
 	if (NewCase->CalculatedValueStart - NewCase->CalculatedValueEnd < 0)
@@ -214,7 +221,7 @@ void CBRInstance::FeedBackCase(CBRCase * feedback)
 	int ClosestCase = -1;
 	float NewDist;
 	bool Feedbackneeded = false;
-	std::cout << feedback->CalculatedValueEnd << std::endl;
+	//std::cout << feedback->CalculatedValueEnd << std::endl;
 	for (int i = 0; i < CaseBase.size(); ++i)
 	{
 		if (ClosestCase == -1)
@@ -247,32 +254,40 @@ void CBRInstance::FeedBackCase(CBRCase * feedback)
 		{
 			CBRCase * CloesestCase = this->CaseBase.at(ClosestCase);
 			//Adapt previouse cases for new enviroment		
-			float Dist = Distance(feedback->EnviromentEnd, CaseBase.at(ClosestCase)->EnviromentEnd);
+			float Dist = Distance(feedback->EnviromentEnd, CloesestCase->EnviromentEnd); 
+			if (feedback->DeltaValue < CloesestCase->DeltaValue)
+			{
+				std::cout << "Found Better case" << std::endl;
+				delete CloesestCase;
+				CloesestCase = feedback;
+				Feedbackneeded = true;
+			}
 			if (Dist < ValidityDistanceThreshold)
 			{
-				if (this->CaseBase.at(ClosestCase)->Validity++ > 10)
+				if (CloesestCase->Validity++ > 10)
 				{
 					CloesestCase->Validity = 10;
 				}
-				if (feedback->DeltaValue < this->CaseBase.at(ClosestCase)->DeltaValue + 20)
+				if (feedback->DeltaValue < CloesestCase->DeltaValue + 20)
 				{
-					this->CaseBase.at(ClosestCase)->Validity -= 5;
+					//CloesestCase->Validity -= 5;
 				}
 			}
 			else
 			{
-				--this->CaseBase.at(ClosestCase)->Validity;
-				if (feedback->DeltaValue < this->CaseBase.at(ClosestCase)->DeltaValue)
+				--CloesestCase->Validity;
+				if (feedback->DeltaValue < CloesestCase->DeltaValue)
 				{
 					std::cout << "Found Better case" << std::endl;
-					delete this->CaseBase.at(ClosestCase);
-					this->CaseBase.at(ClosestCase) = feedback;
+					delete CloesestCase;
+					CloesestCase = feedback;
 					Feedbackneeded = true;
 				}
-				else if (this->CaseBase.at(ClosestCase)->Validity < 0)
+				else if (CloesestCase->Validity < 0)
 				{
-					delete this->CaseBase.at(ClosestCase);
-					this->CaseBase.erase(CaseBase.begin() + ClosestCase);
+					//std::cout << "Invalid case" << std::endl;
+					//delete CloesestCase;
+					//this->CaseBase.erase(CaseBase.begin() + ClosestCase);
 				}
 			}
 			//}

@@ -1,3 +1,1 @@
-﻿  LINK : C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Wolf hunt\Debug\Wolf hunt.exe not found or not built by the last incremental link; performing full link
-  Wolf hunt.vcxproj -> C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Wolf hunt\Debug\Wolf hunt.exe
-  Wolf hunt.vcxproj -> C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Wolf hunt\Debug\Wolf hunt.pdb (Partial PDB)
+﻿LINK : fatal error LNK1104: cannot open file 'C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Wolf hunt\Debug\Wolf hunt.exe'

@@ -15,11 +15,11 @@ CBRCase::CBRCase()
 
 CBRCase::~CBRCase()
 {
-	while (Moves.size() > 0)
-	{
-		delete Moves.back();
-		Moves.pop_back();
-	}
+	//while (Moves.size() > 0)
+	//{
+		//delete Moves.back();
+	//	Moves.pop_back();
+	//}
 }
 
 void CBRCase::RandomiseMoves()
@@ -58,18 +58,18 @@ float& CBRCase::GetOutputParams(int id)
 	switch (id)
 	{
 	case 0:
-		return DeltaMovement.X;
-	case 1:
 		return DeltaMovement.Y;
+	case 1:
+		return DeltaMovement.X;
 	}
 }
 void CBRCase::MutateCases(float subfactor)
 {
 	float MaxMoveRand = 1;
 	float Factor = MaxMoveRand * subfactor * (((rand() % 200) / 100.0) - 1);
-	DeltaMovement.X = DeltaMovement.X + Factor;
+	//DeltaMovement.X += Factor;
 	Factor = MaxMoveRand * subfactor * (((rand() % 200) / 100.0) - 1);
-	DeltaMovement.Y = DeltaMovement.Y + Factor;
+	DeltaMovement.Y += Factor;
 	float MaxMove = 100;
 	if (abs(DeltaMovement.X) > MaxMove) {
 		DeltaMovement.X = copysignf(MaxMove, DeltaMovement.X);
