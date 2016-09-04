@@ -26,7 +26,7 @@ public:
 	//std::vector<EntityInfo> OtherFactors;
 	CBREnvironment();
 	~CBREnvironment();
-	float * SelectParam(int id);
+	float& GetInputParams(int id);
 	void Populate(EntityWolf * entity);
 	friend std::ostream& operator<<(std::ostream& ios, const CBREnvironment& env);
 	friend std::istream& operator>>(std::istream& ios, CBREnvironment& env);

@@ -54,28 +54,23 @@ void CBREnvironment::Populate(EntityWolf * ent)
 		}
 	}
 }
-float * CBREnvironment::SelectParam(int id)
+//Input params
+float& CBREnvironment::GetInputParams(int id)
 {
 	switch (id)
 	{
 	case 0:
-		return &Self.Distance;
-		break;
+		return Herd.Distance;
 	case 1:
-		return &Self.Position.X;
-		break;
+		return Herd.Position.X;
 	case 2:
-		return &Self.Position.Y;
-		break;
+		return Herd.Position.Y;
 	case 3:
-		return &Herd.Distance;
-		break;
+		return Self.Distance;
 	case 4:
-		return &Herd.Position.X;
-		break;
+		return Self.Position.X;
 	case 5:
-		return &Herd.Position.Y;
-		break;
+		return Self.Position.Y;
 	}
 }
 std::ostream& operator<<(std::ostream& ios, const EntityInfo& env)

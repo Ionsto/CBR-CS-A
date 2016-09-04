@@ -53,10 +53,23 @@ void CBRCase::RandomiseMoves()
 		Moves.pop_back();
 	}*/
 }
+float& CBRCase::GetOutputParams(int id)
+{
+	switch (id)
+	{
+	case 0:
+		return DeltaMovement.X;
+	case 1:
+		return DeltaMovement.Y;
+	}
+}
 void CBRCase::MutateCases(float subfactor)
 {
-	float Factor = subfactor * (((rand() % 200)/100.0)-1);
-	DeltaMovement = DeltaMovement + Vector(0, rand() % 50)*Factor;
+	float MaxMoveRand = 1;
+	float Factor = MaxMoveRand * subfactor * (((rand() % 200) / 100.0) - 1);
+	DeltaMovement.X = DeltaMovement.X + Factor;
+	Factor = MaxMoveRand * subfactor * (((rand() % 200) / 100.0) - 1);
+	DeltaMovement.Y = DeltaMovement.Y + Factor;
 	float MaxMove = 100;
 	if (abs(DeltaMovement.X) > MaxMove) {
 		DeltaMovement.X = copysignf(MaxMove, DeltaMovement.X);
@@ -64,6 +77,8 @@ void CBRCase::MutateCases(float subfactor)
 	if (abs(DeltaMovement.Y) > MaxMove) {
 		DeltaMovement.Y = copysignf(MaxMove,DeltaMovement.Y);
 	}
+	if (isnan(DeltaMovement.X)) { DeltaMovement.X = 0; }
+	if (isnan(DeltaMovement.Y)) { DeltaMovement.Y = 0; }
 	//for (int i = 0; i < Moves.size(); ++i)
 	//{
 	//	(Moves[i])->Mutate(Factor);

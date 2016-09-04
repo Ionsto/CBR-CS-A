@@ -25,6 +25,7 @@ public:
 	int ExecutionTime;
 	CBRCase();
 	~CBRCase();
+	float& GetOutputParams(int id);
 	void RandomiseMoves();
 	void ApplyActionsToEntity(EntityWolf * entity); 
 	void MutateCases(float subfactor);
