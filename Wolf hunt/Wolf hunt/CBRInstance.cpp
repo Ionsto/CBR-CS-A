@@ -25,9 +25,10 @@ float CBRInstance::DistanceInfo(EntityInfo a, EntityInfo b)
 {
 	float DistanceTemp = 0;
 	float Distance = 0;
-	int WeightIter = 0;
 	Vector dist = a.Position - b.Position;
-	DistanceTemp = DistanceWeights.Position * sqrt(dist.Dot(dist));
+	DistanceTemp = DistanceWeights.Position * dist.X;
+	Distance += DistanceTemp * DistanceTemp;
+	DistanceTemp = DistanceWeights.Position * dist.Y;
 	Distance += DistanceTemp * DistanceTemp;
 	DistanceTemp = DistanceWeights.Distance * abs(a.Distance - b.Distance);
 	Distance += DistanceTemp * DistanceTemp;
@@ -42,9 +43,7 @@ float CBRInstance::Distance(CBREnvironment a, CBREnvironment b)
 {
 	float TempDistance = 0;
 	float Distance = 0;
-	TempDistance = a.Herd.Position.X - b.Herd.Position.X;// DistanceInfo(a.Self, b.Self);
-	Distance += TempDistance * TempDistance;
-	TempDistance = a.Herd.Position.Y - b.Herd.Position.Y;// DistanceInfo(a.Self, b.Self);
+	TempDistance = DistanceInfo(a.Herd, b.Herd);
 	Distance += TempDistance * TempDistance;
 	//TempDistance = DistanceInfo(a.Herd, b.Herd);
 	//Distance += TempDistance * TempDistance;
@@ -246,11 +245,19 @@ void CBRInstance::FeedBackCase(CBRCase * feedback)
 		}
 		else
 		{
+			CBRCase * CloesestCase = this->CaseBase.at(ClosestCase);
 			//Adapt previouse cases for new enviroment		
 			float Dist = Distance(feedback->EnviromentEnd, CaseBase.at(ClosestCase)->EnviromentEnd);
 			if (Dist < ValidityDistanceThreshold)
 			{
-				++this->CaseBase.at(ClosestCase)->Validity;
+				if (this->CaseBase.at(ClosestCase)->Validity++ > 10)
+				{
+					CloesestCase->Validity = 10;
+				}
+				if (feedback->DeltaValue < this->CaseBase.at(ClosestCase)->DeltaValue + 20)
+				{
+					this->CaseBase.at(ClosestCase)->Validity -= 5;
+				}
 			}
 			else
 			{

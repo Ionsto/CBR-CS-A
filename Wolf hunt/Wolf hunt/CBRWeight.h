@@ -24,7 +24,7 @@ public:
 	CBRWeightDistance()
 	{
 		Position = 1;
-		Distance = 0;
+		Distance = 4;
 		Type = 0;
 		ExecutionTime = 0;
 	};
