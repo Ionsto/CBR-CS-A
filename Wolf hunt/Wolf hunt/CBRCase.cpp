@@ -97,6 +97,8 @@ void CBRCase::MutateCases(float subfactor)
 }
 void CBRCase::ApplyActionsToEntity(EntityWolf * entity)
 {
+	entity->MoveNormal = MoveNormal;
+	entity->MoveTowards = MoveTowards;
 	//entity->TargetLocation = entity->Pos + DeltaMovement;
 	/*entity->ClearAIStack();
 	//std::cout << "Starting ai routine" << std::endl;

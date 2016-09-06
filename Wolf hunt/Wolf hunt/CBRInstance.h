@@ -43,7 +43,8 @@ public:
 	void Save(std::string loadloc);
 	void Load(std::string loadloc);
 	void FeedBackCase(CBRCase * Case);
-	void AdaptionWeightedLinearRegression(CBRCase * NewCase,std::vector<ClosePair> nearcase);
+	void AdaptionMean(CBRCase * NewCase, std::vector<ClosePair> nearcase);
+	void AdaptionWeightedLinearRegression(CBRCase * NewCase, std::vector<ClosePair> nearcase);
 	CBRCase * GetCase(CBREnvironment sitrep);
 	void WeightedLinearRegression(std::vector<CBRCase*> cases,int paramx,int paramy,float * intercept, float * gradient, float * error);
 	float CalculateValue(CBREnvironment siterep);

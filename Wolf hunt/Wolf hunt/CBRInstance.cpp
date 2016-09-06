@@ -104,6 +104,7 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 		{
 			//Use linear regression of moves
 			//AdaptionWeightedLinearRegression(NewCase, NearbyCases);
+			AdaptionMean(NewCase, NearbyCases);
 			//NewCase->MutateCases(20);
 			std::cout << "Addapted case" << std::endl;
 		}
@@ -113,6 +114,18 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 		//NewCase->MutateCases(1);
 	}
 	return NewCase;
+}
+void CBRInstance::AdaptionMean(CBRCase * NewCase, std::vector<ClosePair> NearbyCases)
+{
+	int KClosest = 3;
+	int OutParamCount = 2;
+	for (int i = 0; i < KClosest;++i)
+	{
+		for (int OutParam = 0; OutParam < OutParamCount; ++OutParam)
+		{
+
+		}
+	}
 }
 void CBRInstance::AdaptionWeightedLinearRegression(CBRCase * NewCase, std::vector<ClosePair> NearbyCases)
 {

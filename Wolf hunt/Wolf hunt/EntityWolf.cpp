@@ -116,7 +116,12 @@ bool EntityWolf::CanSeeEntity(Entity * entity)
 }
 void EntityWolf::ActionMoveNormal(Vector mid)
 {
-
+	Vector delta = mid - Pos;
+	delta = delta / sqrtf(delta.Dot(delta));
+	float tempx = delta.X;
+	delta.X = -delta.Y;
+	delta.Y = tempx;
+	ApplyForce(delta * MoveNormal * MoveForce);
 }
 void EntityWolf::ActionMoveTowards(Vector mid)
 {
