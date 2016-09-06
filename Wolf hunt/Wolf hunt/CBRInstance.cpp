@@ -79,7 +79,7 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 	NewCase->CalculatedValueStart = CalculateValue(sitrep);
 	if (NearbyCases.size() == 0)
 	{
-		NewCase->MutateCases(50);
+		NewCase->MutateCases(2);
 		std::cout << "Random moves" << std::endl;
 	}
 	else
@@ -99,9 +99,9 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 			//}
 			if (CaseBase[NearbyCases.at(0).CloseCase]->DeltaValue >= 0)
 			{
-				NewCase->MutateCases(10);
+				NewCase->MutateCases(2);
 			}
-			NewCase->MutateCases(1);
+			NewCase->MutateCases(.5);
 			std::cout << "Identical case" << std::endl;
 		}
 		else
@@ -109,6 +109,7 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 			//Use linear regression of moves
 			//AdaptionWeightedLinearRegression(NewCase, NearbyCases);
 			AdaptionMean(NewCase, NearbyCases);
+			NewCase->MutateCases(1);
 			//NewCase->MutateCases(20);
 			std::cout << "Addapted case" << std::endl;
 		}
@@ -125,12 +126,25 @@ void CBRInstance::AdaptionMean(CBRCase * NewCase, std::vector<ClosePair> NearbyC
 	int OutParamCount = 2;
 	for (int OutParam = 0; OutParam < OutParamCount; ++OutParam)
 	{
+		std::vector<float> Weights;
+		float LowestWeight = INFINITY;
+		for (int i = 0; i < KClosest; ++i)
+		{
+			if (CaseBase[NearbyCases[i].CloseCase]->DeltaValue < LowestWeight)
+			{
+				LowestWeight = CaseBase[NearbyCases[i].CloseCase]->DeltaValue;
+			}
+		}
+		LowestWeight += 1;
+		float SumWeight = 0;
 		NewCase->GetOutputParams(OutParam) = 0;
 		for (int i = 0; i < KClosest;++i)
 		{
-			NewCase->GetOutputParams(OutParam) += CaseBase[NearbyCases[i].CloseCase]->GetOutputParams(OutParam);
+			SumWeight += (1 / CaseBase[NearbyCases[i].CloseCase]->DeltaValue + LowestWeight);
+			NewCase->GetOutputParams(OutParam) += CaseBase[NearbyCases[i].CloseCase]->GetOutputParams(OutParam) * (1 / CaseBase[NearbyCases[i].CloseCase]->DeltaValue + LowestWeight);
 		}
 		NewCase->GetOutputParams(OutParam) /= KClosest;
+		NewCase->GetOutputParams(OutParam) /= SumWeight;
 	}
 }
 void CBRInstance::AdaptionWeightedLinearRegression(CBRCase * NewCase, std::vector<ClosePair> NearbyCases)

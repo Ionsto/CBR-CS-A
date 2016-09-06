@@ -81,7 +81,7 @@ void CBRCase::MutateCases(float subfactor)
 	}
 	if (isnan(DeltaMovement.X)) { DeltaMovement.X = 0; }
 	if (isnan(DeltaMovement.Y)) { DeltaMovement.Y = 0; }*/
-	float MaxMoveRand = 0.1;
+	float MaxMoveRand = 0.8;
 	float Factor = MaxMoveRand * subfactor * (((rand() % 200) / 100.0) - 1);
 	MoveTowards += Factor;
 	Factor = MaxMoveRand * subfactor * (((rand() % 200) / 100.0) - 1);
