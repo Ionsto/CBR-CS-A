@@ -10,10 +10,12 @@
 EntityWolf::EntityWolf(World * world, Vector pos) : EntityLiving(world,pos)
 {
 	AIUpdateCounter = 0;
-	AIUpdateMax = 1000;
+	AIUpdateMax = 2000;
 	AIStack = std::queue<AIAction*>();
 	AIInstance = world->AIInstance;
-	TargetLocation = pos;
+	//TargetLocation = pos;
+	MoveTowards = 0;
+	MoveNormal = 0;
 	Displacement = 0;
 }
 
@@ -50,24 +52,42 @@ void EntityWolf::Update()
 		UpdateAI();
 		AIUpdateCounter = AIUpdateMax;
 	}*/
-	Vector Distance = TargetLocation - Pos;
-	float DistanceSqrd = Distance.Dot(Distance);
-	if (DistanceSqrd > 10) {
-		Distance = Distance / sqrtf(DistanceSqrd);
-		ApplyForce(Distance * MoveForce);
-	}
-	else
-	{
-		UpdateAI();
+	//Vector Distance = TargetLocation - Pos;
+	//float DistanceSqrd = Distance.Dot(Distance);
+	//if (DistanceSqrd > 10) {
+	//	Distance = Distance / sqrtf(DistanceSqrd);
+	//	ApplyForce(Distance * MoveForce);
+	//}
+	//else
+	//{
+	//	UpdateAI();
 		//AIUpdateCounter = AIUpdateMax;
+	//}
+	Vector midpoint = Vector();
+	int Count = 0;
+	for (int i = 0; i < worldObj->EntityCount; ++i)
+	{
+		if (worldObj->EntityList[i] != NULL)
+		{
+			if (this != worldObj->EntityList[i]) {
+				if (worldObj->EntityList[i]->Alive)
+				{
+					if (RayCaster.CanSeeEntity(this, worldObj->EntityList[i]))
+					{
+						//Make note of it
+						midpoint += worldObj->EntityList[i]->Pos;
+						++Count;
+					}
+				}
+			}
+		}
 	}
+	midpoint = midpoint / Count;
+	ActionMoveTowards(midpoint);
+	ActionMoveNormal(midpoint);
 	if (AIUpdateCounter++ >= AIUpdateMax)
 	{
-		if (Displacement < 2) 
-		{
-			UpdateAI();
-			Displacement = 0;
-		}	
+		UpdateAI();
 		AIUpdateCounter = 0;
 	}
 }
@@ -93,4 +113,14 @@ void EntityWolf::UpdateAI()
 bool EntityWolf::CanSeeEntity(Entity * entity)
 {
 	return true;
+}
+void EntityWolf::ActionMoveNormal(Vector mid)
+{
+
+}
+void EntityWolf::ActionMoveTowards(Vector mid)
+{
+	Vector delta = mid - Pos;
+	delta = delta / sqrtf(delta.Dot(delta));
+	ApplyForce(delta * MoveTowards * MoveForce);
 }

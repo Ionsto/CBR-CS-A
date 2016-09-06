@@ -84,7 +84,8 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 	}
 	else
 	{
-		NewCase->DeltaMovement = CaseBase[NearbyCases.at(0).CloseCase]->DeltaMovement;
+		NewCase->CopyCaseAction(CaseBase[NearbyCases.at(0).CloseCase]);
+		//NewCase->DeltaMovement = CaseBase[NearbyCases.at(0).CloseCase]->DeltaMovement;
 		//for (int i = 0; i < CaseBase[NearbyCases.at(0).CloseCase]->Moves.size(); ++i)
 		//{
 		//	NewCase->Moves.push_back(CaseBase.at(NearbyCases.at(0).CloseCase)->Moves[i]->CopySelf(NULL));
@@ -97,81 +98,14 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 				//NewCase->RandomiseMoves();
 			//}
 			NewCase->MutateCases(1);
-			//std::cout << "Identical case" << std::endl;
+			std::cout << "Identical case" << std::endl;
 		}
 		else
 		{
 			//Use linear regression of moves
-			float MeanError = 0;
-			int InParamCount = 3;
-			int OutParamCount = 2;
-			int NearbyCasesCount = NearbyCases.size();
-			NewCase->DeltaMovement = Vector();
-			for (int OutParam = 0; OutParam < OutParamCount; ++OutParam)
-			{
-				float InParamRsqrdSum = 0;
-				for (int InParam = 0; InParam < InParamCount; ++InParam)
-				{
-					float xw = 0;
-					float x = 0;
-					float yw = 0;
-					float y = 0;
-					float a = 0;
-					float b = 0;
-					float SSres = 0;
-					float SStotal = 0;
-					float ExpectedY = 0;
-					float rsqd = 0;
-					float ErrorFactor = 0.001;
-					// compute the weighted averages
-					for (int i = 0; i < NearbyCasesCount; i++)
-					{
-						CBRCase * CaseIter = CaseBase[NearbyCases[i].CloseCase];
-						xw += CaseIter->EnviromentStart.GetInputParams(InParam) * DivZero(1, CaseIter->CalculatedValueEnd * ErrorFactor);
-						yw += CaseIter->GetOutputParams(OutParam) * DivZero(1, CaseIter->CalculatedValueEnd * ErrorFactor);
-						x += CaseIter->EnviromentStart.GetInputParams(InParam);
-						y += CaseIter->GetOutputParams(OutParam);
-					}
-					double weightedX = DivZero(xw, x);
-					double weightedY = DivZero(yw, y);
-
-					// compute the gradient and intercept
-					for (int i = 0; i < NearbyCasesCount; i++)
-					{
-						CBRCase * CaseIter = CaseBase[NearbyCases[i].CloseCase];
-						a += (CaseIter->GetOutputParams(OutParam) - weightedY) * (CaseIter->EnviromentStart.GetInputParams(InParam) - weightedX) * CaseIter->CalculatedValueEnd * ErrorFactor;
-						b += (CaseIter->EnviromentStart.GetInputParams(InParam) - weightedX) * (CaseIter->EnviromentStart.GetInputParams(InParam) - weightedX) * CaseIter->CalculatedValueEnd * ErrorFactor;
-					}
-					double gradient = DivZero(a, b);
-					double intercept = (weightedY - weightedX) * gradient;
-					//var string = 'y = ' + Math.round(gradient*100) / 100 + 'x + ' + Math.round(intercept*100) / 100;
-					//var results = [];
-					double Res = 0;
-					for (int i = 0; i < NearbyCasesCount; i++)
-					{
-						CBRCase * CaseIter = CaseBase[NearbyCases[i].CloseCase];
-						ExpectedY = (gradient * CaseIter->EnviromentStart.GetInputParams(InParam)) + intercept;
-						Res = ((CaseIter->GetOutputParams(OutParam)* DivZero(1, CaseIter->CalculatedValueEnd * ErrorFactor)) - weightedY);
-						SSres += Res * Res;
-						Res = ((CaseIter->GetOutputParams(OutParam) * DivZero(1, CaseIter->CalculatedValueEnd * ErrorFactor)) - ExpectedY);
-						SStotal += Res * Res;
-						MeanError += CaseIter->CalculatedValueEnd;
-					}
-					//MeanError = DivZero(MeanError, NearbyCasesCount);
-					rsqd = 1 - DivZero(SSres/yw, SStotal/yw);
-					InParamRsqrdSum += rsqd;
-					//gradient, intercept, MeanError
-					NewCase->GetOutputParams(OutParam) -= rsqd * (intercept + (gradient * NewCase->EnviromentStart.GetInputParams(InParam)));
-					
-				}
-				NewCase->GetOutputParams(OutParam) /= InParamRsqrdSum;
-			}
-			for (int OutParam = 0; OutParam < OutParamCount; ++OutParam)
-			{
-				//NewCase->GetOutputParams(OutParam) = NewCase->GetOutputParams(OutParam);
-			}
-			//NewCase->MutateCases(10);
-			//std::cout << "Weighted case" << std::endl;
+			//AdaptionWeightedLinearRegression(NewCase, NearbyCases);
+			//NewCase->MutateCases(20);
+			std::cout << "Addapted case" << std::endl;
 		}
 	}
 	if (NewCase->CalculatedValueStart - NewCase->CalculatedValueEnd < 0)
@@ -179,6 +113,75 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 		//NewCase->MutateCases(1);
 	}
 	return NewCase;
+}
+void CBRInstance::AdaptionWeightedLinearRegression(CBRCase * NewCase, std::vector<ClosePair> NearbyCases)
+{
+	float MeanError = 0;
+	int InParamCount = 3;
+	int OutParamCount = 2;
+	int NearbyCasesCount = NearbyCases.size();
+	//NewCase->DeltaMovement = Vector();
+	NewCase->MoveNormal = 0;
+	NewCase->MoveTowards = 0;
+	for (int OutParam = 0; OutParam < OutParamCount; ++OutParam)
+	{
+		float InParamRsqrdSum = 0;
+		for (int InParam = 0; InParam < InParamCount; ++InParam)
+		{
+			float xw = 0;
+			float x = 0;
+			float yw = 0;
+			float y = 0;
+			float a = 0;
+			float b = 0;
+			float SSres = 0;
+			float SStotal = 0;
+			float ExpectedY = 0;
+			float rsqd = 0;
+			float ErrorFactor = 0.001;
+			// compute the weighted averages
+			for (int i = 0; i < NearbyCasesCount; i++)
+			{
+				CBRCase * CaseIter = CaseBase[NearbyCases[i].CloseCase];
+				xw += CaseIter->EnviromentStart.GetInputParams(InParam) * DivZero(1, CaseIter->CalculatedValueEnd * ErrorFactor);
+				yw += CaseIter->GetOutputParams(OutParam) * DivZero(1, CaseIter->CalculatedValueEnd * ErrorFactor);
+				x += CaseIter->EnviromentStart.GetInputParams(InParam);
+				y += CaseIter->GetOutputParams(OutParam);
+			}
+			double weightedX = DivZero(xw, x);
+			double weightedY = DivZero(yw, y);
+
+			// compute the gradient and intercept
+			for (int i = 0; i < NearbyCasesCount; i++)
+			{
+				CBRCase * CaseIter = CaseBase[NearbyCases[i].CloseCase];
+				a += (CaseIter->GetOutputParams(OutParam) - weightedY) * (CaseIter->EnviromentStart.GetInputParams(InParam) - weightedX) * CaseIter->CalculatedValueEnd * ErrorFactor;
+				b += (CaseIter->EnviromentStart.GetInputParams(InParam) - weightedX) * (CaseIter->EnviromentStart.GetInputParams(InParam) - weightedX) * CaseIter->CalculatedValueEnd * ErrorFactor;
+			}
+			double gradient = DivZero(a, b);
+			double intercept = (weightedY - weightedX) * gradient;
+			//var string = 'y = ' + Math.round(gradient*100) / 100 + 'x + ' + Math.round(intercept*100) / 100;
+			//var results = [];
+			double Res = 0;
+			for (int i = 0; i < NearbyCasesCount; i++)
+			{
+				CBRCase * CaseIter = CaseBase[NearbyCases[i].CloseCase];
+				ExpectedY = (gradient * CaseIter->EnviromentStart.GetInputParams(InParam)) + intercept;
+				Res = ((CaseIter->GetOutputParams(OutParam)* DivZero(1, CaseIter->CalculatedValueEnd * ErrorFactor)) - weightedY);
+				SSres += Res * Res;
+				Res = ((CaseIter->GetOutputParams(OutParam) * DivZero(1, CaseIter->CalculatedValueEnd * ErrorFactor)) - ExpectedY);
+				SStotal += Res * Res;
+				MeanError += CaseIter->CalculatedValueEnd;
+			}
+			//MeanError = DivZero(MeanError, NearbyCasesCount);
+			rsqd = 1 - DivZero(SSres / yw, SStotal / yw);
+			InParamRsqrdSum += rsqd;
+			//gradient, intercept, MeanError
+			NewCase->GetOutputParams(OutParam) -= rsqd * (intercept + (gradient * NewCase->EnviromentStart.GetInputParams(InParam)));
+
+		}
+		NewCase->GetOutputParams(OutParam) /= InParamRsqrdSum;
+	}
 }
 //Needs to minimise
 float CBRInstance::CalculateValue(CBREnvironment a)

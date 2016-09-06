@@ -11,10 +11,12 @@ class EntityWolf :
 public:
 	CBRInstance * AIInstance;
 	CBRCase * CurrentCase;
-	Vector TargetLocation;
+	//Vector TargetLocation;
 	int AIUpdateCounter;
 	int AIUpdateMax;
 	float Displacement;
+	float MoveTowards;
+	float MoveNormal;
 	//Technicaly a normal gun, but utilises the funcitons in the item
 	std::queue<AIAction *> AIStack;
 	EntityWolf(World * world, Vector pos = Vector());
@@ -23,5 +25,7 @@ public:
 	virtual void UpdateAI();
 	void ClearAIStack();
 	bool CanSeeEntity(Entity * ent);
+	void ActionMoveTowards(Vector midpoint);
+	void ActionMoveNormal(Vector midpoint);
 };
 

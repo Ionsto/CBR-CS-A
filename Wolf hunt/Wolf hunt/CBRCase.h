@@ -13,7 +13,9 @@ public:
 	float CalculatedValueStart;
 	//Enviroment
 	//case should contain the Solution
-	Vector DeltaMovement;
+	//Vector DeltaMovement;
+	float MoveTowards;
+	float MoveNormal;
 	//std::vector<AIAction*> Moves;
 	//case should contain the Result
 	//This should have the total outcome, and also the calculated outcome of the situation
@@ -29,6 +31,7 @@ public:
 	void RandomiseMoves();
 	void ApplyActionsToEntity(EntityWolf * entity); 
 	void MutateCases(float subfactor);
+	void CopyCaseAction(CBRCase*c);
 	friend std::ostream& operator<<(std::ostream& ios, const CBRCase& cbrc);
 	friend std::istream& operator>>(std::istream& ios, CBRCase& cbrc);
 };

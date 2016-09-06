@@ -8,7 +8,9 @@ CBRCase::CBRCase()
 	CalculatedValueEnd = 0;
 	CalculatedValueStart = 0;
 	ExecutionTime = 0;
-	DeltaMovement = Vector();
+	//DeltaMovement = Vector();
+	MoveTowards = 0;
+	MoveNormal = 0;
 	DeltaValue = 0;
 }
 
@@ -58,14 +60,14 @@ float& CBRCase::GetOutputParams(int id)
 	switch (id)
 	{
 	case 0:
-		return DeltaMovement.Y;
+		return MoveNormal;
 	case 1:
-		return DeltaMovement.X;
+		return MoveTowards;
 	}
 }
 void CBRCase::MutateCases(float subfactor)
 {
-	float MaxMoveRand = 1;
+	/*float MaxMoveRand = 1;
 	float Factor = MaxMoveRand * subfactor * (((rand() % 200) / 100.0) - 1);
 	DeltaMovement.X += Factor;
 	Factor = MaxMoveRand * subfactor * (((rand() % 200) / 100.0) - 1);
@@ -78,15 +80,24 @@ void CBRCase::MutateCases(float subfactor)
 		DeltaMovement.Y = copysignf(MaxMove,DeltaMovement.Y);
 	}
 	if (isnan(DeltaMovement.X)) { DeltaMovement.X = 0; }
-	if (isnan(DeltaMovement.Y)) { DeltaMovement.Y = 0; }
-	//for (int i = 0; i < Moves.size(); ++i)
-	//{
-	//	(Moves[i])->Mutate(Factor);
-	//}
+	if (isnan(DeltaMovement.Y)) { DeltaMovement.Y = 0; }*/
+	float MaxMoveRand = 0.1;
+	float Factor = MaxMoveRand * subfactor * (((rand() % 200) / 100.0) - 1);
+	MoveTowards += Factor;
+	Factor = MaxMoveRand * subfactor * (((rand() % 200) / 100.0) - 1);
+	MoveNormal += Factor;
+
+	if (abs(MoveTowards) > 1) {
+		MoveTowards = copysignf(1, MoveTowards);
+	}
+	if (abs(MoveNormal) > 1) {
+		MoveNormal = copysignf(1, MoveNormal);
+	}
+
 }
 void CBRCase::ApplyActionsToEntity(EntityWolf * entity)
 {
-	entity->TargetLocation = entity->Pos + DeltaMovement;
+	//entity->TargetLocation = entity->Pos + DeltaMovement;
 	/*entity->ClearAIStack();
 	//std::cout << "Starting ai routine" << std::endl;
 	for (int i = 0; i < Moves.size(); ++i)
@@ -100,8 +111,8 @@ std::ostream& operator<<(std::ostream& ios, const CBRCase& cbrc)
 	ios << cbrc.CalculatedValueEnd \
 	<< cbrc.CalculatedValueStart\
 	<< cbrc.Validity\
-	<< cbrc.DeltaMovement.X\
-	<< cbrc.DeltaMovement.Y\
+	<< cbrc.MoveNormal\
+	<< cbrc.MoveTowards\
 	<< cbrc.EnviromentStart\
 	<< cbrc.EnviromentEnd;
 	return ios;
@@ -111,9 +122,13 @@ std::istream& operator>>(std::istream& ios, CBRCase& cbrc)
 	ios >> cbrc.CalculatedValueEnd\
 		>> cbrc.CalculatedValueStart \
 		>> cbrc.Validity \
-		>> cbrc.DeltaMovement.X \
-		>> cbrc.DeltaMovement.Y \
+		>> cbrc.MoveNormal \
+		>> cbrc.MoveTowards \
 		>> cbrc.EnviromentStart \
 		>> cbrc.EnviromentEnd;
 	return ios;
+}
+void CBRCase::CopyCaseAction(CBRCase*c) {
+	MoveTowards = c->MoveTowards;
+	MoveNormal = c->MoveNormal;
 }
