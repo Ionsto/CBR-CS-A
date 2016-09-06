@@ -84,7 +84,6 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 	}
 	else
 	{
-		NewCase->CopyCaseAction(CaseBase[NearbyCases.at(0).CloseCase]);
 		//NewCase->DeltaMovement = CaseBase[NearbyCases.at(0).CloseCase]->DeltaMovement;
 		//for (int i = 0; i < CaseBase[NearbyCases.at(0).CloseCase]->Moves.size(); ++i)
 		//{
@@ -92,11 +91,16 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 		//}
 		if (NearbyCases.at(0).NewDist < IdenticalCaseThreshold)
 		{
+			NewCase->CopyCaseAction(CaseBase[NearbyCases.at(0).CloseCase]);
 			//NewCase->MutateCases(CaseBase[NearbyCases.at(0).CloseCase]->CalculatedValueEnd * 0.01);
 			//if (rand() % 2 == 0)
 			//{
 				//NewCase->RandomiseMoves();
 			//}
+			if (CaseBase[NearbyCases.at(0).CloseCase]->DeltaValue >= 0)
+			{
+				NewCase->MutateCases(10);
+			}
 			NewCase->MutateCases(1);
 			std::cout << "Identical case" << std::endl;
 		}
@@ -117,14 +121,16 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 }
 void CBRInstance::AdaptionMean(CBRCase * NewCase, std::vector<ClosePair> NearbyCases)
 {
-	int KClosest = 3;
+	int KClosest = fmin(10,NearbyCases.size());
 	int OutParamCount = 2;
-	for (int i = 0; i < KClosest;++i)
+	for (int OutParam = 0; OutParam < OutParamCount; ++OutParam)
 	{
-		for (int OutParam = 0; OutParam < OutParamCount; ++OutParam)
+		NewCase->GetOutputParams(OutParam) = 0;
+		for (int i = 0; i < KClosest;++i)
 		{
-
+			NewCase->GetOutputParams(OutParam) += CaseBase[NearbyCases[i].CloseCase]->GetOutputParams(OutParam);
 		}
+		NewCase->GetOutputParams(OutParam) /= KClosest;
 	}
 }
 void CBRInstance::AdaptionWeightedLinearRegression(CBRCase * NewCase, std::vector<ClosePair> NearbyCases)
