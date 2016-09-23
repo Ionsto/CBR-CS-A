@@ -1,0 +1,74 @@
+﻿  AIAction.cpp
+  AIActionMove.cpp
+AIActionMove.cpp(60): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+AIActionMove.cpp(61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  CBRCase.cpp
+CBRCase.cpp(84): warning C4305: 'initializing': truncation from 'double' to 'float'
+CBRCase.cpp(85): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+CBRCase.cpp(87): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  CBRDiskManager.cpp
+CBRDiskManager.cpp(21): warning C4018: '<': signed/unsigned mismatch
+  CBREnvironment.cpp
+CBREnvironment.cpp(22): warning C4305: 'initializing': truncation from '__int64' to 'float'
+  CBRInstance.cpp
+CBRInstance.cpp(69): warning C4018: '<': signed/unsigned mismatch
+CBRInstance.cpp(126): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+CBRInstance.cpp(175): warning C4305: 'initializing': truncation from 'double' to 'float'
+CBRInstance.cpp(180): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+CBRInstance.cpp(181): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+CBRInstance.cpp(192): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+CBRInstance.cpp(193): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+CBRInstance.cpp(203): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+CBRInstance.cpp(205): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+CBRInstance.cpp(207): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+CBRInstance.cpp(211): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+CBRInstance.cpp(214): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+CBRInstance.cpp(241): warning C4018: '<': signed/unsigned mismatch
+  Entity.cpp
+Entity.cpp(14): warning C4305: '=': truncation from 'double' to 'float'
+  EntityHerd.cpp
+  EntityWolf.cpp
+EntityWolf.cpp(85): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+  EntityLiving.cpp
+  EntityPlayer.cpp
+EntityPlayer.cpp(27): warning C4305: 'initializing': truncation from 'double' to 'float'
+EntityPlayer.cpp(29): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+EntityPlayer.cpp(34): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+EntityPlayer.cpp(48): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+EntityPlayer.cpp(52): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+EntityPlayer.cpp(56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+EntityPlayer.cpp(60): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  GameManager.cpp
+GameManager.cpp(12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+GameManager.cpp(35): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+GameManager.cpp(36): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+GameManager.cpp(60): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+GameManager.cpp(61): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+GameManager.cpp(130): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+GameManager.cpp(131): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+GameManager.cpp(140): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Item.cpp
+Item.cpp(28): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Item.cpp(53): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Item.cpp(31): warning C4101: 't': unreferenced local variable
+Item.cpp(69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Item.cpp(106): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+Item.cpp(110): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Item.cpp(160): warning C4018: '<': signed/unsigned mismatch
+Item.cpp(191): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  ItemRayCaster.cpp
+ItemRayCaster.cpp(20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+ItemRayCaster.cpp(50): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+  Vector.cpp
+  World.cpp
+World.cpp(42): warning C4018: '<': signed/unsigned mismatch
+World.cpp(109): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+World.cpp(109): warning C4244: 'initializing': conversion from 'double' to 'const float', possible loss of data
+World.cpp(123): warning C4018: '<': signed/unsigned mismatch
+  Generating code
+c:\users\mpfs\contacts\documents\github\cbr-cs-a\wolf hunt\wolf hunt\cbrcase.cpp(67): warning C4715: 'CBRCase::GetOutputParams': not all control paths return a value
+  All 657 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Wolf hunt.vcxproj -> C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Wolf hunt\Release\Wolf hunt.exe
+  Wolf hunt.vcxproj -> C:\Users\mpfs\Contacts\Documents\GitHub\CBR-CS-A\Wolf hunt\Release\Wolf hunt.pdb (Full PDB)

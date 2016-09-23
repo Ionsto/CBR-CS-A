@@ -219,6 +219,7 @@ void GameManager::InitWorld()
 {
 	if (WorldObj != NULL)
 	{
+		WorldObj->AIInstance->Load("Data.txt");
 		delete WorldObj;
 	}
 	WorldObj = new World(this);
@@ -240,4 +241,5 @@ void GameManager::InitWorld()
 	//WorldObj->EntityList[1]->SetPosition(Vector(50, 90));
 	//WorldObj->AddEntity(new EntityFlashTurret(WorldObj,Vector(100,100)));
 	//WorldObj->AddEntity(new EntityGuard(WorldObj,Vector(80,80)));
+	WorldObj->AIInstance->Save("Data.txt");
 }

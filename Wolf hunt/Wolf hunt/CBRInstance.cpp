@@ -1,4 +1,5 @@
 #include "CBRInstance.h"
+#include "CBRDiskManager.h"
 #include <vector>
 #include <algorithm>
 #define DivZero(a,b) (b == 0 ? a/0.0001 : a/b)
@@ -55,11 +56,11 @@ void CBRInstance::WeightedLinearRegression(std::vector<CBRCase*> cases, int para
 }
 void CBRInstance::Save(std::string loc)
 {
-
+	this->CaseBaseLoader->SaveCaseBase(loc,this);
 }
 void CBRInstance::Load(std::string loc)
 {
-
+	this->CaseBaseLoader->SaveCaseBase(loc,this);
 }
 CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 {
@@ -122,7 +123,7 @@ CBRCase * CBRInstance::GetCase(CBREnvironment sitrep)
 }
 void CBRInstance::AdaptionMean(CBRCase * NewCase, std::vector<ClosePair> NearbyCases)
 {
-	int KClosest = fmin(10,NearbyCases.size());
+	int KClosest = fmin(50,NearbyCases.size());
 	int OutParamCount = 2;
 	for (int OutParam = 0; OutParam < OutParamCount; ++OutParam)
 	{
@@ -140,8 +141,8 @@ void CBRInstance::AdaptionMean(CBRCase * NewCase, std::vector<ClosePair> NearbyC
 		NewCase->GetOutputParams(OutParam) = 0;
 		for (int i = 0; i < KClosest;++i)
 		{
-			SumWeight += (1 / CaseBase[NearbyCases[i].CloseCase]->DeltaValue + LowestWeight);
-			NewCase->GetOutputParams(OutParam) += CaseBase[NearbyCases[i].CloseCase]->GetOutputParams(OutParam) * (1 / CaseBase[NearbyCases[i].CloseCase]->DeltaValue + LowestWeight);
+			SumWeight += abs(1 / CaseBase[NearbyCases[i].CloseCase]->DeltaValue + LowestWeight);
+			NewCase->GetOutputParams(OutParam) += CaseBase[NearbyCases[i].CloseCase]->GetOutputParams(OutParam) * (1 / -CaseBase[NearbyCases[i].CloseCase]->DeltaValue + LowestWeight);
 		}
 		NewCase->GetOutputParams(OutParam) /= KClosest;
 		NewCase->GetOutputParams(OutParam) /= SumWeight;

@@ -2,9 +2,9 @@
 #include <vector>
 #include "CBRCase.h"
 #include "CBREnvironment.h"
-#include "CBRDiskManager.h"
 #include "CBRWeight.h"
 #include <iostream>
+class CBRDiskManager;
 class CBRInstance
 {
 public:
