@@ -113,11 +113,13 @@
     <ClCompile Include="GameInstance.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerConsole.cpp" />
     <ClCompile Include="PokemonBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameInstance.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerConsole.h" />
     <ClInclude Include="PokemonBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
