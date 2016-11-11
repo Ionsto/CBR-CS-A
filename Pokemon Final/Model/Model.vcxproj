@@ -115,12 +115,16 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerConsole.cpp" />
     <ClCompile Include="PokemonBase.cpp" />
+    <ClCompile Include="PokemonMove.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameInstance.h" />
+    <ClInclude Include="MoveOptions.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerConsole.h" />
     <ClInclude Include="PokemonBase.h" />
+    <ClInclude Include="PokemonMove.h" />
+    <ClInclude Include="TypeOptions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

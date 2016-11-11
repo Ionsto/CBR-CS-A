@@ -7,5 +7,6 @@ public:
 	PlayerConsole();
 	~PlayerConsole();
 	virtual int GetMove() override;
+	virtual void Update() override;
 };
 
