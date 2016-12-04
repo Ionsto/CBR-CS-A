@@ -1,9 +1,12 @@
 #include "PlayerConsole.h"
 #include <iostream>
+#include "PokemonPikachu.h"
 
 
 PlayerConsole::PlayerConsole()
 {
+	MyPokemon[0] = std::make_unique<PokemonPikachu>();
+	ActivePokemon = 0;
 }
 
 
@@ -40,6 +43,13 @@ int PlayerConsole::GetMove()
 	}
 	else
 	{
+		std::cout << "Select move" << std::endl;
+		int SelectedMove = -1;
+		while (SelectedMove == -1)
+		{
+			std::cin >> SelectedMove;
+		}
+		return SelectedMove;
 	}
 	return 0;
 }

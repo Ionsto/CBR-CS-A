@@ -15,9 +15,11 @@ public:
 };
 
 class PokemonMoveTackle : public PokemonMove {
+public:
 	PokemonMoveTackle();
 };
 class PokemonMoveQuickAttack : public PokemonMove {
+public:
 	PokemonMoveQuickAttack();
 };
 

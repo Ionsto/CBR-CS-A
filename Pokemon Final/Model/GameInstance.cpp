@@ -6,6 +6,7 @@ GameInstance::GameInstance(std::unique_ptr<Player> A, std::unique_ptr<Player> B)
 {
 	Players[0] = std::move(A);
 	Players[1] = std::move(B);
+	DisplayCallback = NULL;
 	Finished = false;
 }
 
@@ -22,7 +23,8 @@ GameInstance::~GameInstance()
 //Private
 float GameInstance::CalculateDamage(PokemonBase * Attacker, PokemonBase * Defender, int Move)
 {
-	return 0;
+	//TODO FIX
+	return Attacker->MoveSet[Move]->BaseDamage;
 }
 void GameInstance::ResolveMoves(GameInstance::MovePairs Moves)
 {
@@ -35,29 +37,49 @@ void GameInstance::ResolveMoves(GameInstance::MovePairs Moves)
 		MoveSpeed[0] = 0;
 		Players[0]->ActivePokemon = Moves.A && MoveTypesOptionSelector;
 	}
+	else
+	{
+		MoveSpeed[0] = Players[0]->GetActivePokemon()->MoveSet[Moves.A && MoveTypesOptionSelector]->AttackSpeed;
+	}
 	if (Moves.B && MoveTypesMoveSelector == MoveTypes::ChoosePokemon)
 	{
 		MoveSpeed[0] = 0;
 		Players[1]->ActivePokemon = Moves.B && MoveTypesOptionSelector;
 	}
+	else
+	{
+		MoveSpeed[1] = Players[1]->GetActivePokemon()->MoveSet[Moves.B && MoveTypesOptionSelector]->AttackSpeed;
+	}
 	if ((Moves.A && MoveTypesMoveSelector == MoveTypes::ChoosePokemon) && (Moves.B && MoveTypesMoveSelector == MoveTypes::ChoosePokemon))
 	{
 		//Both players swapped in pokemon symultaiusly.
+		//Nothing else happens
 		return;
 	}
 	//Edgecase, the other player has swapped in a pokemon -> Hit them straight away
 	if (MoveSpeed[0] == 0)
 	{
 		//Resolve 0
+		Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B && MoveTypesOptionSelector));
 		return;
 	}
-	if (MoveSpeed[0] == 0)
+	if (MoveSpeed[1] == 0)
 	{
 		//Resolve 1
+		Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A && MoveTypesOptionSelector));
 		return;
 	}
 	//At this point in execution we know both players are going for attack moves, and we need to resolve order of operation
-	//MoveSpeed[0] = Players[0]->GetActivePokemon()->
+	if (MoveSpeed[0] > MoveSpeed[1])
+	{
+		Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A && MoveTypesOptionSelector));
+		Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B && MoveTypesOptionSelector));
+	}
+	else
+	{
+		Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B && MoveTypesOptionSelector));
+		Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A && MoveTypesOptionSelector));
+	}
 }
 GameInstance::MovePairs GameInstance::GetPlayerMoves()
 {
@@ -78,5 +100,8 @@ void GameInstance::Update()
 	if (Players[0]->Alive == false || Players[1]->Alive == false)
 	{
 		Finished = true;
+	}
+	if (DisplayCallback != NULL) {
+		DisplayCallback(this, Players);
 	}
 }

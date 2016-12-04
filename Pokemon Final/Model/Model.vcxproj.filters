@@ -16,6 +16,12 @@
     <Filter Include="Header Files\Definition">
       <UniqueIdentifier>{11f25ed1-c954-48cf-916e-5f94b5b17cbf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Pokemon">
+      <UniqueIdentifier>{82b52339-240a-463e-ac8a-d04265e43e80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Pokemon">
+      <UniqueIdentifier>{cb64e2a7-8f5d-4239-8a2d-27a570e86ba9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -27,14 +33,17 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PokemonBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerConsole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PokemonMove.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PokemonPikachu.cpp">
+      <Filter>Source Files\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="PokemonBase.cpp">
+      <Filter>Source Files\Pokemon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -42,9 +51,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PokemonBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayerConsole.h">
@@ -58,6 +64,12 @@
     </ClInclude>
     <ClInclude Include="TypeOptions.h">
       <Filter>Header Files\Definition</Filter>
+    </ClInclude>
+    <ClInclude Include="PokemonBase.h">
+      <Filter>Header Files\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="PokemonPikachu.h">
+      <Filter>Header Files\Pokemon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
