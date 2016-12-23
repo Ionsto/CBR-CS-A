@@ -7,6 +7,9 @@ static void DisplayConsole(GameInstance * gi, std::unique_ptr<Player> * Players)
 	std::cout << "Round Played" << std::endl;
 	if (Players[0]->ActivePokemon != -1) {
 		std::cout << "Player 0:" << Players[0]->GetActivePokemon()->PokemonType << " Health:" << Players[0]->GetActivePokemon()->Health << std::endl;
+	}
+	else
+	{
 		std::cout << "Player 0 is out" << std::endl;
 	}
 	if (Players[1]->ActivePokemon != -1) {
@@ -16,6 +19,7 @@ static void DisplayConsole(GameInstance * gi, std::unique_ptr<Player> * Players)
 	{
 		std::cout << "Player 1 is out" << std::endl;
 	}
+	std::cout << "---------------------------------------" << std::endl;
 }
 int main(int argc, char **args)
 {

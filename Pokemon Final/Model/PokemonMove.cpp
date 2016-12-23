@@ -20,6 +20,7 @@ PokemonMove::~PokemonMove()
 
 PokemonMoveQuickAttack::PokemonMoveQuickAttack()
 {
+	Name = "Quick attack";
 	BaseDamage = 20;
 	AttackSpeed = 1;
 	MaxUses = 4;
@@ -27,6 +28,7 @@ PokemonMoveQuickAttack::PokemonMoveQuickAttack()
 }
 PokemonMoveTackle::PokemonMoveTackle()
 {
+	Name = "Tackle";
 	BaseDamage = 40;
 	AttackSpeed = 5;
 	AttackType = TypeTypes::Normal;

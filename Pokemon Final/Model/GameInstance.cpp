@@ -24,7 +24,9 @@ GameInstance::~GameInstance()
 float GameInstance::CalculateDamage(PokemonBase * Attacker, PokemonBase * Defender, int Move)
 {
 	//TODO FIX
-	return Attacker->MoveSet[Move]->BaseDamage;
+	float RandomFactor = 0.8 + ((rand() % 3)/10);
+
+	return ((Attacker->Attack/Defender->Defense) * Attacker->MoveSet[Move]->BaseDamage + 2.0) * RandomFactor;
 }
 void GameInstance::ResolveMoves(GameInstance::MovePairs Moves)
 {
@@ -70,15 +72,21 @@ void GameInstance::ResolveMoves(GameInstance::MovePairs Moves)
 		return;
 	}
 	//At this point in execution we know both players are going for attack moves, and we need to resolve order of operation
-	if (MoveSpeed[0] > MoveSpeed[1])
+	if (MoveSpeed[0] < MoveSpeed[1])
 	{
 		Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A && MoveTypesOptionSelector));
-		Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B && MoveTypesOptionSelector));
+		if (Players[1]->GetActivePokemon()->Health != 0)
+		{
+			Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B && MoveTypesOptionSelector));
+		}
 	}
 	else
 	{
 		Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B && MoveTypesOptionSelector));
-		Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A && MoveTypesOptionSelector));
+		if (Players[0]->GetActivePokemon()->Health != 0)
+		{
+			Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A && MoveTypesOptionSelector));
+		}
 	}
 }
 GameInstance::MovePairs GameInstance::GetPlayerMoves()

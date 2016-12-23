@@ -36,13 +36,13 @@
     <ClCompile Include="PlayerConsole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PokemonMove.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PokemonPikachu.cpp">
       <Filter>Source Files\Pokemon</Filter>
     </ClCompile>
     <ClCompile Include="PokemonBase.cpp">
+      <Filter>Source Files\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="PokemonMove.cpp">
       <Filter>Source Files\Pokemon</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,9 +56,6 @@
     <ClInclude Include="PlayerConsole.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PokemonMove.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MoveOptions.h">
       <Filter>Header Files\Definition</Filter>
     </ClInclude>
@@ -69,6 +66,9 @@
       <Filter>Header Files\Pokemon</Filter>
     </ClInclude>
     <ClInclude Include="PokemonPikachu.h">
+      <Filter>Header Files\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="PokemonMove.h">
       <Filter>Header Files\Pokemon</Filter>
     </ClInclude>
   </ItemGroup>

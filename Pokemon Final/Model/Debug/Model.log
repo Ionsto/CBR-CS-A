@@ -1,12 +1,10 @@
-﻿  main.cpp
-  GameInstance.cpp
+﻿  GameInstance.cpp
 d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(27): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
 d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(63): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(69): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(75): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(76): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(80): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(81): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  Generating Code...
+d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(78): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(83): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(86): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   Model.vcxproj -> D:\Github\CBR-CS-A\Pokemon Final\Debug\Model.exe
   Model.vcxproj -> D:\Github\CBR-CS-A\Pokemon Final\Debug\Model.pdb (Partial PDB)

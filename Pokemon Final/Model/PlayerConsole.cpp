@@ -44,6 +44,10 @@ int PlayerConsole::GetMove()
 	else
 	{
 		std::cout << "Select move" << std::endl;
+		for (int i = 0; i < 4; ++i)
+		{
+			std::cout << i << ":" << GetActivePokemon()->MoveSet[i]->Name << std::endl;
+		}
 		int SelectedMove = -1;
 		while (SelectedMove == -1)
 		{
