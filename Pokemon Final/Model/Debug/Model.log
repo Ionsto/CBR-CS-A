@@ -1,10 +1,273 @@
-﻿  GameInstance.cpp
-d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(27): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(63): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(69): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(75): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(78): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(83): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(86): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  Model.vcxproj -> D:\Github\CBR-CS-A\Pokemon Final\Debug\Model.exe
-  Model.vcxproj -> D:\Github\CBR-CS-A\Pokemon Final\Debug\Model.pdb (Partial PDB)
+﻿  main.cpp
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(67): error C2065: 'Ineffective': undeclared identifier
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(44): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(54): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(55): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(58): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(60): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(62): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(64): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(66): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(68): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(69): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(72): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(74): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(76): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(78): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(80): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(82): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(83): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(86): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(88): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(90): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(92): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(94): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(96): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(97): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(100): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(102): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(104): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(106): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(108): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(110): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(111): warning C4060: switch statement contains no 'case' or 'default' labels
+  PokemonPikachu.cpp
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(67): error C2065: 'Ineffective': undeclared identifier
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(44): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(54): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(55): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(58): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(60): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(62): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(64): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(66): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(68): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(69): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(72): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(74): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(76): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(78): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(80): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(82): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(83): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(86): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(88): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(90): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(92): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(94): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(96): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(97): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(100): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(102): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(104): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(106): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(108): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(110): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(111): warning C4060: switch statement contains no 'case' or 'default' labels
+  PokemonMove.cpp
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(67): error C2065: 'Ineffective': undeclared identifier
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(44): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(54): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(55): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(58): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(60): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(62): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(64): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(66): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(68): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(69): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(72): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(74): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(76): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(78): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(80): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(82): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(83): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(86): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(88): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(90): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(92): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(94): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(96): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(97): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(100): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(102): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(104): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(106): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(108): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(110): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(111): warning C4060: switch statement contains no 'case' or 'default' labels
+  PokemonMagikarp.cpp
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(67): error C2065: 'Ineffective': undeclared identifier
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(44): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(54): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(55): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(58): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(60): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(62): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(64): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(66): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(68): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(69): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(72): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(74): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(76): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(78): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(80): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(82): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(83): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(86): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(88): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(90): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(92): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(94): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(96): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(97): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(100): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(102): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(104): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(106): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(108): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(110): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(111): warning C4060: switch statement contains no 'case' or 'default' labels
+  PokemonBase.cpp
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(67): error C2065: 'Ineffective': undeclared identifier
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(44): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(54): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(55): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(58): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(60): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(62): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(64): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(66): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(68): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(69): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(72): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(74): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(76): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(78): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(80): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(82): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(83): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(86): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(88): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(90): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(92): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(94): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(96): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(97): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(100): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(102): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(104): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(106): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(108): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(110): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(111): warning C4060: switch statement contains no 'case' or 'default' labels
+  PlayerConsole.cpp
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(67): error C2065: 'Ineffective': undeclared identifier
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(44): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(54): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(55): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(58): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(60): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(62): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(64): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(66): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(68): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(69): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(72): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(74): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(76): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(78): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(80): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(82): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(83): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(86): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(88): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(90): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(92): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(94): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(96): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(97): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(100): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(102): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(104): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(106): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(108): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(110): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(111): warning C4060: switch statement contains no 'case' or 'default' labels
+  Player.cpp
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(67): error C2065: 'Ineffective': undeclared identifier
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(44): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(54): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(55): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(58): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(60): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(62): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(64): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(66): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(68): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(69): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(72): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(74): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(76): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(78): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(80): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(82): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(83): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(86): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(88): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(90): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(92): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(94): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(96): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(97): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(100): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(102): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(104): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(106): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(108): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(110): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(111): warning C4060: switch statement contains no 'case' or 'default' labels
+  GameInstance.cpp
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(67): error C2065: 'Ineffective': undeclared identifier
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(44): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(54): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(55): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(58): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(60): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(62): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(64): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(66): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(68): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(69): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(72): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(74): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(76): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(78): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(80): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(82): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(83): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(86): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(88): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(90): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(92): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(94): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(96): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(97): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(100): error C2045: 'Normal': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(102): error C2045: 'Ground': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(104): error C2045: 'Water': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(106): error C2045: 'Electric': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(108): error C2045: 'Grass': label redefined
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(110): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\typeoptions.h(111): warning C4060: switch statement contains no 'case' or 'default' labels
+d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(29): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(65): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(71): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(77): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(80): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(85): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+d:\github\cbr-cs-a\pokemon final\model\gameinstance.cpp(88): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Generating Code...

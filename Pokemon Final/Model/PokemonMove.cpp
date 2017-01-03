@@ -33,3 +33,10 @@ PokemonMoveTackle::PokemonMoveTackle()
 	AttackSpeed = 5;
 	AttackType = TypeTypes::Normal;
 }
+PokemonMoveShock::PokemonMoveShock()
+{
+	Name = "Shock";
+	BaseDamage = 40;
+	AttackSpeed = 5;
+	AttackType = TypeTypes::Normal;
+}

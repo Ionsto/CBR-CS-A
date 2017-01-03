@@ -33,36 +33,36 @@ Effective:
 //Hacky solution to a lookup table that is static
 static float GetMultiplier(int AttackerType,int DefenseType)
 {
-	const float Effective = 2;
-	const float Normal = 1;
-	const float Ineffective = 0.5;
+	const float MultEffective = 2;
+	const float MultNormal = 1;
+	const float MultIneffective = 0.5;
 	switch (AttackerType)
 	{
-	Normal:
+	(int)(TypeTypes::Normal):
 		switch (DefenseType)
 		{
-		Normal:
-			return Normal;
+		TypeTypes::Normal:
+			return MultNormal;
 		Ground:
-			return Normal;
+			return MultNormal;
 		Water:
-			return Normal;
+			return MultNormal;
 		Electric:
-			return Normal;
+			return MultNormal;
 		Grass:
-			return Normal;
+			return MultNormal;
 		}
 	Ground:
 		switch (DefenseType)
 		{
 		Normal:
-			return Normal;
+			return MultNormal;
 		Ground:
-			return Normal;
+			return MultNormal;
 		Water:
-			return Normal;
+			return MultNormal;
 		Electric:
-			return Effective;
+			return MultEffective;
 		Grass:
 			return Ineffective;
 		}
@@ -70,43 +70,43 @@ static float GetMultiplier(int AttackerType,int DefenseType)
 		switch (DefenseType)
 		{
 		Normal:
-			return Normal;
+			return MultNormal;
 		Ground:
-			return Normal;
+			return MultNormal;
 		Water:
-			return Normal;
+			return MultNormal;
 		Electric:
-			return Normal;
+			return MultIneffective;
 		Grass:
-			return Normal;
+			return MultIneffective;
 		}
 	Electric:
 		switch (DefenseType)
 		{
 		Normal:
-			return Normal;
+			return MultNormal;
 		Ground:
-			return Normal;
+			return MultIneffective;
 		Water:
-			return Normal;
+			return MultEffective;
 		Electric:
-			return Normal;
+			return MultIneffective;
 		Grass:
-			return Normal;
+			return MultNormal;
 		}
 	Grass:
 		switch (DefenseType)
 		{
 		Normal:
-			return Normal;
+			return MultNormal;
 		Ground:
-			return Normal;
+			return MultNormal;
 		Water:
-			return Normal;
+			return MultNormal;
 		Electric:
-			return Normal;
+			return MultNormal;
 		Grass:
-			return Normal;
+			return MultEffective;
 		}
 	}
 }

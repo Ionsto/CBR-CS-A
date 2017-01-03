@@ -115,6 +115,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerConsole.cpp" />
     <ClCompile Include="PokemonBase.cpp" />
+    <ClCompile Include="PokemonMagikarp.cpp" />
     <ClCompile Include="PokemonMove.cpp" />
     <ClCompile Include="PokemonPikachu.cpp" />
   </ItemGroup>
@@ -124,6 +125,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerConsole.h" />
     <ClInclude Include="PokemonBase.h" />
+    <ClInclude Include="PokemonMagikarp.h" />
     <ClInclude Include="PokemonMove.h" />
     <ClInclude Include="PokemonPikachu.h" />
     <ClInclude Include="TypeOptions.h" />

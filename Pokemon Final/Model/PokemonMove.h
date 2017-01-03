@@ -25,3 +25,8 @@ public:
 	PokemonMoveQuickAttack();
 };
 
+class PokemonMoveShock : public PokemonMove {
+public:
+	PokemonMoveShock();
+};
+

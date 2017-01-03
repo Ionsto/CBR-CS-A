@@ -45,6 +45,9 @@
     <ClCompile Include="PokemonMove.cpp">
       <Filter>Source Files\Pokemon</Filter>
     </ClCompile>
+    <ClCompile Include="PokemonMagikarp.cpp">
+      <Filter>Source Files\Pokemon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameInstance.h">
@@ -70,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="PokemonMove.h">
       <Filter>Header Files\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="PokemonMagikarp.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
