@@ -11,9 +11,10 @@ CBRInstance::~CBRInstance()
 /*
 -First find nearest case
 */
-void CBRInstance::GetMove(CBREnviroment * inputenv)
+void CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 {
 	//
+	CurrentCase->StartEnviroment = std::move(startenv);
 	if(CaseBase.IsEmpty())
 	{
 		//Make a random move
@@ -26,7 +27,8 @@ void CBRInstance::GetMove(CBREnviroment * inputenv)
 	}
 }
 
-void CBRInstance::ResolveAnswer(CBREnviroment * finalenv)
+void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 {
-	CurrentCase->
+	CurrentCase->EndEnviroment = std::move(finalenv);
+	CurrentCase->CalcuateUtility();
 }
