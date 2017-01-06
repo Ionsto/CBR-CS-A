@@ -1,0 +1,5 @@
+
+class CBREnviroment{
+	CBREnviroment();
+	~CBREnviroment();
+};
