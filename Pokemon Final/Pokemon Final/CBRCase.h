@@ -10,6 +10,6 @@ public:
 	CBRCase();
 	~CBRCase();
 	void CalculateUtility();
-	
+	float CalculateFitness(CBREnviroment * env);
 };
 
