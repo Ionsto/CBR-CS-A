@@ -9,6 +9,7 @@ public:
 	float UtiltityValue;
 	CBRCase();
 	~CBRCase();
+	void GenerateRandomMove();
 	void CalculateUtility();
 	float CalculateFitness(CBREnviroment * env);
 };
