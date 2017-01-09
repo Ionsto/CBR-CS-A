@@ -7,6 +7,9 @@ public:
 	int Move;
 	//This is a function of how effective the case was at improving 
 	float UtiltityValue;
+	//Exploration vs exploitation is a 
+	int Exploitation;
+	int Exploration;
 	CBRCase();
 	~CBRCase();
 	void GenerateRandomMove();
