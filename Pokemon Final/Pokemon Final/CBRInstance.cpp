@@ -18,12 +18,21 @@ void CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 	if(CaseBase.IsEmpty())
 	{
 		//Make a random move
-		
+		CurrentCase->GenerateRandomMove();
+		return CurrentCase->Move;
 	}
 	else
 	{
-		//Get nearest case
-		//Make a random choice of what to 
+		float DistanceToNearestCase;
+		if(DistanceToNearestCase < IdenticalThreshold)
+		{
+			
+		}
+		else
+		{
+			//Get nearest 10 cases
+			//Use weighted linear regression based on (learned values of importance) and (utility of each case).	
+		}
 	}
 }
 
