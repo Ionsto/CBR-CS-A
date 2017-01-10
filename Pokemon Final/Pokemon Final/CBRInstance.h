@@ -1,5 +1,7 @@
 class CBRInstance{
-	public:
-		CBRInstance();
-		~CBRInstance();
+public:
+	float ExplorationConstant;
+	float IdenticalThreshold;
+	CBRInstance();
+	~CBRInstance();
 };			
