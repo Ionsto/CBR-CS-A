@@ -1,3 +1,4 @@
+
 #pragma once
 class CBRCase
 {
@@ -18,6 +19,7 @@ public:
 	CBRCase();
 	~CBRCase();
 	void GenerateRandomMove();
+	bool Exploit();
 	void CalculateUtility();
 	float CalculateFitness(CBREnviroment * env);
 };
