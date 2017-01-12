@@ -28,7 +28,14 @@ void CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 		if(NearestCase.Distance < IdenticalThreshold)
 		{
 			//Chose whether to exploit or explore
-			CurrentCase->Move = NearestCase.Case->Move;
+			if(CurrentCase->Exploit())
+			{
+				CurrentCase->Move = NearestCase.Case->Move;
+			}
+			else
+			{
+				CurrentCase->GenerateRandomMove();
+			}
 		}
 		else
 		{
@@ -58,3 +65,4 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 		}
 	}
 }
+
