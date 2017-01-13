@@ -9,7 +9,7 @@ struct MoveWeight {
  	int MaxUses;  
  	int CurrentUses;  
  	int AttackType;  
-} 
+}
 struct PokmonWeight { 
   float Health; 
   int Type; 
