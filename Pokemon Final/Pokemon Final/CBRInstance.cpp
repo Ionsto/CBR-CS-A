@@ -4,6 +4,7 @@ CBRInstance::CBRInstance()
 {
 	IdenticalThreshold = 1;
 	ExplorationConstant = 1;
+	MaxSearchThreshold = 10;
 }
 
 CBRInstance::~CBRInstance()
@@ -28,7 +29,7 @@ void CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 		if(NearestCase.Distance < IdenticalThreshold)
 		{
 			//Chose whether to exploit or explore
-			if(CurrentCase->Exploit())
+			if(CurrentCase->Exploit() && NearestCase->Move != NULL)
 			{
 				CurrentCase->Move = NearestCase.Case->Move;
 			}
@@ -40,7 +41,19 @@ void CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 		else
 		{
 			//Get nearest 10 cases
-			//Use weighted linear regression based on (learned values of importance) and (utility of each case).	
+			//Use weighted linear regression based on (learned values of importance) and (utility of each case).
+			//Alternitivly use modal move from knearest cases
+			std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(10, MaxSearchThreshold);
+			if(NearestCases.size() > 0)
+			{
+				//Adaption
+				CurrentCase->Move = GetMoveFromCases(NearestCases);
+			}
+			else
+			{
+				//Random move
+				CurrentCase->GenerateRandomMove();
+			}
 		}
 	}
 }
