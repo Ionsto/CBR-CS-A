@@ -5,6 +5,7 @@ CBRInstance::CBRInstance()
 	IdenticalThreshold = 1;
 	ExplorationConstant = 1;
 	MaxSearchThreshold = 10;
+	ReplacingUtilityThreshold = 10;
 }
 
 CBRInstance::~CBRInstance()
@@ -67,15 +68,33 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 	CBRCaseDistance NearestCase = CaseBase->GetNearestCase(startenv);
 	if(NearestCase.Case->Distance(CurrentCase) < IdenticalCase)
 	{
-		float DeltaExploration = abs(CurrentCase->Utility) * ExplorationConstant;
-		if(CurrentCase->Utility < 0){
-			DeltaExploration *= 5;
-		}
-		NearestCase.Case->Exploration += DeltaExploration;
-		if(++NearestCase.Case->ExplorationTestsCount >= NearestCase.Case->ExplorationMaxTests)
+		if(NearestCase.Case->Move != CurrentCase->Move)
 		{
-			NearestCase.Case->ExplorationTestsCount = 0;
+			if((CurrentCase->Utility - NearestCase.Case->Utility) > ReplacingUtilityThreshold)
+			{
+				//Remove the NearstCas
+				CaseBase->RemoveCase(NearestCase.Case);
+				//Insert the CurrentCase
+				CaseBase->InsertCase(std::move(CurrentCase));
+			}
 		}
+		else	
+		{
+			float DeltaExploration = abs(CurrentCase->Utility) * ExplorationConstant;
+			if(CurrentCase->Utility < 0){
+				DeltaExploration *= 5;
+			}
+			NearestCase.Case->Exploration += DeltaExploration;
+			if(++NearestCase.Case->ExplorationTestsCount >= NearestCase.Case->ExplorationMaxTests)
+			{
+				NearestCase.Case->ExplorationTestsCount = 0;
+			}
+		}
+	}
+	else
+	{
+		//Insert the case
+		CaseBase->InsertCase(std::move(CurrentCase));
 	}
 }
 
