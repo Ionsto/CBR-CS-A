@@ -1,3 +1,7 @@
+/*
+The CBREnvrioment class represents a snapshot of the game at a spesific time.
+The enviroments can be objectivly compared in similarity, with different weightings between each parameter
+*/
 struct MoveCase {
 	int AttackSpeed; 
  	int BaseDamage; 
