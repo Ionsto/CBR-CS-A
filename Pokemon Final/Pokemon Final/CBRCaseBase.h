@@ -1,3 +1,7 @@
+/*
+CBRCasebase is a delegaded system for storing retrieving and removeing cases.
+The CBRCasebase will have two versions, a linear list (slow but for testing) and a kd-tree (a kind of binary tree)
+*/
 #include <vector>
 struct CBRCaseDistance{
   float Distance;
