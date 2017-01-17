@@ -1,4 +1,8 @@
-
+/*
+CBRCase is a class representing a single case in the Case-based-reasoning system
+The case stores the start, end enviroments, and the move used to transform from the start to the end
+it also stores some infomation about the utility(or usefulness of a move) and this forms the basis of the 
+*/
 #pragma once
 class CBRCase
 {
