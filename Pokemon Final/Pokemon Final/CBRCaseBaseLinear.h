@@ -1,6 +1,6 @@
 #pragma once
 //Dummy class 
-class CBRCaseBaseLinear : public CBRCaseBase{
+class CBRCaseBaseLinear : public CBRCaseBaseLinear{
 public:
 	CBRCaseBaseLinear();
 	~CBRCaseBaseLinear(); 
