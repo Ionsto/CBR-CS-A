@@ -27,11 +27,13 @@ struct CaseWeights{
 }
 class CBRCaseBase{
 public:
-  //Weights for the distance
-  CaseWeights DistanceWeight;
-  CBRCaseBase();
-  ~CBRCaseBase();
-  virtual std::vector<CBRCaseDistance> GetKNN(int K,float threshold);
-  //returns weighted eucliden distance between two Cases
-  virtual float GetDistance(CBRCase * a, CBRCase * b);
+	//Weights for the distance
+	CaseWeights DistanceWeight;
+	CBRCaseBase();
+	~CBRCaseBase();
+	virtual std::vector<CBRCaseDistance> GetKNN(int K,float threshold);
+	//returns weighted eucliden distance between two Cases
+	virtual float GetDistance(CBRCase * a, CBRCase * b);
+	void InsertCase(std::unique_ptr<CBRCase> Case);
+	void RemoveCase(CBRCase * Case)
 };
