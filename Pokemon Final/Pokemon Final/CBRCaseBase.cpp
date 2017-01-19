@@ -19,3 +19,16 @@ float CBRCaseBase::GetDistance(CBRCase * a, CBRCase * b)
 {
   return 0;
 }
+
+void CBRCaseBase::InsertCase(std::unique_ptr<CBRCase> Case)
+{
+	//Move the case into its location
+	//Pass off ownership to the casebase
+}
+
+void CBRCaseBase::RemoveCase(CBRCase * Case)
+{
+	//Get passed a view of the case, then remove it from ownership
+	//Find Case
+	//Delete Case
+}
