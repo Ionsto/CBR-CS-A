@@ -31,7 +31,7 @@ public:
   CaseWeights DistanceWeight;
   CBRCaseBase();
   ~CBRCaseBase();
-  std::vector<CBRCaseDistance> GetKNN(int K,float threshold);
+  virtual std::vector<CBRCaseDistance> GetKNN(int K,float threshold);
   //returns weighted eucliden distance between two Cases
-  float GetDistance(CBRCase * a, CBRCase * b);
+  virtual float GetDistance(CBRCase * a, CBRCase * b);
 };
