@@ -18,9 +18,33 @@
     <ClCompile Include="CBRCase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CBRCaseBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CBRCaseBaseLinear.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CBREnviroment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CBRInstance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CBRCase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CBRCaseBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CBRCaseBaseLinear.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CBREnviroment.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CBRInstance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,4 +1,5 @@
 #include "CBRCaseBase.h"
+#include "CBREnviroment.h"
 
 CBRCaseBase::CBRCaseBase()
 {
@@ -8,7 +9,7 @@ CBRCaseBase::~CBRCaseBase()
 {
 } 
 //K-Nearest neighbor 
-std::vector<CBRCaseDistance> CBRCaseBase::GetKNN(int K,float threshold)
+std::vector<CBRCaseDistance> CBRCaseBase::GetKNN(int K,float threshold,CBREnviroment * env)
 {
 	std::vector<CBRCaseDistance> NearestCases = std::vector<CBRCaseDistance>();
 	
@@ -31,4 +32,9 @@ void CBRCaseBase::RemoveCase(CBRCase * Case)
 	//Get passed a view of the case, then remove it from ownership
 	//Find Case
 	//Delete Case
+}
+
+bool CBRCaseBase::IsEmpty()
+{
+	return true;
 }

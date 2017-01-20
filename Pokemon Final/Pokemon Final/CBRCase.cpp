@@ -21,7 +21,7 @@ bool CBRCase::Exploit()
 
 void CBRCase::CalculateUtility()
 {
-	Utility = CalculateFitness(EndEnviroment) - CalculateFitness(StartEnviroment);
+	Utility = CalculateFitness(EndEnviroment.get()) - CalculateFitness(StartEnviroment.get());
 }
 
 float CBRCase::CalculateFitness(CBREnviroment * env)

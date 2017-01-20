@@ -14,11 +14,11 @@ CBRInstance::~CBRInstance()
 /*
 -First find nearest case
 */
-void CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
+int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 {
 	//
 	CurrentCase->StartEnviroment = std::move(startenv);
-	if(CaseBase.IsEmpty())
+	if(CaseBase->IsEmpty())
 	{
 		//Make a random move
 		CurrentCase->GenerateRandomMove();
@@ -26,37 +26,42 @@ void CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 	}
 	else
 	{
-		CBRCaseDistance NearestCase = CaseBase->GetNearestCase(startenv);
-		if(NearestCase.Distance < IdenticalThreshold)
+		std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(10, MaxSearchThreshold, startenv.get());
+		if (NearestCases.size() == 0)
 		{
-			//Chose whether to exploit or explore
-			if(CurrentCase->Exploit() && NearestCase->Move != NULL)
-			{
-				CurrentCase->Move = NearestCase.Case->Move;
-			}
-			else
-			{
-				CurrentCase->GenerateRandomMove();
-			}
+			//Random moves
+			CurrentCase->GenerateRandomMove();
 		}
 		else
 		{
-			//Get nearest 10 cases
-			//Use weighted linear regression based on (learned values of importance) and (utility of each case).
-			//Alternitivly use modal move from knearest cases
-			std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(10, MaxSearchThreshold);
-			if(NearestCases.size() > 0)
+			CBRCaseDistance NearestCase = NearestCases[0];
+			if (NearestCase.Distance < IdenticalThreshold)
 			{
-				//Adaption
-				CurrentCase->Move = GetMoveFromCases(NearestCases);
+				//Chose whether to exploit or explore
+				if (CurrentCase->Exploit() && NearestCase.Case->Move != NULL)
+				{
+					CurrentCase->Move = NearestCase.Case->Move;
+				}
+				else
+				{
+					CurrentCase->GenerateRandomMove();
+				}
 			}
 			else
 			{
-				//Random move
-				CurrentCase->GenerateRandomMove();
+				//Get nearest 10 cases
+				//Use weighted linear regression based on (learned values of importance) and (utility of each case).
+				//Alternitivly use modal move from knearest cases
+				//Adaption
+				CurrentCase->Move = GetMoveFromCases(NearestCases);
 			}
 		}
 	}
+}
+
+int CBRInstance::GetMoveFromCases(std::vector<CBRCaseDistance> cases)
+{
+	return 0;
 }
 
 void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
@@ -65,36 +70,45 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 	CurrentCase->CalculateUtility();
 	
 	//Lending valitity to previous cases, or discrediting them
-	CBRCaseDistance NearestCase = CaseBase->GetNearestCase(startenv);
-	if(NearestCase.Case->Distance(CurrentCase) < IdenticalCase)
+	std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(10, MaxSearchThreshold, finalenv.get());
+	if (NearestCases.size() == 0)
 	{
-		if(NearestCase.Case->Move != CurrentCase->Move)
-		{
-			if((CurrentCase->Utility - NearestCase.Case->Utility) > ReplacingUtilityThreshold)
-			{
-				//Remove the NearstCas
-				CaseBase->RemoveCase(NearestCase.Case);
-				//Insert the CurrentCase
-				CaseBase->InsertCase(std::move(CurrentCase));
-			}
-		}
-		else	
-		{
-			float DeltaExploration = abs(CurrentCase->Utility) * ExplorationConstant;
-			if(CurrentCase->Utility < 0){
-				DeltaExploration *= 5;
-			}
-			NearestCase.Case->Exploration += DeltaExploration;
-			if(++NearestCase.Case->ExplorationTestsCount >= NearestCase.Case->ExplorationMaxTests)
-			{
-				NearestCase.Case->ExplorationTestsCount = 0;
-			}
-		}
+		//Random moves
+		CaseBase->InsertCase(std::move(CurrentCase));
 	}
 	else
 	{
-		//Insert the case
-		CaseBase->InsertCase(std::move(CurrentCase));
+		CBRCaseDistance NearestCase = NearestCases[0];
+		if (NearestCase.Distance < IdenticalThreshold)
+		{
+			if (NearestCase.Case->Move != CurrentCase->Move)
+			{
+				if ((CurrentCase->Utility - NearestCase.Case->Utility) > ReplacingUtilityThreshold)
+				{
+					//Remove the NearstCas
+					CaseBase->RemoveCase(NearestCase.Case);
+					//Insert the CurrentCase
+					CaseBase->InsertCase(std::move(CurrentCase));
+				}
+			}
+			else
+			{
+				float DeltaExploration = abs(CurrentCase->Utility) * ExplorationConstant;
+				if (CurrentCase->Utility < 0) {
+					DeltaExploration *= 5;
+				}
+				NearestCase.Case->Exploration += DeltaExploration;
+				if (++NearestCase.Case->ExplorationTestsCount >= NearestCase.Case->ExplorationMaxTests)
+				{
+					NearestCase.Case->ExplorationTestsCount = 0;
+				}
+			}
+		}
+		else
+		{
+			//Insert the case
+			CaseBase->InsertCase(std::move(CurrentCase));
+		}
 	}
 }
 

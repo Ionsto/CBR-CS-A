@@ -4,6 +4,8 @@ The case stores the start, end enviroments, and the move used to transform from 
 it also stores some infomation about the utility(or usefulness of a move) and this forms the basis of the 
 */
 #pragma once
+#include <memory>
+#include "CBREnviroment.h"
 class CBRCase
 {
 public:
@@ -11,7 +13,7 @@ public:
 	std::unique_ptr<CBREnviroment> EndEnviroment;
 	int Move;
 	//This is a function of how effective the case was at improving 
-	float UtiltityValue;
+	float Utility;
 	//Exploration count is the amount of tests that have taken place for other moves, but identical enviroments, increments on exploration
 	int ExplorationCount;
 	//This is a counter, it is reset every ExplorationMaxTests tests, and it increments slightly on a +utility, and increments greatly on a -utility

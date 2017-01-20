@@ -111,9 +111,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CBRCase.h" />
+    <ClInclude Include="CBRCaseBase.h" />
+    <ClInclude Include="CBRCaseBaseLinear.h" />
+    <ClInclude Include="CBREnviroment.h" />
+    <ClInclude Include="CBRInstance.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBRCase.cpp" />
+    <ClCompile Include="CBRCaseBase.cpp" />
+    <ClCompile Include="CBRCaseBaseLinear.cpp" />
+    <ClCompile Include="CBREnviroment.cpp" />
+    <ClCompile Include="CBRInstance.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
