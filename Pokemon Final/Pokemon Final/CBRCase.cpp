@@ -1,5 +1,5 @@
 #include "CBRCase.h"
-
+#include "CBREnviroment.h"
 CBRCase::CBRCase()
 {
 }
@@ -26,5 +26,6 @@ void CBRCase::CalculateUtility()
 
 float CBRCase::CalculateFitness(CBREnviroment * env)
 {
-	return 0.0; 	
+	//This is the fittness function
+	return env->GetAttribute(15) - env->GetAttribute(27);
 }

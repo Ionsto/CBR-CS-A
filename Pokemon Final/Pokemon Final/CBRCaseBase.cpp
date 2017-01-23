@@ -1,6 +1,6 @@
 #include "CBRCaseBase.h"
 #include "CBREnviroment.h"
-
+#include <math.h>
 CBRCaseBase::CBRCaseBase()
 {
 }
@@ -16,9 +16,13 @@ std::vector<CBRCaseDistance> CBRCaseBase::GetKNN(int K,float threshold,CBREnviro
 	return NearestCases;
 }
 //returns weighted eucliden distance between two Cases 
-float CBRCaseBase::GetDistance(CBRCase * a, CBRCase * b)
+float CBRCaseBase::GetDistance(CBRCase * a)
 {
-  return 0;
+	float distancesqrd = 0;
+	//List all elements
+
+	//
+	return sqrtf(distancesqrd);
 }
 
 void CBRCaseBase::InsertCase(std::unique_ptr<CBRCase> Case)

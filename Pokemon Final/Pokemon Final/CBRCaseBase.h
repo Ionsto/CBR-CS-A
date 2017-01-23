@@ -2,6 +2,7 @@
 CBRCasebase is a delegaded system for storing retrieving and removeing cases.
 The CBRCasebase will have two versions, a linear list (slow but for testing) and a kd-tree (a kind of binary tree)
 */
+#pragma once
 #include <vector>
 #include <memory>
 #include "CBRCase.h"
@@ -35,7 +36,7 @@ public:
 	~CBRCaseBase();
 	virtual std::vector<CBRCaseDistance> GetKNN(int K,float threshold,CBREnviroment * env);
 	//returns weighted eucliden distance between two Cases
-	virtual float GetDistance(CBRCase * a, CBRCase * b);
+	virtual float GetDistance(CBRCase * a);
 	bool IsEmpty();
 	void InsertCase(std::unique_ptr<CBRCase> Case);
 	void RemoveCase(CBRCase * Case);

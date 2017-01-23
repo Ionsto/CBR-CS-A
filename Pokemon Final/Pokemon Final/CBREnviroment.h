@@ -4,23 +4,26 @@ The enviroments can be objectivly compared in similarity, with different weighti
 */
 #pragma once
 struct MoveCase {
-	int AttackSpeed; 
- 	int BaseDamage; 
- 	int MaxUses; 
- 	int CurrentUses; 
- 	int AttackType; 
+	float AttackSpeed; 
+	float BaseDamage;
+	float MaxUses;
+	float CurrentUses;
+	float AttackType;
 };
 struct PokmonCase {
 	float Health;
-	int Type;
-	int Atttack;
-	int Defence;
+	float Type;
+	float Attack;
+	float Defence;
 	MoveCase Moves[4];
 };
 
 class CBREnviroment{
+private:
 	PokmonCase Owned;
 	PokmonCase Opponent;
+public:
 	CBREnviroment();
 	~CBREnviroment();
+	float GetAttribute(int n);
 };

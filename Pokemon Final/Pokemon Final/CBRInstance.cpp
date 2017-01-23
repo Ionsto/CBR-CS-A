@@ -1,11 +1,12 @@
 #include "CBRInstance.h"
-
+#include "CBRCaseBaseLinear.h"
 CBRInstance::CBRInstance()
 {
 	IdenticalThreshold = 1;
 	ExplorationConstant = 1;
 	MaxSearchThreshold = 10;
 	ReplacingUtilityThreshold = 10;
+	CaseBase = std::make_unique<CBRCaseBaseLinear>();
 }
 
 CBRInstance::~CBRInstance()
@@ -16,8 +17,11 @@ CBRInstance::~CBRInstance()
 */
 int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 {
-	//
+	//Reset Current case
+	CurrentCase = std::make_unique<CBRCase>();
 	CurrentCase->StartEnviroment = std::move(startenv);
+
+
 	if(CaseBase->IsEmpty())
 	{
 		//Make a random move
@@ -38,7 +42,7 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 			if (NearestCase.Distance < IdenticalThreshold)
 			{
 				//Chose whether to exploit or explore
-				if (CurrentCase->Exploit() && NearestCase.Case->Move != NULL)
+				if (CurrentCase->Exploit())
 				{
 					CurrentCase->Move = NearestCase.Case->Move;
 				}
@@ -61,7 +65,21 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 
 int CBRInstance::GetMoveFromCases(std::vector<CBRCaseDistance> cases)
 {
-	return 0;
+	int ModalCase[4] = { 0,0,0,0 };
+	for (int i = 0;i < cases.size();++i)
+	{
+		++ModalCase[cases[i].Case->Move];
+	}
+	int BestMove = 0;
+	int MoveVotes = 0;
+	for (int i = 0;i < 4;++i)
+	{
+		if (ModalCase[i] > MoveVotes)
+		{
+			BestMove = i;
+		}
+	}
+	return BestMove;
 }
 
 void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
