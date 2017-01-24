@@ -27,6 +27,6 @@ static float GetMultiplier(int AttackerType,int DefenseType)
 	const float MultEffective = 2;
 	const float MultNormal = 1;
 	const float MultIneffective = 0.5;
-	const float AttackerDefenderValues = [[MultNormal,MultNormal,MultNormal],[MultNormal,MultNormal,MultIneffective],[MultNormal,MultEffective,MultNormal]];
+	const float AttackerDefenderValues[][3] = {{MultNormal,MultNormal,MultNormal},{MultNormal,MultNormal,MultIneffective},{MultNormal,MultEffective,MultNormal}};
 	return AttackerDefenderValues[AttackerType][DefenseType];
 }

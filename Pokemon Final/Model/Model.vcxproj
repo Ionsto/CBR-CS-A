@@ -74,6 +74,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -113,7 +114,9 @@
     <ClCompile Include="GameInstance.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerCBR.cpp" />
     <ClCompile Include="PlayerConsole.cpp" />
+    <ClCompile Include="PlayerRandom.cpp" />
     <ClCompile Include="PokemonBase.cpp" />
     <ClCompile Include="PokemonMagikarp.cpp" />
     <ClCompile Include="PokemonMove.cpp" />
@@ -123,12 +126,19 @@
     <ClInclude Include="GameInstance.h" />
     <ClInclude Include="MoveOptions.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerCBR.h" />
     <ClInclude Include="PlayerConsole.h" />
+    <ClInclude Include="PlayerRandom.h" />
     <ClInclude Include="PokemonBase.h" />
     <ClInclude Include="PokemonMagikarp.h" />
     <ClInclude Include="PokemonMove.h" />
     <ClInclude Include="PokemonPikachu.h" />
     <ClInclude Include="TypeOptions.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pokemon Final\Pokemon Final.vcxproj">
+      <Project>{7392848a-5a71-4eff-962a-7ee85ee043a2}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

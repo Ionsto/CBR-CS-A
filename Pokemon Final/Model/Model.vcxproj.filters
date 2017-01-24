@@ -22,18 +22,18 @@
     <Filter Include="Source Files\Pokemon">
       <UniqueIdentifier>{cb64e2a7-8f5d-4239-8a2d-27a570e86ba9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Players">
+      <UniqueIdentifier>{908441b4-ba24-4c00-91c8-29194589d277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Players">
+      <UniqueIdentifier>{c651c27e-46c4-4b33-8e9b-3aadb928d427}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameInstance.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerConsole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PokemonPikachu.cpp">
@@ -48,15 +48,21 @@
     <ClCompile Include="PokemonMagikarp.cpp">
       <Filter>Source Files\Pokemon</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerConsole.cpp">
+      <Filter>Source Files\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRandom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCBR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameInstance.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerConsole.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MoveOptions.h">
@@ -76,6 +82,18 @@
     </ClInclude>
     <ClInclude Include="PokemonMagikarp.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerConsole.h">
+      <Filter>Header Files\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCBR.h">
+      <Filter>Header Files\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerRandom.h">
+      <Filter>Header Files\Players</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

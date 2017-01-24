@@ -37,6 +37,6 @@ PokemonMoveShock::PokemonMoveShock()
 {
 	Name = "Shock";
 	BaseDamage = 40;
-	AttackSpeed = 5;
+	AttackSpeed = 2;
 	AttackType = TypeTypes::Normal;
 }
