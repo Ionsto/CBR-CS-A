@@ -4,6 +4,6 @@ PlayerCBR::PlayerCBR() : Player()
 {
 }
 
-PlayerCBR::~PlayerCBR() : Player()
+PlayerCBR::~PlayerCBR()
 {
 }

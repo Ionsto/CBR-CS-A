@@ -9,6 +9,7 @@ Player::Player()
 	for (int i = 0; i < 4; ++i)
 	{
 		MyPokemon[i] = std::make_unique<PokemonBase>();
+		MyPokemon[i]->Health = 0;
 	}
 }
 

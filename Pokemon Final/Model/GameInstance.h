@@ -6,11 +6,12 @@
 #include <functional>
 class GameInstance
 {
-private:
-	//Datastructures
+public:
 	struct MovePairs {
 		int A, B;
 	};
+private:
+	//Datastructures
 	//PTR is needed for polymorphism
 	std::unique_ptr<Player> Players[2];
 	//Calculates damage for a single attack
@@ -20,7 +21,8 @@ private:
 	MovePairs GetPlayerMoves();
 public:
 	//This is an overwritable function, this allows other programs to effectivly intergrate.
-	std::function<void(GameInstance*,std::unique_ptr<Player> *)> DisplayCallback;
+	std::function<void(GameInstance*,std::unique_ptr<Player> * ,GameInstance::MovePairs moves)> DisplayCallback;
+	Player * GetPlayer(int i);
 	bool Finished;
 	GameInstance(std::unique_ptr<Player> A, std::unique_ptr<Player> B);
 	~GameInstance();

@@ -89,6 +89,10 @@ void GameInstance::ResolveMoves(GameInstance::MovePairs Moves)
 		}
 	}
 }
+Player* GameInstance::GetPlayer(int i)
+{
+	return Players[i].get();
+}
 GameInstance::MovePairs GameInstance::GetPlayerMoves()
 {
 	MovePairs Moves = MovePairs();
@@ -110,6 +114,6 @@ void GameInstance::Update()
 		Finished = true;
 	}
 	if (DisplayCallback != NULL) {
-		DisplayCallback(this, Players);
+		DisplayCallback(this, Players,Moves);
 	}
 }

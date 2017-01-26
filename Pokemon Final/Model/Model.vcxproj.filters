@@ -55,10 +55,10 @@
       <Filter>Source Files\Players</Filter>
     </ClCompile>
     <ClCompile Include="PlayerRandom.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Players</Filter>
     </ClCompile>
     <ClCompile Include="PlayerCBR.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Players</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
