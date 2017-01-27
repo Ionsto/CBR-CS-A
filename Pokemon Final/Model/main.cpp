@@ -26,12 +26,12 @@ static void DisplayConsole(GameInstance * gi, std::unique_ptr<Player> * Players,
 int main(int argc, char **args)
 {
 	float won0 = 0;
-	int GamesPlayed = 10;
+	int GamesPlayed = 100000;
 	//Example program
 	for (int i = 0;i < GamesPlayed;++i)
 	{
 		GameInstance * Game = new GameInstance(std::make_unique<PlayerRandom>(), std::make_unique<PlayerRandom>());
-		Game->DisplayCallback = DisplayConsole;
+		//Game->DisplayCallback = DisplayConsole;
 		while (!Game->Finished) {
 			Game->Update();
 		}
@@ -39,12 +39,9 @@ int main(int argc, char **args)
 		{
 			++won0;
 		}
-		if (Game->GetPlayer(1)->Alive)
-		{
-			++won0;
-		}
+		delete Game;
 	}
-	std::cout << "Win % for p0:" << (won0 / (GamesPlayed)) << std::endl;
+	std::cout << "Win % for p0:" << (won0*100 / (GamesPlayed)) << std::endl;
 	int i = 0;
 	std::cin >> i;
 	return 0;

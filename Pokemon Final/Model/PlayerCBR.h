@@ -5,7 +5,7 @@ class PlayerCBR : public Player{
 	std::unique_ptr<CBRInstance> AIInstance;
 	PlayerCBR();
 	~PlayerCBR();
-	//virtual int GetMove(); 
+	int GetMove(GameInstance * gm) override;
 	//Polymorphic function for getting players move 
  	//virtual void Update(); 
 };

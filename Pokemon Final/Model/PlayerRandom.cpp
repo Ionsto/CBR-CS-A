@@ -14,7 +14,7 @@ PlayerRandom::~PlayerRandom()
 {
 }
 
-int PlayerRandom::GetMove()
+int PlayerRandom::GetMove(GameInstance * gm)
 {
 	return (rand() % 4);
 }

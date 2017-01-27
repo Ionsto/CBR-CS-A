@@ -80,12 +80,32 @@ void GameInstance::ResolveMoves(GameInstance::MovePairs Moves)
 			Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B && MoveTypesOptionSelector));
 		}
 	}
-	else
+	else if(MoveSpeed[0] > MoveSpeed[1])
 	{
 		Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B && MoveTypesOptionSelector));
 		if (Players[0]->GetActivePokemon()->Health != 0)
 		{
 			Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A && MoveTypesOptionSelector));
+		}
+	}
+	else
+	{
+		//Randomise
+		if (rand() % 2 == 0)
+		{
+			Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B && MoveTypesOptionSelector));
+			if (Players[0]->GetActivePokemon()->Health != 0)
+			{
+				Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A && MoveTypesOptionSelector));
+			}
+		}
+		else
+		{
+			Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A && MoveTypesOptionSelector));
+			if (Players[1]->GetActivePokemon()->Health != 0)
+			{
+				Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B && MoveTypesOptionSelector));
+			}
 		}
 	}
 }

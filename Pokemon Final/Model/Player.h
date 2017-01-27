@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include "PokemonBase.h"
+class GameInstance;
 class Player
 {
 public:
@@ -11,9 +12,9 @@ public:
 	Player();
 	~Player();
 	//Polymorphic function for getting players move
-	virtual int GetMove();
+	virtual int GetMove(GameInstance * gm);
 	//Polymorphic function for getting players move
-	virtual void Update();
+	virtual void Update(GameInstance * gm);
 	//Returns active pokemon
 	PokemonBase * GetActivePokemon();
 };

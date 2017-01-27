@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include "GameInstance.h"
 
 
 Player::Player()
@@ -16,13 +16,17 @@ Player::Player()
 
 Player::~Player()
 {
+	for (int i = 0; i < 4; ++i)
+	{
+		MyPokemon[i].release();
+	}
 }
 
-int Player::GetMove()
+int Player::GetMove(GameInstance * gm)
 {
 	return 0;
 }
-void Player::Update()
+void Player::Update(GameInstance * gm)
 {
 	int TeamHealth = 0;
 	for (int i = 0; i < 4; ++i)
