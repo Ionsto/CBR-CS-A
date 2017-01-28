@@ -22,11 +22,11 @@ Player::~Player()
 	}
 }
 
-int Player::GetMove(GameInstance * gm)
+int Player::GetMove(Player * enemy)
 {
 	return 0;
 }
-void Player::Update(GameInstance * gm)
+void Player::Update(Player * enemy)
 {
 	int TeamHealth = 0;
 	for (int i = 0; i < 4; ++i)

@@ -12,9 +12,9 @@ public:
 	Player();
 	~Player();
 	//Polymorphic function for getting players move
-	virtual int GetMove(GameInstance * gm);
+	virtual int GetMove(Player * enemy);
 	//Polymorphic function for getting players move
-	virtual void Update(GameInstance * gm);
+	virtual void Update(Player * enemy);
 	//Returns active pokemon
 	PokemonBase * GetActivePokemon();
 };

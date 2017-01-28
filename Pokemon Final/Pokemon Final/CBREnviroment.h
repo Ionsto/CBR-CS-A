@@ -19,10 +19,9 @@ struct PokmonCase {
 };
 
 class CBREnviroment{
-private:
+public:
 	PokmonCase Owned;
 	PokmonCase Opponent;
-public:
 	CBREnviroment();
 	~CBREnviroment();
 	float GetAttribute(int n);

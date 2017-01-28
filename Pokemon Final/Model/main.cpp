@@ -1,6 +1,7 @@
 #include "GameInstance.h"
 #include "PlayerConsole.h"
 #include "PlayerRandom.h"
+#include "PlayerCBR.h"
 #include <iostream>
 
 
@@ -26,11 +27,11 @@ static void DisplayConsole(GameInstance * gi, std::unique_ptr<Player> * Players,
 int main(int argc, char **args)
 {
 	float won0 = 0;
-	int GamesPlayed = 100000;
+	int GamesPlayed = 10000;
 	//Example program
 	for (int i = 0;i < GamesPlayed;++i)
 	{
-		GameInstance * Game = new GameInstance(std::make_unique<PlayerRandom>(), std::make_unique<PlayerRandom>());
+		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(), std::make_unique<PlayerRandom>());
 		//Game->DisplayCallback = DisplayConsole;
 		while (!Game->Finished) {
 			Game->Update();

@@ -7,6 +7,7 @@ CBRInstance::CBRInstance()
 	MaxSearchThreshold = 10;
 	ReplacingUtilityThreshold = 10;
 	CaseBase = std::make_unique<CBRCaseBaseLinear>();
+	CurrentCase = std::make_unique<CBRCase>();
 }
 
 CBRInstance::~CBRInstance()

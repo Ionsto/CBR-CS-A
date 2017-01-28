@@ -116,8 +116,8 @@ Player* GameInstance::GetPlayer(int i)
 GameInstance::MovePairs GameInstance::GetPlayerMoves()
 {
 	MovePairs Moves = MovePairs();
-	Moves.A = Players[0]->GetMove();
-	Moves.B = Players[1]->GetMove();
+	Moves.A = Players[0]->GetMove(Players[1].get());
+	Moves.B = Players[1]->GetMove(Players[0].get());
 	return Moves;
 }
 //Public
@@ -125,10 +125,8 @@ void GameInstance::Update()
 {
 	GameInstance::MovePairs Moves = GetPlayerMoves();
 	ResolveMoves(Moves);
-	for (int i = 0; i < 2; ++i)
-	{
-		Players[i]->Update();
-	}
+	Players[0]->Update(Players[1].get());
+	Players[1]->Update(Players[0].get());
 	if (Players[0]->Alive == false || Players[1]->Alive == false)
 	{
 		Finished = true;

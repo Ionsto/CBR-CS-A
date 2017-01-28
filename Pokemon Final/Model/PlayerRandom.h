@@ -6,6 +6,6 @@ class PlayerRandom :
 public:
 	PlayerRandom();
 	~PlayerRandom();
-	int GetMove(GameInstance * gm) override;
+	int GetMove(Player * enemy) override;
 };
 

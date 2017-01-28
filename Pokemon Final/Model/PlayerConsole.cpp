@@ -14,14 +14,14 @@ PlayerConsole::~PlayerConsole()
 {
 }
 
-void PlayerConsole::Update(GameInstance * gm)
+void PlayerConsole::Update(Player * enemy)
 {
 	if (GetActivePokemon()->Health == 0)
 	{
 		ActivePokemon = -1;
 	}
 }
-int PlayerConsole::GetMove(GameInstance * gm)
+int PlayerConsole::GetMove(Player * enemy)
 {
 	if (ActivePokemon == -1)
 	{
