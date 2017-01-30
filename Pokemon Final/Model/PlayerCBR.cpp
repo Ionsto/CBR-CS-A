@@ -1,9 +1,16 @@
 #include "PlayerCBR.h"
 #include <Pokemon Final\CBREnviroment.h>
 #include "PokemonPikachu.h"
-PlayerCBR::PlayerCBR() : Player()
+PlayerCBR::PlayerCBR(std::unique_ptr<CBRInstance> inst) : Player()
 {
-	AIInstance = std::make_unique<CBRInstance>();
+	if (inst == NULL)
+	{
+		AIInstance = std::make_unique<CBRInstance>();
+	}
+	else
+	{
+		AIInstance = std::move(inst);
+	}
 	MyPokemon[0] = std::make_unique<PokemonPikachu>();
 	ActivePokemon = 0;
 }
@@ -26,6 +33,7 @@ int PlayerCBR::GetMove(Player * enemy)
 
 void PlayerCBR::Update(Player * enemy)
 {
+	Player::Update(enemy);
 	std::unique_ptr<CBREnviroment> env = std::make_unique<CBREnviroment>();
 	PopulateEnviroment(env.get(), enemy);
 	AIInstance->ResolveAnswer(std::move(env));

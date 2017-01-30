@@ -9,7 +9,7 @@ PokemonBase::PokemonBase()
 		MoveSet[i] = std::make_unique<PokemonMove>();
 	}
 	Health = 100;
-	Defense = 20;
+	Defense = 25;
 	Attack = 20;
 }
 
