@@ -5,8 +5,8 @@ class PokemonBase
 {
 public:
 	//These are two base stats that affect the damage calculations
-	int Attack;
-	int Defense;
+	float Attack;
+	float Defense;
 	int Health;
 	//The way types interact gives very large modifiers on the damage calculations
 	TypeTypes PokemonType;

@@ -27,13 +27,13 @@ static void DisplayConsole(GameInstance * gi, std::unique_ptr<Player> * Players,
 int main(int argc, char **args)
 {
 	float won0 = 0;
-	int GamesPlayed = 100;
+	int GamesPlayed = 1000;
 	//Example program
 	std::unique_ptr<CBRInstance> AI = std::make_unique<CBRInstance>();
 	for (int i = 0;i < GamesPlayed;++i)
 	{
 		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(AI)), std::make_unique<PlayerRandom>());
-		Game->DisplayCallback = DisplayConsole;
+		//Game->DisplayCallback = DisplayConsole;
 		while (!Game->Finished) {
 			Game->Update();
 		}
@@ -43,6 +43,10 @@ int main(int argc, char **args)
 		}
 		AI = std::move(((PlayerCBR*)Game->GetPlayer(0))->AIInstance);
 		delete Game;
+		if (i == 900)
+		{
+			int kys = 0;
+		}
 		std::cout << "Win % for p0:" << (won0*100 / (i+1)) << std::endl;
 	}
 	int i = 0;
