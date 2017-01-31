@@ -2,7 +2,7 @@
 
 CBREnviroment::CBREnviroment()
 {
-
+	ElementCount = 54;
 }
 
 CBREnviroment::~CBREnviroment()

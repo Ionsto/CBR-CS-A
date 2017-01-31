@@ -22,6 +22,7 @@ class CBREnviroment{
 public:
 	PokmonCase Owned;
 	PokmonCase Opponent;
+	int ElementCount;
 	CBREnviroment();
 	~CBREnviroment();
 	float GetAttribute(int n);
