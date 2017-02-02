@@ -47,7 +47,7 @@ int main(int argc, char **args)
 		{
 			int kys = 0;
 		}
-		std::cout << "Win % for p0:" << (won0*100 / (i+1)) << std::endl;
+		std::cout << "Win % for p0:" << (won0*(float)100.0 / (i+1)) << std::endl;
 	}
 	int i = 0;
 	std::cin >> i;
