@@ -2,10 +2,10 @@
 #include "CBRCaseBaseLinear.h"
 CBRInstance::CBRInstance()
 {
-	IdenticalThreshold = 1;
+	IdenticalThreshold = 5;
 	ExplorationConstant = 1;
-	MaxSearchThreshold = 10;
-	ReplacingUtilityThreshold = 10;
+	MaxSearchThreshold = 20;
+	ReplacingUtilityThreshold = 5;
 	CaseBase = std::make_unique<CBRCaseBaseLinear>();
 	CurrentCase = std::make_unique<CBRCase>();
 }
@@ -31,7 +31,7 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 	}
 	else
 	{
-		std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(10, MaxSearchThreshold, startenv.get());
+		std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(10, MaxSearchThreshold, CurrentCase->StartEnviroment.get());
 		if (NearestCases.size() == 0)
 		{
 			//Random moves
@@ -43,7 +43,7 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 			if (NearestCase.Distance < IdenticalThreshold)
 			{
 				//Chose whether to exploit or explore
-				if (CurrentCase->Exploit())
+				if (!CurrentCase->Exploit())
 				{
 					CurrentCase->Move = NearestCase.Case->Move;
 				}
@@ -62,6 +62,7 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 			}
 		}
 	}
+	return CurrentCase->Move;
 }
 
 int CBRInstance::GetMoveFromCases(std::vector<CBRCaseDistance> cases)
@@ -89,7 +90,7 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 	CurrentCase->CalculateUtility();
 	
 	//Lending valitity to previous cases, or discrediting them
-	std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(10, MaxSearchThreshold, finalenv.get());
+	std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(10, MaxSearchThreshold, CurrentCase->EndEnviroment.get());
 	if (NearestCases.size() == 0)
 	{
 		//Random moves
@@ -112,7 +113,7 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 			}
 			else
 			{
-				float DeltaExploration = abs(CurrentCase->Utility) * ExplorationConstant;
+				float DeltaExploration = -CurrentCase->Utility * ExplorationConstant;
 				if (CurrentCase->Utility < 0) {
 					DeltaExploration *= 5;
 				}
@@ -120,6 +121,7 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 				if (++NearestCase.Case->ExplorationTestsCount >= NearestCase.Case->ExplorationMaxTests)
 				{
 					NearestCase.Case->ExplorationTestsCount = 0;
+					NearestCase.Case->Exploration = 0;
 				}
 			}
 		}

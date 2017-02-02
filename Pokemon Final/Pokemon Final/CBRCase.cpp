@@ -2,6 +2,7 @@
 #include "CBREnviroment.h"
 CBRCase::CBRCase()
 {
+	ExplorationMaxTests = 10;
 }
 
 
@@ -16,7 +17,7 @@ void CBRCase::GenerateRandomMove()
 
 bool CBRCase::Exploit()
 {
-	return (Exploration * (rand()%50)) > 25;	
+	return (exp(Exploration) * (rand()%50)) > 25;	
 }
 
 void CBRCase::CalculateUtility()
@@ -27,5 +28,5 @@ void CBRCase::CalculateUtility()
 float CBRCase::CalculateFitness(CBREnviroment * env)
 {
 	//This is the fittness function
-	return env->GetAttribute(15) - env->GetAttribute(27);
+	return env->GetAttribute(0) - env->GetAttribute(24);
 }

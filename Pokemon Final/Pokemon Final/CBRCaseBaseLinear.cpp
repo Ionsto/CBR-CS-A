@@ -10,7 +10,7 @@ CBRCaseBaseLinear::~CBRCaseBaseLinear()
 
 std::vector<CBRCaseDistance> CBRCaseBaseLinear::GetKNN(int K, float threshold, CBREnviroment * env)
 {
-	std::vector<CBRCaseDistance> NearestCases = std::vector<CBRCaseDistance>();
+	std::queue<CBRCaseDistance> NearestCases = std::queue<CBRCaseDistance>();
 	for (int i = 0;i < CaseBase.size();++i)
 	{
 		float Distance = GetDistance(CaseBase[i]->StartEnviroment.get(),env);
@@ -19,11 +19,19 @@ std::vector<CBRCaseDistance> CBRCaseBaseLinear::GetKNN(int K, float threshold, C
 			CBRCaseDistance dist = CBRCaseDistance();
 			dist.Case = CaseBase[i].get();
 			dist.Distance = Distance;
+			NearestCases.push(dist);
 		}
 	}
 	//Merge sort
-
-	return NearestCases;
+	NearestCases = MergeSort(NearestCases);
+	std::vector<CBRCaseDistance> NearestCasesVec = std::vector<CBRCaseDistance>();
+	//Get all elements up to K cases
+	for (int i = 0;i < fminf(K,NearestCases.size());++i)
+	{
+		NearestCasesVec.push_back(NearestCases.front());
+		NearestCases.pop();
+	}
+	return NearestCasesVec;
 }
 bool CBRCaseBaseLinear::IsEmpty()
 {

@@ -31,8 +31,10 @@ std::queue<CBRCaseDistance> CBRCaseBase::MergeSort(std::queue<CBRCaseDistance> l
 	{
 		right.push(list.front());
 	}
+	return MergeMerge(left, right);
 }
-std::queue<CBRCaseDistance> MergeMerge(std::queue<CBRCaseDistance> a, std::queue<CBRCaseDistance> b)
+
+std::queue<CBRCaseDistance> CBRCaseBase::MergeMerge(std::queue<CBRCaseDistance> a, std::queue<CBRCaseDistance> b)
 {
 	std::queue<CBRCaseDistance> returnvec = std::queue<CBRCaseDistance>();
 	if (a.size() != 0 && b.size() != 0)

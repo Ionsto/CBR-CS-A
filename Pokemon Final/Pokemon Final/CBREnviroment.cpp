@@ -2,7 +2,9 @@
 
 CBREnviroment::CBREnviroment()
 {
-	ElementCount = 54;
+	ElementCount = 48;
+	Owned = PokmonCase();
+	Opponent = PokmonCase();
 }
 
 CBREnviroment::~CBREnviroment()
