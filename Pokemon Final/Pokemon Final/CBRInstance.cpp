@@ -4,8 +4,8 @@ CBRInstance::CBRInstance()
 {
 	IdenticalThreshold = 5;
 	ExplorationConstant = 1;
-	MaxSearchThreshold = 20;
-	ReplacingUtilityThreshold = 5;
+	MaxSearchThreshold = 80;
+	ReplacingUtilityThreshold = 10;
 	CaseBase = std::make_unique<CBRCaseBaseLinear>();
 	CurrentCase = std::make_unique<CBRCase>();
 }
@@ -31,7 +31,7 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 	}
 	else
 	{
-		std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(10, MaxSearchThreshold, CurrentCase->StartEnviroment.get());
+		std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(40, MaxSearchThreshold, CurrentCase->StartEnviroment.get());
 		if (NearestCases.size() == 0)
 		{
 			//Random moves
@@ -43,7 +43,7 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 			if (NearestCase.Distance < IdenticalThreshold)
 			{
 				//Chose whether to exploit or explore
-				if (!CurrentCase->Exploit())
+				if (!NearestCase.Case->Exploit())
 				{
 					CurrentCase->Move = NearestCase.Case->Move;
 				}
@@ -65,7 +65,7 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 	return CurrentCase->Move;
 }
 
-int CBRInstance::GetMoveFromCases(std::vector<CBRCaseDistance> cases)
+int CBRInstance::GetMoveModel(std::vector<CBRCaseDistance> cases)
 {
 	int ModalCase[4] = { 0,0,0,0 };
 	for (int i = 0;i < cases.size();++i)
@@ -82,6 +82,28 @@ int CBRInstance::GetMoveFromCases(std::vector<CBRCaseDistance> cases)
 		}
 	}
 	return BestMove;
+}
+int CBRInstance::GetMoveWeightedAv(std::vector<CBRCaseDistance> cases)
+{
+	float AvCase[4] = {0,0,0,0};
+	for (int i = 0;i < cases.size();++i)
+	{
+		AvCase[cases[i].Case->Move] += cases[i].Case->Utility/cases[i].Distance;
+	}
+	int BestMove = 0;
+	int MoveVotes = -INT_MAX;
+	for (int i = 0;i < 4;++i)
+	{
+		if (AvCase[i] > MoveVotes)
+		{
+			BestMove = i;
+		}
+	}
+	return BestMove;
+}
+int CBRInstance::GetMoveFromCases(std::vector<CBRCaseDistance> cases)
+{
+	return GetMoveWeightedAv(cases);
 }
 
 void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)

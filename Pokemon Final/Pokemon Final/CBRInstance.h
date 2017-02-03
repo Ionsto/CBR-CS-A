@@ -15,6 +15,8 @@ public:
 	std::unique_ptr<CBRCase> CurrentCase;
 	CBRInstance();
 	~CBRInstance();
+	int GetMoveModel(std::vector<CBRCaseDistance> cases);
+	int GetMoveWeightedAv(std::vector<CBRCaseDistance> cases);
 	int GetMoveFromCases(std::vector<CBRCaseDistance> cases);
 	int GetMove(std::unique_ptr<CBREnviroment> startenv);
 	void ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv);

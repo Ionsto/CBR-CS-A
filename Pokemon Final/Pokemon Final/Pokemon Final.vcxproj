@@ -111,6 +111,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CBRWeights.h" />
     <ClInclude Include="CBRCase.h" />
     <ClInclude Include="CBRCaseBase.h" />
     <ClInclude Include="CBRCaseBaseLinear.h" />
@@ -118,6 +119,7 @@
     <ClInclude Include="CBRInstance.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CBRWeights.cpp" />
     <ClCompile Include="CBRCase.cpp" />
     <ClCompile Include="CBRCaseBase.cpp" />
     <ClCompile Include="CBRCaseBaseLinear.cpp" />

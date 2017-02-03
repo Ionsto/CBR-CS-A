@@ -7,32 +7,15 @@ The CBRCasebase will have two versions, a linear list (slow but for testing) and
 #include <queue>
 #include <memory>
 #include "CBRCase.h"
+#include "CBRWeights.h"
 struct CBRCaseDistance{
   float Distance;
   CBRCase * Case;  
 };
-struct MoveWeight { 
- 	int AttackSpeed;  
- 	int BaseDamage;  
- 	int MaxUses;  
- 	int CurrentUses;  
- 	int AttackType;  
-};
-struct PokemonWeight { 
-  float Health; 
-  int Type; 
-	int Atttack; 
- 	int Defence; 
-  MoveWeight Moves[4];
-};
-struct CaseWeights{
-  PokemonWeight PlayerPokemon;
-  PokemonWeight EnemyPokemon;
-};
 class CBRCaseBase {
 public:
 	//Weights for the distance
-	CaseWeights DistanceWeight;
+	CBRWeights DistanceWeight;
 	CBRCaseBase();
 	~CBRCaseBase();
 	virtual std::vector<CBRCaseDistance> GetKNN(int K,float threshold,CBREnviroment * env);
