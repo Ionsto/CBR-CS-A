@@ -33,7 +33,10 @@ int main(int argc, char **args)
 	for (int i = 0;i < GamesPlayed;++i)
 	{
 		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(AI)), std::make_unique<PlayerRandom>());
-		//Game->DisplayCallback = DisplayConsole;
+		//if (i % 100 == 0 || i-1 % 100 == 0)
+		//{
+			Game->DisplayCallback = DisplayConsole;
+		//}
 		while (!Game->Finished) {
 			Game->Update();
 		}

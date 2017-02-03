@@ -25,7 +25,7 @@ float GameInstance::CalculateDamage(PokemonBase * Attacker, PokemonBase * Defend
 {
 	//TODO FIX
 	float RandomFactor = 0.8 + ((rand() % 3)/10.0);
-	if (Attacker->MoveSet[Move]->CurrentUses++ == Attacker->MoveSet[Move]->MaxUses)
+	if (Attacker->MoveSet[Move]->CurrentUses++ >= Attacker->MoveSet[Move]->MaxUses)
 	{
 		RandomFactor = 0;
 	}

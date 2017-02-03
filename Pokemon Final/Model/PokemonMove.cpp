@@ -31,7 +31,7 @@ PokemonMoveTackle::PokemonMoveTackle()
 	Name = "Tackle";
 	BaseDamage = 30;
 	AttackSpeed = 5;
-	MaxUses = 4;
+	MaxUses = 2;
 	AttackType = TypeTypes::Normal;
 }
 PokemonMoveShock::PokemonMoveShock()
