@@ -27,7 +27,7 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 	}
 	else
 	{
-		std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(20, CaseBase->DistanceWeight.MaxSearchThreshold, CurrentCase->StartEnviroment.get());
+		std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(40, CaseBase->DistanceWeight.MaxSearchThreshold, CurrentCase->StartEnviroment.get());
 		if (NearestCases.size() == 0)
 		{
 			//Random moves

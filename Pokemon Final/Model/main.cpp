@@ -74,7 +74,7 @@ float PlayOne(CBRWeights * Weights, int gamemax)
 		AI = std::move(((PlayerCBR*)Game->GetPlayer(0))->AIInstance);
 		delete Game;
 		//std::cout << "Win % for p0:" << (won0*(float)100.0 / (i + 1)) << std::endl;
-		std::cout << ((float)won0 / (i + 1)) << std::endl;
+		//std::cout << ((float)won0 / (i + 1)) << std::endl;
 	}
 	//std::cout << ((float)won0 / (gamemax))<< " ";
 	return ((float)won0 / (gamemax));
@@ -126,9 +126,9 @@ bool PlayWeights(CBRWeights * W0,CBRWeights * W1,int Games = 50)
 };
 void WeightingRoundRobin()
 {
-	int WeightCount = 20;
-	int RoundCount = 100;
-	float Delta = .05;
+	int WeightCount = 50;
+	int RoundCount = 50;
+	float Delta = .1;
 	std::deque<std::unique_ptr<CBRWeights>> Weights = std::deque<std::unique_ptr<CBRWeights>>();
 	for (int i = 0; i < WeightCount; ++i)
 	{
@@ -150,7 +150,7 @@ void WeightingRoundRobin()
 	{
 		std::cout << "---ROUND" << rounds << std::endl;
 		std::unique_ptr<CBRWeights> BestWeight = std::move(Weights.front());
-		const int GameCount = 50;
+		const int GameCount = 100;
 		float WinRate = PlayOne((BestWeight.get()), GameCount);
 		Weights.pop_front();
 		for (int i = 1; i < WeightCount; ++i)
@@ -184,7 +184,7 @@ void WeightingRoundRobin()
 }
 int main(int argc, char **args)
 {
-	float Delta = 1;
+	/*float Delta = 1;
 	std::unique_ptr<CBRWeights> Weight0 = std::make_unique<CBRWeights>();
 	std::unique_ptr<CBRWeights> Weight1 = std::make_unique<CBRWeights>();
 	std::ifstream stream = std::ifstream("weights.txt");
@@ -193,9 +193,9 @@ int main(int argc, char **args)
 		Weight1->CopyWeights(*Weight0.get());
 	}
 	Weight0->RandomiseWeights(Delta);
-	std::cout<<PlayOne(Weight0.get(), 1000);
+	std::cout<<PlayOne(Weight0.get(), 1000);*/
 	//PlayWeights(Weight0.get(),Weight1.get(),200);
-	//WeightingRoundRobin();
+	WeightingRoundRobin();
 	int i = 0;
 	std::cin >> i;
 	return 0;
