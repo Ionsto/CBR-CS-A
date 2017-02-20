@@ -50,18 +50,19 @@ bool Playtwo(std::unique_ptr<CBRInstance> * AI0, std::unique_ptr<CBRInstance> * 
 	}
 	return false;
 }
-void PlayOne()
+//Test program
+float PlayOne(CBRWeights * Weights, int gamemax)
 {
 	float won0 = 0;
-	int GamesPlayed = 1000;
 	//Example program
 	std::unique_ptr<CBRInstance> AI = std::make_unique<CBRInstance>();
-	for (int i = 0; i < GamesPlayed; ++i)
+	AI->CaseBase->DistanceWeight = CBRWeights(*Weights);
+	for (int i = 0; i < gamemax; ++i)
 	{
 		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(AI)), std::make_unique<PlayerRandom>());
 		//if (i % 100 == 0 || i-1 % 100 == 0)
 		//{
-		Game->DisplayCallback = DisplayConsole;
+		//Game->DisplayCallback = DisplayConsole;
 		//}
 		while (!Game->Finished) {
 			Game->Update();
@@ -72,14 +73,11 @@ void PlayOne()
 		}
 		AI = std::move(((PlayerCBR*)Game->GetPlayer(0))->AIInstance);
 		delete Game;
-		if (i == 900)
-		{
-			int kys = 0;
-		}
-		std::cout << "Win % for p0:" << (won0*(float)100.0 / (i + 1)) << std::endl;
+		//std::cout << "Win % for p0:" << (won0*(float)100.0 / (i + 1)) << std::endl;
+		std::cout << ((float)won0 / (i + 1)) << std::endl;
 	}
-	int i = 0;
-	std::cin >> i;
+	//std::cout << ((float)won0 / (gamemax))<< " ";
+	return ((float)won0 / (gamemax));
 }
 bool PlayWeights(CBRWeights * W0,CBRWeights * W1,int Games = 50)
 {
@@ -96,7 +94,7 @@ bool PlayWeights(CBRWeights * W0,CBRWeights * W1,int Games = 50)
 		std::cout << i<<std::endl;
 		if (fmod((double)i,5.0) == 0)
 		{
-			Game->DisplayCallback = DisplayConsole;
+			//Game->DisplayCallback = DisplayConsole;
 		}
 		for (int g = 0; g < 7 && !Game->Finished;++g) {
 			Game->Update();
@@ -111,8 +109,9 @@ bool PlayWeights(CBRWeights * W0,CBRWeights * W1,int Games = 50)
 		}		
 		if (i == PlayGames-1)
 		{
-			std::cout << "Win % for p0:" << (win0*(float)100.0 / (win0 + win1)) << std::endl;
+			//std::cout << "Win % for p0:" << (win0*(float)100.0 / (win0 + win1)) << std::endl;
 		}
+		//std::cout << ((float)win0 / (win0 + win1)) << std::endl;
 		AI0 = std::move(((PlayerCBR*)Game->GetPlayer(0))->AIInstance);
 		AI1 = std::move(((PlayerCBR*)Game->GetPlayer(1))->AIInstance);
 		delete Game;
@@ -127,9 +126,9 @@ bool PlayWeights(CBRWeights * W0,CBRWeights * W1,int Games = 50)
 };
 void WeightingRoundRobin()
 {
-	int WeightCount = 10;
-	int RoundCount = 50;
-	float Delta = 20;
+	int WeightCount = 20;
+	int RoundCount = 100;
+	float Delta = .05;
 	std::deque<std::unique_ptr<CBRWeights>> Weights = std::deque<std::unique_ptr<CBRWeights>>();
 	for (int i = 0; i < WeightCount; ++i)
 	{
@@ -150,37 +149,38 @@ void WeightingRoundRobin()
 	for (int rounds = 0; rounds < RoundCount; ++rounds)
 	{
 		std::cout << "---ROUND" << rounds << std::endl;
-		for (int i = 0; i < WeightCount/2; ++i)
+		std::unique_ptr<CBRWeights> BestWeight = std::move(Weights.front());
+		const int GameCount = 50;
+		float WinRate = PlayOne((BestWeight.get()), GameCount);
+		Weights.pop_front();
+		for (int i = 1; i < WeightCount; ++i)
 		{
-			std::cout << "---WEIGHT" << i*2 << std::endl;
-			std::unique_ptr<CBRWeights> P0 = std::move(Weights.front());
+			std::unique_ptr<CBRWeights> CurrentWeight = std::move(Weights.front());
 			Weights.pop_front();
-			std::unique_ptr<CBRWeights> P1 = std::move(Weights.front());
-			Weights.pop_front();
-			if (PlayWeights(P0.get(), P1.get()))
+			float Rate = PlayOne((CurrentWeight.get()), GameCount);
+			std::cout << "---WEIGHT" << i << " " << Rate << std::endl;
+			if (Rate > WinRate)
 			{
-
-				std::unique_ptr<CBRWeights> P0Copy = std::make_unique<CBRWeights>(*P0.get());
-				P0->RandomiseWeights(Delta);
-				P0Copy->RandomiseWeights(Delta);
-				Weights.push_back(std::move(P0));
-				Weights.push_back(std::move(P0Copy));
+				BestWeight = std::move(CurrentWeight);
+				WinRate = Rate;
 			}
 			else
 			{
-				std::unique_ptr<CBRWeights> P1Copy = std::make_unique<CBRWeights>(*P1.get());
-				P1->RandomiseWeights(Delta);
-				P1Copy->RandomiseWeights(Delta);
-				Weights.push_back(std::move(P1));
-				Weights.push_back(std::move(P1Copy));
+				CurrentWeight.release();
 			}
 		}
+		for (int i = 1; i < WeightCount; ++i) {
+			std::unique_ptr<CBRWeights> Copy = std::make_unique<CBRWeights>(*BestWeight.get());
+			Copy->RandomiseWeights(Delta);
+			Weights.push_back(std::move(Copy));
+		}
+		std::ofstream streamout = std::ofstream("weights.txt");
+		BestWeight->Save(std::move(streamout));
+		streamout.flush();
+		streamout.close();
+		Weights.push_back(std::move(BestWeight));
 		std::random_shuffle(Weights.begin(), Weights.end());
 	}
-	std::ofstream streamout = std::ofstream("weights.txt");
-	Weights[0]->Save(std::move(streamout));
-	streamout.flush();
-	streamout.close();
 }
 int main(int argc, char **args)
 {
@@ -193,7 +193,9 @@ int main(int argc, char **args)
 		Weight1->CopyWeights(*Weight0.get());
 	}
 	Weight0->RandomiseWeights(Delta);
-	PlayWeights(Weight0.get(),Weight1.get(),200);
+	std::cout<<PlayOne(Weight0.get(), 1000);
+	//PlayWeights(Weight0.get(),Weight1.get(),200);
+	//WeightingRoundRobin();
 	int i = 0;
 	std::cin >> i;
 	return 0;

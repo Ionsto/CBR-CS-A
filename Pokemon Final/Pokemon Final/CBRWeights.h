@@ -5,6 +5,10 @@ class CBRWeights
 public:
 	//PokmonCase Owned;
 	//PokmonCase Opponent;
+	float ExplorationConstant;
+	float IdenticalThreshold;
+	float MaxSearchThreshold;
+	float ReplacingUtilityThreshold;
 	float Attr[48];
 	int ElementCount;
 	CBRWeights();

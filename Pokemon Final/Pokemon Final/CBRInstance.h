@@ -7,10 +7,10 @@ This is an instance of an AI, each AI will have different trained learned patter
 #include "CBRCase.h"
 class CBRInstance{
 public:
-	float ExplorationConstant;
-	float IdenticalThreshold;
-	float MaxSearchThreshold;
-	float ReplacingUtilityThreshold;
+	//float ExplorationConstant;
+	//float IdenticalThreshold;
+	//float MaxSearchThreshold;
+	//float ReplacingUtilityThreshold;
 	std::unique_ptr<CBRCaseBase> CaseBase;
 	std::unique_ptr<CBRCase> CurrentCase;
 	CBRInstance();
