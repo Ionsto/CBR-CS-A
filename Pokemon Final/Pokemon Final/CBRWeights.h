@@ -1,18 +1,5 @@
 #pragma once
-struct MoveCase {
-	float AttackSpeed;
-	float BaseDamage;
-	float MaxUses;
-	float CurrentUses;
-	float AttackType;
-};
-struct PokmonCase {
-	float Health;
-	float Type;
-	float Attack;
-	float Defence;
-	MoveCase Moves[4];
-};
+#include <fstream>
 class CBRWeights
 {
 public:
@@ -22,6 +9,10 @@ public:
 	int ElementCount;
 	CBRWeights();
 	~CBRWeights();
+	void RandomiseWeights(float delta);
 	float GetAttribute(int n);
+	void CopyWeights(CBRWeights weights);
+	void Save(std::ofstream s);
+	void Load(std::ifstream s);
 };
 

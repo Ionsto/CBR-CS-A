@@ -28,7 +28,7 @@ int Player::GetMove(Player * enemy)
 }
 void Player::Update(Player * enemy)
 {
-	int TeamHealth = 0;
+	TeamHealth = 0;
 	for (int i = 0; i < 4; ++i)
 	{
 		TeamHealth += MyPokemon[i]->Health;

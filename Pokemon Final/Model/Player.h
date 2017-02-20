@@ -5,6 +5,7 @@ class GameInstance;
 class Player
 {
 public:
+	float TeamHealth;
 	bool Alive;
 	int ActivePokemon;
 	//This is the list of actors(pokemon) availible

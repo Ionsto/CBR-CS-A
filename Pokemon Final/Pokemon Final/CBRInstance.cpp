@@ -2,9 +2,9 @@
 #include "CBRCaseBaseLinear.h"
 CBRInstance::CBRInstance()
 {
-	IdenticalThreshold = 5;
+	IdenticalThreshold = 10;
 	ExplorationConstant = 1;
-	MaxSearchThreshold = 80;
+	MaxSearchThreshold = 50;
 	ReplacingUtilityThreshold = 10;
 	CaseBase = std::make_unique<CBRCaseBaseLinear>();
 	CurrentCase = std::make_unique<CBRCase>();
@@ -31,7 +31,7 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 	}
 	else
 	{
-		std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(40, MaxSearchThreshold, CurrentCase->StartEnviroment.get());
+		std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(20, MaxSearchThreshold, CurrentCase->StartEnviroment.get());
 		if (NearestCases.size() == 0)
 		{
 			//Random moves

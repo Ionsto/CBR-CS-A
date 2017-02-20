@@ -22,22 +22,24 @@ PlayerCBR::~PlayerCBR()
 void PlayerCBR::PopulateEnviroment(CBREnviroment * env, Player * enemy)
 {
 	env->Owned.Health = GetActivePokemon()->Health;
+	env->Owned.Type = GetActivePokemon()->PokemonType;
 	for (int i = 0;i < 4;++i) 
 	{
-		//env->Owned.Moves[i].AttackSpeed = GetActivePokemon()->MoveSet[i]->AttackSpeed;
-		//env->Owned.Moves[i].AttackType = GetActivePokemon()->MoveSet[i]->AttackType;
-		//env->Owned.Moves[i].BaseDamage = GetActivePokemon()->MoveSet[i]->BaseDamage;
+		env->Owned.Moves[i].AttackSpeed = GetActivePokemon()->MoveSet[i]->AttackSpeed;
+		env->Owned.Moves[i].AttackType = GetActivePokemon()->MoveSet[i]->AttackType;
+		env->Owned.Moves[i].BaseDamage = GetActivePokemon()->MoveSet[i]->BaseDamage;
 		env->Owned.Moves[i].CurrentUses = GetActivePokemon()->MoveSet[i]->CurrentUses;
-		//env->Owned.Moves[i].MaxUses = GetActivePokemon()->MoveSet[i]->MaxUses;
+		env->Owned.Moves[i].MaxUses = GetActivePokemon()->MoveSet[i]->MaxUses;
 	}
 	env->Opponent.Health = enemy->GetActivePokemon()->Health;
+	env->Opponent.Type = enemy->GetActivePokemon()->PokemonType;
 	for (int i = 0;i < 4;++i)
 	{
-		//env->Opponent.Moves[i].AttackSpeed = enemy->GetActivePokemon()->MoveSet[i]->AttackSpeed;
-		//env->Opponent.Moves[i].AttackType = enemy->GetActivePokemon()->MoveSet[i]->AttackType;
-		//env->Opponent.Moves[i].BaseDamage = enemy->GetActivePokemon()->MoveSet[i]->BaseDamage;
+		env->Opponent.Moves[i].AttackSpeed = enemy->GetActivePokemon()->MoveSet[i]->AttackSpeed;
+		env->Opponent.Moves[i].AttackType = enemy->GetActivePokemon()->MoveSet[i]->AttackType;
+		env->Opponent.Moves[i].BaseDamage = enemy->GetActivePokemon()->MoveSet[i]->BaseDamage;
 		env->Opponent.Moves[i].CurrentUses = enemy->GetActivePokemon()->MoveSet[i]->CurrentUses;
-		//env->Opponent.Moves[i].MaxUses = enemy->GetActivePokemon()->MoveSet[i]->MaxUses;
+		env->Opponent.Moves[i].MaxUses = enemy->GetActivePokemon()->MoveSet[i]->MaxUses;
 	}
 }
 int PlayerCBR::GetMove(Player * enemy)
