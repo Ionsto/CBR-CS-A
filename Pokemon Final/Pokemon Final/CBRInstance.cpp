@@ -39,7 +39,7 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 			if (NearestCase.Distance < CaseBase->DistanceWeight.IdenticalThreshold)
 			{
 				//Chose whether to exploit or explore
-				if (!NearestCase.Case->Exploit())
+				if (NearestCase.Case->Exploit())
 				{
 					CurrentCase->Move = NearestCase.Case->Move;
 				}
