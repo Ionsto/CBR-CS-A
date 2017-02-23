@@ -18,7 +18,7 @@ void CBRCase::GenerateRandomMove()
 
 bool CBRCase::Exploit()
 {
-	return (exp(Exploration) * (rand()%50)) > 25;	
+	return !((exp(-Exploration) * (rand()%50)) > 25);	
 }
 
 void CBRCase::CalculateUtility()
