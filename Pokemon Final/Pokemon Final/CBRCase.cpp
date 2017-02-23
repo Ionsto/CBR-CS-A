@@ -3,6 +3,7 @@
 CBRCase::CBRCase()
 {
 	ExplorationMaxTests = 10;
+	ExplorationTestsCount = 0;
 }
 
 
