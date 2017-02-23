@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CBRCase" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAABAAAIAAAAB0ABAAAAAABAAAgAAAAAIAEAAAAAA=</HashCode>
+      <FileName>CBRCase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CBRCaseBase" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAABAAACAIQIEAAAAAAAAAgAQAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>CBRCaseBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CBRCaseBaseLinear" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAQAACAAAIAAAAAAIAAAoAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CBRCaseBaseLinear.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CBREnviroment" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAABAAAAAAAAAAIIAAAAAIAAAAAA=</HashCode>
+      <FileName>CBREnviroment.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CBRInstance" Collapsed="true">
+    <Position X="3" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAQAIAAAABAAAAAAAAAAAICAAAYAAABAAAAAAAA=</HashCode>
+      <FileName>CBRInstance.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CBRWeights" Collapsed="true">
+    <Position X="4.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIBAAAAAAAAAAQAiAAAAAAAAAIIAACABAAQAAAE=</HashCode>
+      <FileName>CBRWeights.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="CBRCaseDistance" Collapsed="true">
+    <Position X="3" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>CBRCaseBase.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="MoveCase" Collapsed="true">
+    <Position X="4.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAQAAAAAAAAAAAAAAIAAAAAAAAIAAA=</HashCode>
+      <FileName>CBREnviroment.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PokmonCase" Collapsed="true">
+    <Position X="3" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAIAAAEAAAQAAAgAAAAA=</HashCode>
+      <FileName>CBREnviroment.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
