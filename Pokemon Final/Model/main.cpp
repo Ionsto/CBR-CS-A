@@ -3,7 +3,7 @@
 #include "PlayerRandom.h"
 #include "PlayerCBR.h"
 #include <iostream>
-
+#include "Tests.h"
 
 static void DisplayConsole(GameInstance * gi, std::unique_ptr<Player> * Players, GameInstance::MovePairs moves)
 {
@@ -64,18 +64,28 @@ float PlayOne(CBRWeights * Weights, int gamemax)
 		//{
 		//Game->DisplayCallback = DisplayConsole;
 		//}
-		while (!Game->Finished) {
+		for (int g = 0; g < 7 && !Game->Finished; ++g) {
 			Game->Update();
 		}
 		if (Game->GetPlayer(0)->Alive)
 		{
-			++won0;
+			if (Game->GetPlayer(1)->Alive)
+			{
+				if (Game->GetPlayer(0)->TeamHealth > Game->GetPlayer(1)->TeamHealth)
+				{
+					++won0;
+				}
+			}
+			else {
+				++won0;
+			}
 		}
 		AI = std::move(((PlayerCBR*)Game->GetPlayer(0))->AIInstance);
 		delete Game;
 		//std::cout << "Win % for p0:" << (won0*(float)100.0 / (i + 1)) << std::endl;
 		//std::cout << ((float)won0 / (i + 1)) << std::endl;
 	}
+	AI.release();
 	//std::cout << ((float)won0 / (gamemax))<< " ";
 	return ((float)won0 / (gamemax));
 }
@@ -126,9 +136,9 @@ bool PlayWeights(CBRWeights * W0,CBRWeights * W1,int Games = 50)
 };
 void WeightingRoundRobin()
 {
-	int WeightCount = 50;
+	int WeightCount = 20;
 	int RoundCount = 50;
-	float Delta = .1;
+	float Delta = 5;
 	std::deque<std::unique_ptr<CBRWeights>> Weights = std::deque<std::unique_ptr<CBRWeights>>();
 	for (int i = 0; i < WeightCount; ++i)
 	{
@@ -196,6 +206,9 @@ int main(int argc, char **args)
 	std::cout<<PlayOne(Weight0.get(), 1000);*/
 	//PlayWeights(Weight0.get(),Weight1.get(),200);
 	WeightingRoundRobin();
+	//TestAIInteraction();
+	//TestCaseSaveLoad();
+	//TestPlayOverTime();
 	int i = 0;
 	std::cin >> i;
 	return 0;

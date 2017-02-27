@@ -21,9 +21,14 @@ public:
 	virtual std::vector<CBRCaseDistance> GetKNN(int K,float threshold,CBREnviroment * env);
 	//returns weighted eucliden distance between two Cases
 	virtual float GetDistance(CBREnviroment * a,CBREnviroment * b);
+	//Function just needs to garuntee that each case in the case base can be accesed if i goes from 0 to (Case Count - 1)
+	virtual CBRCase * GetCaseView(int i);
+	virtual int GetCaseCount();
 	virtual bool IsEmpty();
 	virtual void InsertCase(std::unique_ptr<CBRCase> Case);
 	virtual void RemoveCase(CBRCase * Case);
 	std::queue<CBRCaseDistance> MergeSort(std::queue<CBRCaseDistance> list);
 	std::queue<CBRCaseDistance> MergeMerge(std::queue<CBRCaseDistance> a, std::queue<CBRCaseDistance> b);
+	virtual void Save(std::ofstream &s);
+	virtual void Load(std::ifstream &s);
 };

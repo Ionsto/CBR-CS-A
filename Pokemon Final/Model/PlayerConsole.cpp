@@ -16,6 +16,7 @@ PlayerConsole::~PlayerConsole()
 
 void PlayerConsole::Update(Player * enemy)
 {
+	Player::Update(enemy);
 	if (GetActivePokemon()->Health == 0)
 	{
 		ActivePokemon = -1;
@@ -46,7 +47,7 @@ int PlayerConsole::GetMove(Player * enemy)
 		std::cout << "Select move" << std::endl;
 		for (int i = 0; i < 4; ++i)
 		{
-			std::cout << i << ":" << GetActivePokemon()->MoveSet[i]->Name << std::endl;
+			std::cout << i << ":" << GetActivePokemon()->MoveSet[i]->Name <<" :"<< GetActivePokemon()->MoveSet[i]->MaxUses - GetActivePokemon()->MoveSet[i]->CurrentUses << std::endl;
 		}
 		int SelectedMove = -1;
 		while (SelectedMove == -1)

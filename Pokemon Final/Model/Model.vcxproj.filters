@@ -28,6 +28,9 @@
     <Filter Include="Source Files\Players">
       <UniqueIdentifier>{c651c27e-46c4-4b33-8e9b-3aadb928d427}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{aaba1a71-f0e3-4288-ae19-0c884a559638}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -60,6 +63,12 @@
     <ClCompile Include="PlayerCBR.cpp">
       <Filter>Source Files\Players</Filter>
     </ClCompile>
+    <ClCompile Include="Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDeterministic.cpp">
+      <Filter>Source Files\Players</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameInstance.h">
@@ -80,9 +89,6 @@
     <ClInclude Include="PokemonMove.h">
       <Filter>Header Files\Pokemon</Filter>
     </ClInclude>
-    <ClInclude Include="PokemonMagikarp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files\Players</Filter>
     </ClInclude>
@@ -94,6 +100,15 @@
     </ClInclude>
     <ClInclude Include="PlayerRandom.h">
       <Filter>Header Files\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDeterministic.h">
+      <Filter>Header Files\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="PokemonMagikarp.h">
+      <Filter>Header Files\Pokemon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

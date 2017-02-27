@@ -4,7 +4,7 @@
 
 CBRWeights::CBRWeights()
 {
-	ElementCount = 48;
+	ElementCount = 56;
 	for (int i = 0; i < ElementCount; ++i)
 	{
 		Attr[i] = 0;
@@ -46,7 +46,7 @@ float CBRWeights::GetAttribute(int n)
 	return Attr[n];
 }
 
-void CBRWeights::Save(std::ofstream s)
+void CBRWeights::Save(std::ofstream &s)
 {
 	for (int i = 0; i < ElementCount; ++i)
 	{
@@ -57,7 +57,7 @@ void CBRWeights::Save(std::ofstream s)
 	s << MaxSearchThreshold << " ";
 	s << ReplacingUtilityThreshold << " ";
 }
-void CBRWeights::Load(std::ifstream s)
+void CBRWeights::Load(std::ifstream &s)
 {
 	for (int i = 0; i < ElementCount; ++i)
 	{

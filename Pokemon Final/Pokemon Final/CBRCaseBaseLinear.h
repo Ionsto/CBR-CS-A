@@ -12,4 +12,8 @@ public:
 	bool IsEmpty() override;
 	void InsertCase(std::unique_ptr<CBRCase> Case) override;
 	void RemoveCase(CBRCase * Case) override;
+	CBRCase * GetCaseView(int i) override;
+	virtual int GetCaseCount() override;
+	void Save(std::ofstream &s) override;
+	void Load(std::ifstream &s) override;
 };

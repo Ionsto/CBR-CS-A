@@ -151,3 +151,20 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 	}
 }
 
+
+void CBRInstance::Load(std::string s)
+{
+	std::ifstream stream = std::ifstream(s);
+	if (stream) {
+		CaseBase->Load(stream);
+	}
+	stream.close();
+}
+void CBRInstance::Save(std::string s)
+{
+	std::ofstream stream = std::ofstream(s);
+	if (stream) {
+		CaseBase->Save(stream);
+	}
+	stream.close();
+}

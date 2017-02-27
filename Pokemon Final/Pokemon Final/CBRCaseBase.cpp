@@ -34,6 +34,15 @@ std::queue<CBRCaseDistance> CBRCaseBase::MergeSort(std::queue<CBRCaseDistance> l
 	return MergeMerge(left, right);
 }
 
+CBRCase * CBRCaseBase::GetCaseView(int i)
+{
+	return NULL;
+}
+int CBRCaseBase::GetCaseCount()
+{
+	return 0;
+}
+
 std::queue<CBRCaseDistance> CBRCaseBase::MergeMerge(std::queue<CBRCaseDistance> a, std::queue<CBRCaseDistance> b)
 {
 	std::queue<CBRCaseDistance> returnvec = std::queue<CBRCaseDistance>();
@@ -91,4 +100,12 @@ void CBRCaseBase::RemoveCase(CBRCase * Case)
 bool CBRCaseBase::IsEmpty()
 {
 	return true;
+}
+void CBRCaseBase::Save(std::ofstream &s)
+{
+	DistanceWeight.Save(s);
+}
+void CBRCaseBase::Load(std::ifstream &s)
+{
+	DistanceWeight.Load(s);
 }

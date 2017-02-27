@@ -27,5 +27,7 @@ public:
 	bool Exploit();
 	void CalculateUtility();
 	float CalculateFitness(CBREnviroment * env);
+	void Save(std::ofstream &s);
+	void Load(std::ifstream &s);
 };
 

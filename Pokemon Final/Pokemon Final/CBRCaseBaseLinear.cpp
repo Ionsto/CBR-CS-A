@@ -33,6 +33,14 @@ std::vector<CBRCaseDistance> CBRCaseBaseLinear::GetKNN(int K, float threshold, C
 	}
 	return NearestCasesVec;
 }
+int CBRCaseBaseLinear::GetCaseCount()
+{
+	return CaseBase.size();
+}
+CBRCase * CBRCaseBaseLinear::GetCaseView(int i)
+{
+	return CaseBase[i].get();
+}
 bool CBRCaseBaseLinear::IsEmpty()
 {
 	return CaseBase.empty();
@@ -54,5 +62,25 @@ void CBRCaseBaseLinear::RemoveCase(CBRCase * Case)
 			CaseBase.erase(CaseBase.begin() + i);
 			return;
 		}
+	}
+}
+void CBRCaseBaseLinear::Save(std::ofstream &s)
+{
+	DistanceWeight.Save(s);
+	s << GetCaseCount() << " ";
+	for (int i = 0; i < CaseBase.size(); ++i)
+	{
+		GetCaseView(i)->Save(s);
+	}
+}
+void CBRCaseBaseLinear::Load(std::ifstream &s)
+{
+	DistanceWeight.Load(s);
+	int CaseCount = 0;
+	s >> CaseCount;
+	for (int i = 0; i < CaseCount; ++i)
+	{
+		InsertCase(std::make_unique<CBRCase>());
+		CaseBase[i]->Load(s);
 	}
 }

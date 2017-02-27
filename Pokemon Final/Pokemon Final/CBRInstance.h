@@ -20,4 +20,6 @@ public:
 	int GetMoveFromCases(std::vector<CBRCaseDistance> cases);
 	int GetMove(std::unique_ptr<CBREnviroment> startenv);
 	void ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv);
+	void Save(std::string s);
+	void Load(std::string s);
 };			

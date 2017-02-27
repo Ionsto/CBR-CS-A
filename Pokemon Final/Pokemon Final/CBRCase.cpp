@@ -31,3 +31,26 @@ float CBRCase::CalculateFitness(CBREnviroment * env)
 	//This is the fittness function
 	return env->GetAttribute(0) - env->GetAttribute(24);
 }
+
+void CBRCase::Save(std::ofstream &s)
+{
+	StartEnviroment->Save(s);
+	EndEnviroment->Save(s);
+	s << Move << " ";
+	s << Utility << " ";
+	s << Exploration << " ";
+	s << ExplorationMaxTests << " ";
+	s << ExplorationTestsCount << " ";
+}
+void CBRCase::Load(std::ifstream &s)
+{
+	StartEnviroment = std::make_unique<CBREnviroment>();
+	EndEnviroment = std::make_unique<CBREnviroment>();
+	StartEnviroment->Load(s);
+	EndEnviroment->Load(s);
+	s >> Move;
+	s >> Utility;
+	s >> Exploration;
+	s >> ExplorationMaxTests;
+	s >> ExplorationTestsCount;
+}

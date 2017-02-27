@@ -1,4 +1,3 @@
 ﻿  main.cpp
-d:\github\cbr-cs-a\pokemon final\model\main.cpp(131): warning C4305: 'initializing': truncation from 'double' to 'float'
   Model.vcxproj -> D:\Github\CBR-CS-A\Pokemon Final\Debug\Model.exe
   Model.vcxproj -> D:\Github\CBR-CS-A\Pokemon Final\Debug\Model.pdb (Partial PDB)

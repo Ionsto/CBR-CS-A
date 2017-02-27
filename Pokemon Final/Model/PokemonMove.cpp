@@ -8,6 +8,7 @@ PokemonMove::PokemonMove()
 	BaseDamage = 10;
 	CurrentUses = 0;
 	MaxUses = 8;
+	DefenseBuff = 1;
 	AttackType = TypeTypes::Normal;
 }
 
@@ -41,4 +42,23 @@ PokemonMoveShock::PokemonMoveShock()
 	AttackSpeed = 2;
 	MaxUses = 2;
 	AttackType = TypeTypes::Electric;
+}
+
+PokemonMoveLightning::PokemonMoveLightning()
+{
+	Name = "Lightning";
+	BaseDamage = 35;
+	AttackSpeed = 3;
+	MaxUses = 2;
+	AttackType = TypeTypes::Electric;
+}
+
+PokemonMoveHarden::PokemonMoveHarden()
+{
+	Name = "Harden";
+	BaseDamage = 10;
+	AttackSpeed = 2;
+	MaxUses = 2;
+	DefenseBuff = 2;
+	AttackType = TypeTypes::Normal;
 }

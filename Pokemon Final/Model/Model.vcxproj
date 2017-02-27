@@ -116,11 +116,13 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCBR.cpp" />
     <ClCompile Include="PlayerConsole.cpp" />
+    <ClCompile Include="PlayerDeterministic.cpp" />
     <ClCompile Include="PlayerRandom.cpp" />
     <ClCompile Include="PokemonBase.cpp" />
     <ClCompile Include="PokemonMagikarp.cpp" />
     <ClCompile Include="PokemonMove.cpp" />
     <ClCompile Include="PokemonPikachu.cpp" />
+    <ClCompile Include="Tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameInstance.h" />
@@ -128,11 +130,13 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCBR.h" />
     <ClInclude Include="PlayerConsole.h" />
+    <ClInclude Include="PlayerDeterministic.h" />
     <ClInclude Include="PlayerRandom.h" />
     <ClInclude Include="PokemonBase.h" />
     <ClInclude Include="PokemonMagikarp.h" />
     <ClInclude Include="PokemonMove.h" />
     <ClInclude Include="PokemonPikachu.h" />
+    <ClInclude Include="Tests.h" />
     <ClInclude Include="TypeOptions.h" />
   </ItemGroup>
   <ItemGroup>

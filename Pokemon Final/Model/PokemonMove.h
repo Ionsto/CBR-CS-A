@@ -11,6 +11,7 @@ public:
 	int BaseDamage;
 	int MaxUses;
 	int CurrentUses;
+	float DefenseBuff;
 	TypeTypes AttackType;
 	PokemonMove();
 	~PokemonMove();
@@ -28,5 +29,15 @@ public:
 class PokemonMoveShock : public PokemonMove {
 public:
 	PokemonMoveShock();
+};
+
+class PokemonMoveLightning : public PokemonMove {
+public:
+	PokemonMoveLightning();
+}; 
+
+class PokemonMoveHarden : public PokemonMove {
+public:
+	PokemonMoveHarden();
 };
 

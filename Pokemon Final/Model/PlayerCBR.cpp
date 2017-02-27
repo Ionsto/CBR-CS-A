@@ -28,6 +28,7 @@ void PlayerCBR::PopulateEnviroment(CBREnviroment * env, Player * enemy)
 		env->Owned.Moves[i].AttackSpeed = GetActivePokemon()->MoveSet[i]->AttackSpeed;
 		env->Owned.Moves[i].AttackType = GetActivePokemon()->MoveSet[i]->AttackType;
 		env->Owned.Moves[i].BaseDamage = GetActivePokemon()->MoveSet[i]->BaseDamage;
+		env->Owned.Moves[i].DefenseBuff = GetActivePokemon()->MoveSet[i]->DefenseBuff;
 		env->Owned.Moves[i].CurrentUses = GetActivePokemon()->MoveSet[i]->CurrentUses;
 		env->Owned.Moves[i].MaxUses = GetActivePokemon()->MoveSet[i]->MaxUses;
 	}
@@ -38,6 +39,7 @@ void PlayerCBR::PopulateEnviroment(CBREnviroment * env, Player * enemy)
 		env->Opponent.Moves[i].AttackSpeed = enemy->GetActivePokemon()->MoveSet[i]->AttackSpeed;
 		env->Opponent.Moves[i].AttackType = enemy->GetActivePokemon()->MoveSet[i]->AttackType;
 		env->Opponent.Moves[i].BaseDamage = enemy->GetActivePokemon()->MoveSet[i]->BaseDamage;
+		env->Opponent.Moves[i].DefenseBuff = enemy->GetActivePokemon()->MoveSet[i]->DefenseBuff;
 		env->Opponent.Moves[i].CurrentUses = enemy->GetActivePokemon()->MoveSet[i]->CurrentUses;
 		env->Opponent.Moves[i].MaxUses = enemy->GetActivePokemon()->MoveSet[i]->MaxUses;
 	}
