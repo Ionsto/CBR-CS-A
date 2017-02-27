@@ -59,27 +59,12 @@ float PlayOne(CBRWeights * Weights, int gamemax)
 	AI->CaseBase->DistanceWeight = CBRWeights(*Weights);
 	for (int i = 0; i < gamemax; ++i)
 	{
-<<<<<<< HEAD
 		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(AI)), std::make_unique<PlayerRandom>());
 		//if (i % 100 == 0 || i-1 % 100 == 0)
 		//{
 		//Game->DisplayCallback = DisplayConsole;
 		//}
 		for (int g = 0; g < 7 && !Game->Finished; ++g) {
-=======
-		std::unique_ptr<Player> player = std::make_unique<PlayerRandom>();
-		if ((i % 100 == 0 || i-1 % 100 == 0) && i > 50)
-		{
-			player.release();
-			player = std::make_unique<PlayerConsole>();
-		}
-		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(AI)), std::move(player));
-		if (i % 100 == 0 || i-1 % 100 == 0)
-		{
-		Game->DisplayCallback = DisplayConsole;
-		}
-		while (!Game->Finished) {
->>>>>>> origin/master
 			Game->Update();
 		}
 		if (Game->GetPlayer(0)->Alive)
