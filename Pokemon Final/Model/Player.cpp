@@ -32,8 +32,12 @@ void Player::Update(Player * enemy)
 	for (int i = 0; i < 4; ++i)
 	{
 		TeamHealth += MyPokemon[i]->Health;
+		if (MyPokemon[i]->Health < 0)
+		{
+			MyPokemon[i]->Health = 0;
+		}
 	}
-	if (TeamHealth == 0)
+	if (TeamHealth <= 0)
 	{
 		Alive = false;
 	}

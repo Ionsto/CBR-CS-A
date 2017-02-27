@@ -16,7 +16,7 @@ static void DisplayConsole(GameInstance * gi, std::unique_ptr<Player> * Players,
 		std::cout << "Player 0 is out" << std::endl;
 	}
 	if (Players[1]->Alive) {
-		std::cout << "Player 1:" << Players[1]->GetActivePokemon()->PokemonType << " Health:" << Players[1]->GetActivePokemon()->Health << ": " << Players[0]->GetActivePokemon()->MoveSet[moves.B]->Name << std::endl;
+		std::cout << "Player 1:" << Players[1]->GetActivePokemon()->PokemonType << " Health:" << Players[1]->GetActivePokemon()->Health << ": " << Players[1]->GetActivePokemon()->MoveSet[moves.B]->Name << std::endl;
 	}
 	else
 	{
@@ -59,12 +59,27 @@ float PlayOne(CBRWeights * Weights, int gamemax)
 	AI->CaseBase->DistanceWeight = CBRWeights(*Weights);
 	for (int i = 0; i < gamemax; ++i)
 	{
+<<<<<<< HEAD
 		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(AI)), std::make_unique<PlayerRandom>());
 		//if (i % 100 == 0 || i-1 % 100 == 0)
 		//{
 		//Game->DisplayCallback = DisplayConsole;
 		//}
 		for (int g = 0; g < 7 && !Game->Finished; ++g) {
+=======
+		std::unique_ptr<Player> player = std::make_unique<PlayerRandom>();
+		if ((i % 100 == 0 || i-1 % 100 == 0) && i > 50)
+		{
+			player.release();
+			player = std::make_unique<PlayerConsole>();
+		}
+		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(AI)), std::move(player));
+		if (i % 100 == 0 || i-1 % 100 == 0)
+		{
+		Game->DisplayCallback = DisplayConsole;
+		}
+		while (!Game->Finished) {
+>>>>>>> origin/master
 			Game->Update();
 		}
 		if (Game->GetPlayer(0)->Alive)
@@ -83,7 +98,7 @@ float PlayOne(CBRWeights * Weights, int gamemax)
 		AI = std::move(((PlayerCBR*)Game->GetPlayer(0))->AIInstance);
 		delete Game;
 		//std::cout << "Win % for p0:" << (won0*(float)100.0 / (i + 1)) << std::endl;
-		//std::cout << ((float)won0 / (i + 1)) << std::endl;
+		std::cout << ((float)won0 / (i + 1)) << std::endl;
 	}
 	AI.release();
 	//std::cout << ((float)won0 / (gamemax))<< " ";
@@ -194,7 +209,7 @@ void WeightingRoundRobin()
 }
 int main(int argc, char **args)
 {
-	/*float Delta = 1;
+	float Delta = 1;
 	std::unique_ptr<CBRWeights> Weight0 = std::make_unique<CBRWeights>();
 	std::unique_ptr<CBRWeights> Weight1 = std::make_unique<CBRWeights>();
 	std::ifstream stream = std::ifstream("weights.txt");
@@ -203,12 +218,16 @@ int main(int argc, char **args)
 		Weight1->CopyWeights(*Weight0.get());
 	}
 	Weight0->RandomiseWeights(Delta);
-	std::cout<<PlayOne(Weight0.get(), 1000);*/
+	std::cout<<PlayOne(Weight0.get(), 1000);
 	//PlayWeights(Weight0.get(),Weight1.get(),200);
+<<<<<<< HEAD
 	WeightingRoundRobin();
 	//TestAIInteraction();
 	//TestCaseSaveLoad();
 	//TestPlayOverTime();
+=======
+	//WeightingRoundRobin();
+>>>>>>> origin/master
 	int i = 0;
 	std::cin >> i;
 	return 0;

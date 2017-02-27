@@ -29,7 +29,7 @@ void CBRCase::CalculateUtility()
 float CBRCase::CalculateFitness(CBREnviroment * env)
 {
 	//This is the fittness function
-	return env->GetAttribute(0) - env->GetAttribute(24);
+	return env->Owned.Health - env->Opponent.Health;
 }
 
 void CBRCase::Save(std::ofstream &s)
