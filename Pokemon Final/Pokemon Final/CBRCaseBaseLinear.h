@@ -6,7 +6,7 @@ public:
 	//This is a dummy class
 	std::vector<std::unique_ptr<CBRCase>> CaseBase;
 	CBRCaseBaseLinear();
-	~CBRCaseBaseLinear(); 
+	virtual ~CBRCaseBaseLinear() override; 
 	std::vector<CBRCaseDistance> GetKNN(int K,float threshold, CBREnviroment * env) override; 
 	//float GetDistance(CBRCase * a, CBRCase * b) override;
 	bool IsEmpty() override;

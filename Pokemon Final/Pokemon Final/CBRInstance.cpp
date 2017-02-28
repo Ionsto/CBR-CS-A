@@ -8,6 +8,8 @@ CBRInstance::CBRInstance()
 
 CBRInstance::~CBRInstance()
 {
+	CaseBase.reset();
+	CurrentCase.reset();
 }
 /*
 -First find nearest case
@@ -27,7 +29,7 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 	}
 	else
 	{
-		std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(40, CaseBase->DistanceWeight.MaxSearchThreshold, CurrentCase->StartEnviroment.get());
+		std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(10, expf(CaseBase->DistanceWeight.MaxSearchThreshold), CurrentCase->StartEnviroment.get());
 		if (NearestCases.size() == 0)
 		{
 			//Random moves
@@ -36,7 +38,7 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 		else
 		{
 			CBRCaseDistance NearestCase = NearestCases[0];
-			if (NearestCase.Distance < CaseBase->DistanceWeight.IdenticalThreshold)
+			if (NearestCase.Distance < expf(CaseBase->DistanceWeight.IdenticalThreshold))
 			{
 				//Chose whether to exploit or explore
 				if (NearestCase.Case->Exploit())
@@ -84,7 +86,7 @@ int CBRInstance::GetMoveWeightedAv(std::vector<CBRCaseDistance> cases)
 	float AvCase[4] = {0,0,0,0};
 	for (int i = 0;i < cases.size();++i)
 	{
-		AvCase[cases[i].Case->Move] += cases[i].Case->Utility/cases[i].Distance;
+		AvCase[cases[i].Case->Move] += cases[i].Case->Utility /(cases[i].Distance);
 	}
 	int BestMove = 0;
 	int MoveVotes = -INT_MAX;
@@ -108,7 +110,7 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 	CurrentCase->CalculateUtility();
 	
 	//Lending valitity to previous cases, or discrediting them
-	std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(10, CaseBase->DistanceWeight.MaxSearchThreshold, CurrentCase->EndEnviroment.get());
+	std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(10, expf(CaseBase->DistanceWeight.MaxSearchThreshold), CurrentCase->EndEnviroment.get());
 	if (NearestCases.size() == 0)
 	{
 		//Random moves
@@ -117,11 +119,11 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 	else
 	{
 		CBRCaseDistance NearestCase = NearestCases[0];
-		if (NearestCase.Distance < CaseBase->DistanceWeight.IdenticalThreshold)
+		if (NearestCase.Distance < expf(CaseBase->DistanceWeight.IdenticalThreshold))
 		{
 			if (NearestCase.Case->Move != CurrentCase->Move)
 			{
-				if ((CurrentCase->Utility - NearestCase.Case->Utility) > CaseBase->DistanceWeight.ReplacingUtilityThreshold)
+				if ((CurrentCase->Utility - NearestCase.Case->Utility) > expf(CaseBase->DistanceWeight.ReplacingUtilityThreshold))
 				{
 					//Remove the NearstCas
 					CaseBase->RemoveCase(NearestCase.Case);
@@ -131,7 +133,7 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 			}
 			else
 			{
-				float DeltaExploration = -CurrentCase->Utility * CaseBase->DistanceWeight.ExplorationConstant;
+				float DeltaExploration = -CurrentCase->Utility * expf(CaseBase->DistanceWeight.ExplorationConstant);
 				if (CurrentCase->Utility < 0) {
 					DeltaExploration *= 5;
 				}

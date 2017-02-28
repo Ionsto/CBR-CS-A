@@ -6,6 +6,10 @@ CBRCaseBaseLinear::CBRCaseBaseLinear()
 }
 CBRCaseBaseLinear::~CBRCaseBaseLinear()
 {
+	for (int i = 0; i < CaseBase.size();++i)
+	{
+		CaseBase[i].reset();
+	}
 }
 
 std::vector<CBRCaseDistance> CBRCaseBaseLinear::GetKNN(int K, float threshold, CBREnviroment * env)

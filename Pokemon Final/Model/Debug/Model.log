@@ -1,3 +1,13 @@
-﻿  main.cpp
+﻿  PlayerCBR.cpp
+d:\github\cbr-cs-a\pokemon final\model\playercbr.cpp(24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\model\playercbr.cpp(25): warning C4244: '=': conversion from 'TypeTypes' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\model\playercbr.cpp(32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\model\playercbr.cpp(34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\model\playercbr.cpp(35): warning C4244: '=': conversion from 'TypeTypes' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\model\playercbr.cpp(42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  main.cpp
+  Tests.cpp
   Model.vcxproj -> D:\Github\CBR-CS-A\Pokemon Final\Debug\Model.exe
   Model.vcxproj -> D:\Github\CBR-CS-A\Pokemon Final\Debug\Model.pdb (Partial PDB)

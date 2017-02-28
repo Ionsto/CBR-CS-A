@@ -16,7 +16,7 @@ GameInstance::~GameInstance()
 	//Clear up memory
 	for (int i = 0; i < 2; ++i)
 	{
-		Players[i].release();
+		Players[i].reset();
 	}
 	//Players does not need to be deleted as it is stack allocated
 }
@@ -38,25 +38,25 @@ void GameInstance::ResolveMoves(GameInstance::MovePairs Moves)
 	int MoveSpeed[2];
 	MoveSpeed[0] = -1;
 	MoveSpeed[1] = -1;
-	if (Moves.A && MoveTypesMoveSelector == MoveTypes::ChoosePokemon)
+	if (Moves.A & MoveTypesMoveSelector == MoveTypes::ChoosePokemon)
 	{
 		MoveSpeed[0] = 0;
-		Players[0]->ActivePokemon = Moves.A && MoveTypesOptionSelector;
+		Players[0]->ActivePokemon = Moves.A & MoveTypesOptionSelector;
 	}
 	else
 	{
-		MoveSpeed[0] = Players[0]->GetActivePokemon()->MoveSet[Moves.A && MoveTypesOptionSelector]->AttackSpeed;
+		MoveSpeed[0] = Players[0]->GetActivePokemon()->MoveSet[Moves.A & MoveTypesOptionSelector]->AttackSpeed;
 	}
-	if (Moves.B && MoveTypesMoveSelector == MoveTypes::ChoosePokemon)
+	if (Moves.B & MoveTypesMoveSelector == MoveTypes::ChoosePokemon)
 	{
 		MoveSpeed[0] = 0;
-		Players[1]->ActivePokemon = Moves.B && MoveTypesOptionSelector;
+		Players[1]->ActivePokemon = Moves.B & MoveTypesOptionSelector;
 	}
 	else
 	{
-		MoveSpeed[1] = Players[1]->GetActivePokemon()->MoveSet[Moves.B && MoveTypesOptionSelector]->AttackSpeed;
+		MoveSpeed[1] = Players[1]->GetActivePokemon()->MoveSet[Moves.B & MoveTypesOptionSelector]->AttackSpeed;
 	}
-	if ((Moves.A && MoveTypesMoveSelector == MoveTypes::ChoosePokemon) && (Moves.B && MoveTypesMoveSelector == MoveTypes::ChoosePokemon))
+	if ((Moves.A & MoveTypesMoveSelector == MoveTypes::ChoosePokemon) && (Moves.B & MoveTypesMoveSelector == MoveTypes::ChoosePokemon))
 	{
 		//Both players swapped in pokemon symultaiusly.
 		//Nothing else happens
@@ -66,36 +66,36 @@ void GameInstance::ResolveMoves(GameInstance::MovePairs Moves)
 	if (MoveSpeed[0] == 0)
 	{
 		//Resolve 0
-		Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B && MoveTypesOptionSelector));
+		Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B & MoveTypesOptionSelector));
 		return;
 	}
 	if (MoveSpeed[1] == 0)
 	{
 		//Resolve 1
-		Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A && MoveTypesOptionSelector));
+		Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A & MoveTypesOptionSelector));
 		return;
 	}
 	//At this point in execution we know both players are going for attack moves, and we need to resolve order of operation
 	if (MoveSpeed[0] < MoveSpeed[1])
 	{
-		Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A && MoveTypesOptionSelector));
-		Players[0]->GetActivePokemon()->Defense *= Players[0]->GetActivePokemon()->MoveSet[Moves.A && MoveTypesOptionSelector]->DefenseBuff;
+		Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A & MoveTypesOptionSelector));
+		//Players[0]->GetActivePokemon()->Defense *= Players[0]->GetActivePokemon()->MoveSet[Moves.A && MoveTypesOptionSelector]->DefenseBuff;
 		if (Players[1]->GetActivePokemon()->Health != 0)
 		{
-			Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B && MoveTypesOptionSelector));
+			Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B & MoveTypesOptionSelector));
 		}
-		Players[0]->GetActivePokemon()->Defense /= Players[0]->GetActivePokemon()->MoveSet[Moves.A && MoveTypesOptionSelector]->DefenseBuff;
+		//Players[0]->GetActivePokemon()->Defense /= Players[0]->GetActivePokemon()->MoveSet[Moves.A && MoveTypesOptionSelector]->DefenseBuff;
 
 	}
 	else if(MoveSpeed[0] > MoveSpeed[1])
 	{
-		Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B && MoveTypesOptionSelector));
-		Players[1]->GetActivePokemon()->Defense *= Players[1]->GetActivePokemon()->MoveSet[Moves.B && MoveTypesOptionSelector]->DefenseBuff;
+		Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B & MoveTypesOptionSelector));
+		//Players[1]->GetActivePokemon()->Defense *= Players[1]->GetActivePokemon()->MoveSet[Moves.B && MoveTypesOptionSelector]->DefenseBuff;
 		if (Players[0]->GetActivePokemon()->Health != 0)
 		{
-			Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A && MoveTypesOptionSelector));
+			Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A & MoveTypesOptionSelector));
 		}
-		Players[1]->GetActivePokemon()->Defense /= Players[1]->GetActivePokemon()->MoveSet[Moves.B && MoveTypesOptionSelector]->DefenseBuff;
+		//Players[1]->GetActivePokemon()->Defense /= Players[1]->GetActivePokemon()->MoveSet[Moves.B && MoveTypesOptionSelector]->DefenseBuff;
 
 	}
 	else
@@ -103,23 +103,25 @@ void GameInstance::ResolveMoves(GameInstance::MovePairs Moves)
 		//Randomise
 		if (rand() % 2 == 0)
 		{
-			Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B && MoveTypesOptionSelector));
-			Players[1]->GetActivePokemon()->Defense *= Players[1]->GetActivePokemon()->MoveSet[Moves.B && MoveTypesOptionSelector]->DefenseBuff;
+			int starthealth = Players[0]->GetActivePokemon()->Health;
+			Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B & MoveTypesOptionSelector));
+			int endhealth = Players[0]->GetActivePokemon()->Health;
+			//Players[1]->GetActivePokemon()->Defense *= Players[1]->GetActivePokemon()->MoveSet[Moves.B && MoveTypesOptionSelector]->DefenseBuff;
 			if (Players[0]->GetActivePokemon()->Health != 0)
 			{
-				Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A && MoveTypesOptionSelector));
+				Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A & MoveTypesOptionSelector));
 			}
-			Players[1]->GetActivePokemon()->Defense /= Players[1]->GetActivePokemon()->MoveSet[Moves.B && MoveTypesOptionSelector]->DefenseBuff;
+			//Players[1]->GetActivePokemon()->Defense /= Players[1]->GetActivePokemon()->MoveSet[Moves.B && MoveTypesOptionSelector]->DefenseBuff;
 		}
 		else
 		{
-			Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A && MoveTypesOptionSelector));
-			Players[0]->GetActivePokemon()->Defense *= Players[0]->GetActivePokemon()->MoveSet[Moves.A && MoveTypesOptionSelector]->DefenseBuff;
+			Players[1]->GetActivePokemon()->Health = fmaxf(0, Players[1]->GetActivePokemon()->Health - CalculateDamage(Players[0]->GetActivePokemon(), Players[1]->GetActivePokemon(), Moves.A & MoveTypesOptionSelector));
+			//Players[0]->GetActivePokemon()->Defense *= Players[0]->GetActivePokemon()->MoveSet[Moves.A && MoveTypesOptionSelector]->DefenseBuff;
 			if (Players[1]->GetActivePokemon()->Health != 0)
 			{
-				Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B && MoveTypesOptionSelector));
+				Players[0]->GetActivePokemon()->Health = fmaxf(0, Players[0]->GetActivePokemon()->Health - CalculateDamage(Players[1]->GetActivePokemon(), Players[0]->GetActivePokemon(), Moves.B & MoveTypesOptionSelector));
 			}
-			Players[0]->GetActivePokemon()->Defense /= Players[0]->GetActivePokemon()->MoveSet[Moves.A && MoveTypesOptionSelector]->DefenseBuff;
+			//Players[0]->GetActivePokemon()->Defense /= Players[0]->GetActivePokemon()->MoveSet[Moves.A && MoveTypesOptionSelector]->DefenseBuff;
 		}
 	}
 }

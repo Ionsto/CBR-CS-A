@@ -81,7 +81,7 @@ float CBRCaseBase::GetDistance(CBREnviroment * a, CBREnviroment * b)
 		distancesqrd += expf(DistanceWeight.GetAttribute(i)) * (a->GetAttribute(i) - b->GetAttribute(i)) * (a->GetAttribute(i) - b->GetAttribute(i));
 	}
 	//
-	return sqrtf(distancesqrd);
+	return (distancesqrd);
 }
 
 void CBRCaseBase::InsertCase(std::unique_ptr<CBRCase> Case)

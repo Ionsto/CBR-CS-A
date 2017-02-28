@@ -11,7 +11,7 @@ public:
 	//This is the list of actors(pokemon) availible
 	std::unique_ptr<PokemonBase> MyPokemon[4];
 	Player();
-	~Player();
+	virtual ~Player();
 	//Polymorphic function for getting players move
 	virtual int GetMove(Player * enemy);
 	//Polymorphic function for getting players move

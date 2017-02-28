@@ -24,7 +24,7 @@ PokemonMoveQuickAttack::PokemonMoveQuickAttack()
 	Name = "Quick attack";
 	BaseDamage = 20;
 	AttackSpeed = 1;
-	MaxUses = 4;
+	MaxUses = 2;
 	AttackType = TypeTypes::Normal;
 }
 PokemonMoveTackle::PokemonMoveTackle()
@@ -32,7 +32,7 @@ PokemonMoveTackle::PokemonMoveTackle()
 	Name = "Tackle";
 	BaseDamage = 30;
 	AttackSpeed = 5;
-	MaxUses = 2;
+	MaxUses = 4;
 	AttackType = TypeTypes::Normal;
 }
 PokemonMoveShock::PokemonMoveShock()
@@ -40,7 +40,7 @@ PokemonMoveShock::PokemonMoveShock()
 	Name = "Shock";
 	BaseDamage = 40;
 	AttackSpeed = 2;
-	MaxUses = 2;
+	MaxUses = 1;
 	AttackType = TypeTypes::Electric;
 }
 

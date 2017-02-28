@@ -9,6 +9,8 @@ CBRCase::CBRCase()
 
 CBRCase::~CBRCase()
 {
+	StartEnviroment.reset();
+	EndEnviroment.reset();
 }
 
 void CBRCase::GenerateRandomMove()

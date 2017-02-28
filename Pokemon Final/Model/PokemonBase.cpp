@@ -18,6 +18,6 @@ PokemonBase::~PokemonBase()
 {
 	for (int i = 0; i < 4; ++i)
 	{
-		MoveSet[i].release();
+		MoveSet[i].reset();
 	}
 }

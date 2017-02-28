@@ -5,7 +5,7 @@ class PlayerRandom :
 {
 public:
 	PlayerRandom();
-	~PlayerRandom();
+	virtual ~PlayerRandom() override;
 	int GetMove(Player * enemy) override;
 };
 

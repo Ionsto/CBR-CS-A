@@ -6,7 +6,7 @@ class PlayerDeterministic :
 public:
 	int PlayCount;
 	PlayerDeterministic();
-	~PlayerDeterministic();
+	virtual ~PlayerDeterministic() override;
 	int GetMove(Player * enemy) override;
 };
 

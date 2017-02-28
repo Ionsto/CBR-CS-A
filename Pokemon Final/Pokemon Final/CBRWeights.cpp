@@ -7,12 +7,12 @@ CBRWeights::CBRWeights()
 	ElementCount = 56;
 	for (int i = 0; i < ElementCount; ++i)
 	{
-		Attr[i] = 0;
+		Attr[i] = 1;
 	}
-	IdenticalThreshold = 10;
-	ExplorationConstant = 1;
-	MaxSearchThreshold = 50;
-	ReplacingUtilityThreshold = 2;
+	IdenticalThreshold = 0;
+	ExplorationConstant = 0;
+	MaxSearchThreshold = 0;
+	ReplacingUtilityThreshold = 0;
 }
 
 CBRWeights::~CBRWeights()
@@ -22,13 +22,17 @@ void CBRWeights::RandomiseWeights(float delta)
 {
 	for (int i = 0; i < ElementCount; ++i)
 	{
-		Attr[i] += delta*(((rand() % 100)/(float)100)-0.5);
+		Attr[i] += delta*(((rand() % 100) / (float)100) - 0.5);
 	}
 	//Difference in implementation for this and attr is due these constants being pulled over from 
-	IdenticalThreshold = expf(logf(IdenticalThreshold) + delta*(((rand() % 100) / (float)100) - 0.5));
-	ExplorationConstant = expf(logf(ExplorationConstant) + delta*(((rand() % 100) / (float)100) - 0.5));
-	MaxSearchThreshold = expf(logf(MaxSearchThreshold) + delta*(((rand() % 100) / (float)100) - 0.5));
-	ReplacingUtilityThreshold = expf(logf(ReplacingUtilityThreshold) + delta*(((rand() % 100) / (float)100) - 0.5));
+	IdenticalThreshold += delta*(((rand() % 100) / (float)100) - 0.5);
+	ExplorationConstant += delta*(((rand() % 100) / (float)100) - 0.5);
+	MaxSearchThreshold += delta*(((rand() % 100) / (float)100) - 0.5);
+	ReplacingUtilityThreshold += delta*(((rand() % 100) / (float)100) - 0.5);
+	//if (MaxSearchThreshold > 500)
+	//{
+	//	MaxSearchThreshold = 500;
+	//}
 }
 void CBRWeights::CopyWeights(CBRWeights weights)
 {

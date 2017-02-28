@@ -5,7 +5,7 @@ class PlayerConsole :
 {
 public:
 	PlayerConsole();
-	~PlayerConsole();
+	virtual ~PlayerConsole() override;
 	virtual int GetMove(Player * enemy) override;
 	virtual void Update(Player * enemy) override;
 };

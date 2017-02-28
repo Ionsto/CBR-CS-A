@@ -10,14 +10,27 @@ The CBRCasebase will have two versions, a linear list (slow but for testing) and
 #include "CBRWeights.h"
 struct CBRCaseDistance{
   float Distance;
-  CBRCase * Case;  
+  CBRCase * Case;
+  CBRCaseDistance()
+  {
+	  Distance = 0;
+	  Case = NULL;
+  };
+  CBRCaseDistance(const CBRCaseDistance & Case)
+  {
+	  Distance = Case.Distance;
+	  this->Case = Case.Case;
+  };
+  ~CBRCaseDistance()
+  {
+  };
 };
 class CBRCaseBase {
 public:
 	//Weights for the distance
 	CBRWeights DistanceWeight;
 	CBRCaseBase();
-	~CBRCaseBase();
+	virtual ~CBRCaseBase();
 	virtual std::vector<CBRCaseDistance> GetKNN(int K,float threshold,CBREnviroment * env);
 	//returns weighted eucliden distance between two Cases
 	virtual float GetDistance(CBREnviroment * a,CBREnviroment * b);
