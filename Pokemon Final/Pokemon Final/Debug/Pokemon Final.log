@@ -1,6 +1,8 @@
-﻿  CBRInstance.cpp
+﻿  main.cpp
+  CBRInstance.cpp
 d:\github\cbr-cs-a\pokemon final\pokemon final\cbrinstance.cpp(69): warning C4018: '<': signed/unsigned mismatch
 d:\github\cbr-cs-a\pokemon final\pokemon final\cbrinstance.cpp(87): warning C4018: '<': signed/unsigned mismatch
+  CBREnviroment.cpp
   CBRCaseBaseLinear.cpp
 d:\github\cbr-cs-a\pokemon final\pokemon final\cbrcasebaselinear.cpp(9): warning C4018: '<': signed/unsigned mismatch
 d:\github\cbr-cs-a\pokemon final\pokemon final\cbrcasebaselinear.cpp(18): warning C4018: '<': signed/unsigned mismatch
@@ -10,7 +12,13 @@ d:\github\cbr-cs-a\pokemon final\pokemon final\cbrcasebaselinear.cpp(62): warnin
 d:\github\cbr-cs-a\pokemon final\pokemon final\cbrcasebaselinear.cpp(75): warning C4018: '<': signed/unsigned mismatch
   CBRCaseBase.cpp
 d:\github\cbr-cs-a\pokemon final\pokemon final\cbrcasebase.cpp(30): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  CBRCase.cpp
+  CBRWeights.cpp
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrweights.cpp(26): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrweights.cpp(27): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrweights.cpp(30): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrweights.cpp(31): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrweights.cpp(32): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrweights.cpp(33): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
   Generating Code...
-  Skipping... (no relevant changes detected)
-  main.cpp
   Pokemon Final.vcxproj -> D:\Github\CBR-CS-A\Pokemon Final\Debug\Pokemon Final.lib

@@ -24,10 +24,10 @@ public:
 	PokmonCase Owned;
 	PokmonCase Opponent;
 	int ElementCount;
-	//Mapping attributes to ids
+	//Mapping DistanceAttributesibutes to ids
 	//Poor coding style, but otherwise correct
 	//Also very fast, due to the fact it is one jump table, and one pointer
-	float* AttrMap[56] = {
+	float* AttributesMap[56] = {
 		&Owned.Health,//0
 		&Owned.Type,
 		&Owned.Attack,
@@ -84,8 +84,8 @@ public:
 		&Opponent.Moves[3].AttackType};
 	CBREnviroment();
 	~CBREnviroment();
-	float GetAttribute(int n);
-	void SetAttribute(int n,float val);
+	float GetAttributes(int n);
+	void SetAttributes(int n,float val);
 	void Save(std::ofstream &s);
 	void Load(std::ifstream &s);
 };

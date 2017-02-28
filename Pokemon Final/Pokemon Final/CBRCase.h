@@ -4,6 +4,8 @@ The case stores the start, end enviroments, and the move used to transform from 
 it also stores some infomation about the utility(or usefulness of a move) and this forms the basis of the 
 */
 #pragma once
+
+#include "CBRWeights.h"
 #include <memory>
 #include "CBREnviroment.h"
 class CBRCase
@@ -25,8 +27,8 @@ public:
 	~CBRCase();
 	void GenerateRandomMove();
 	bool Exploit();
-	void CalculateUtility();
-	float CalculateFitness(CBREnviroment * env);
+	void CalculateUtility(CBRWeights * weight);
+	float CalculateFitness(CBREnviroment * env,CBRWeights * weight);
 	void Save(std::ofstream &s);
 	void Load(std::ifstream &s);
 };

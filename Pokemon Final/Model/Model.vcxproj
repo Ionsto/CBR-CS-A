@@ -120,6 +120,7 @@
     <ClCompile Include="PlayerRandom.cpp" />
     <ClCompile Include="PokemonBase.cpp" />
     <ClCompile Include="PokemonMagikarp.cpp" />
+    <ClCompile Include="PokemonMareep.cpp" />
     <ClCompile Include="PokemonMove.cpp" />
     <ClCompile Include="PokemonPikachu.cpp" />
     <ClCompile Include="Tests.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="PlayerRandom.h" />
     <ClInclude Include="PokemonBase.h" />
     <ClInclude Include="PokemonMagikarp.h" />
+    <ClInclude Include="PokemonMareep.h" />
     <ClInclude Include="PokemonMove.h" />
     <ClInclude Include="PokemonPikachu.h" />
     <ClInclude Include="Tests.h" />

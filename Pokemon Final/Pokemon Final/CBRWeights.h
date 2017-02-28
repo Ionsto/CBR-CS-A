@@ -9,12 +9,14 @@ public:
 	float IdenticalThreshold;
 	float MaxSearchThreshold;
 	float ReplacingUtilityThreshold;
-	float Attr[56];
+	float DistanceAttributes[48];
+	float FitnessAttributes[48];
 	int ElementCount;
 	CBRWeights();
 	~CBRWeights();
 	void RandomiseWeights(float delta);
-	float GetAttribute(int n);
+	float GetDistanceAttributes(int n);
+	float GetFitnessAttributes(int n);
 	void CopyWeights(CBRWeights weights);
 	void Save(std::ofstream &s);
 	void Load(std::ifstream &s);

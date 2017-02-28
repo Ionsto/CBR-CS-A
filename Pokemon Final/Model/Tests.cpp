@@ -4,7 +4,7 @@ void TestAIInteraction()
 {
 	std::unique_ptr<CBRInstance> instance = std::make_unique<CBRInstance>();
 	CBRWeights Weight = CBRWeights();
-	std::ifstream stream = std::ifstream("weights.txt");
+	std::ifstream stream = std::ifstream("Handicapedweights.txt");
 	if (stream) {
 		Weight.Load(std::move(stream));
 		instance->CaseBase->DistanceWeight.CopyWeights(Weight);
@@ -39,7 +39,7 @@ void TestPlayOverTime()
 {
 	std::unique_ptr<CBRInstance> instance = std::make_unique<CBRInstance>();
 	CBRWeights Weight = CBRWeights();
-	std::ifstream stream = std::ifstream("weights.txt");
+	std::ifstream stream = std::ifstream("Handicapedweights.txt");
 	if (stream) {
 		Weight.Load(std::move(stream));
 		instance->CaseBase->DistanceWeight.CopyWeights(Weight);

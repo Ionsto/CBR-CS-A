@@ -78,7 +78,7 @@ float CBRCaseBase::GetDistance(CBREnviroment * a, CBREnviroment * b)
 	//List all elements
 	for (int i = 0;i < a->ElementCount;++i)
 	{
-		distancesqrd += expf(DistanceWeight.GetAttribute(i)) * (a->GetAttribute(i) - b->GetAttribute(i)) * (a->GetAttribute(i) - b->GetAttribute(i));
+		distancesqrd += expf(DistanceWeight.GetDistanceAttributes(i)) * (a->GetAttributes(i) - b->GetAttributes(i)) * (a->GetAttributes(i) - b->GetAttributes(i));
 	}
 	//
 	return (distancesqrd);

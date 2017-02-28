@@ -23,15 +23,23 @@ bool CBRCase::Exploit()
 	return !((exp(Exploration) * (rand()%50)) > 25);	
 }
 
-void CBRCase::CalculateUtility()
+void CBRCase::CalculateUtility(CBRWeights * weight)
 {
-	Utility = CalculateFitness(EndEnviroment.get()) - CalculateFitness(StartEnviroment.get());
+	Utility = CalculateFitness(EndEnviroment.get(),weight) - CalculateFitness(StartEnviroment.get(),weight);
 }
 
-float CBRCase::CalculateFitness(CBREnviroment * env)
+float CBRCase::CalculateFitness(CBREnviroment * env,CBRWeights * weight)
 {
 	//This is the fittness function
-	return env->Owned.Health - env->Opponent.Health;
+	float distancesqrd = 0;
+	//List all elements
+	for (int i = 0; i < env->ElementCount; ++i)
+	{
+		distancesqrd += expf(weight->GetFitnessAttributes(i)) * env->GetAttributes(i);
+	}
+	//
+	return sqrt(distancesqrd);
+	//return env->Owned.Health - env->Opponent.Health;
 }
 
 void CBRCase::Save(std::ofstream &s)

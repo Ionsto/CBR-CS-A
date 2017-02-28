@@ -69,6 +69,9 @@
     <ClCompile Include="PlayerDeterministic.cpp">
       <Filter>Source Files\Players</Filter>
     </ClCompile>
+    <ClCompile Include="PokemonMareep.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameInstance.h">
@@ -109,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="PokemonMagikarp.h">
       <Filter>Header Files\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="PokemonMareep.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

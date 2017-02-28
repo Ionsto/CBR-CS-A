@@ -126,11 +126,11 @@ bool PlayWeights(CBRWeights * W0,CBRWeights * W1,int Games = 50)
 	}
 	return false;
 };
-void WeightingRoundRobin()
+void WeightingRoundRobin(float Target,std::string SaveLocation)
 {
 	std::ofstream LearningTrendFile;
-	LearningTrendFile.open("LearningTrend.txt", std::ios_base::app);
-	int WeightCount = 15;
+	LearningTrendFile.open(SaveLocation+"LearningTrend.txt", std::ios_base::app);
+	int WeightCount = 5;
 	int RoundCount = 100;
 	float Delta = 50;
 	std::deque<std::unique_ptr<CBRWeights>> Weights = std::deque<std::unique_ptr<CBRWeights>>();
@@ -140,7 +140,7 @@ void WeightingRoundRobin()
 		NewWeight->RandomiseWeights(Delta);
 		Weights.push_back(std::move(NewWeight));
 	}
-	std::ifstream stream = std::ifstream("weights.txt");
+	std::ifstream stream = std::ifstream(SaveLocation+"Weights.txt");
 	if (stream) {
 		Weights[0]->Load(std::move(stream));
 		for (int i = 1; i < WeightCount; ++i)
@@ -166,7 +166,7 @@ void WeightingRoundRobin()
 			float Rate = PlayOne((CurrentWeight.get()), GameCount);
 			SumWinrate += Rate;
 			std::cout << "---WEIGHT" << i << " " << Rate << std::endl;
-			if (Rate > WinRate)
+			if (abs(Rate - Target) < abs(WinRate - Target))
 			{
 				BestWeight.reset();
 				BestWeight = std::move(CurrentWeight);
@@ -183,7 +183,7 @@ void WeightingRoundRobin()
 			Weights.push_back(std::move(Copy));
 		}
 		LearningTrendFile << WinRate << std::endl;
-		std::ofstream streamout = std::ofstream("weights.txt");
+		std::ofstream streamout = std::ofstream(SaveLocation+"weights.txt");
 		BestWeight->Save(std::move(streamout));
 		streamout.flush();
 		streamout.close();
@@ -206,9 +206,9 @@ int main(int argc, char **args)
 	//WeightingRoundRobin();
 	//TestAIInteraction();
 	//TestCaseSaveLoad();
-	TestPlayOverTime();
+	//TestPlayOverTime();
 	//TPlayCBRvsDeterministicInstance(NULL, 1);
-	//WeightingRoundRobin();
+	WeightingRoundRobin(1,"Best");
 	int i = 0;
 	std::cin >> i;
 	return 0;

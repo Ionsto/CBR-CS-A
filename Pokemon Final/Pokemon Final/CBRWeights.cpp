@@ -7,7 +7,8 @@ CBRWeights::CBRWeights()
 	ElementCount = 56;
 	for (int i = 0; i < ElementCount; ++i)
 	{
-		Attr[i] = 1;
+		DistanceAttributes[i] = 0;
+		FitnessAttributes[i] = 0;
 	}
 	IdenticalThreshold = 0;
 	ExplorationConstant = 0;
@@ -22,9 +23,10 @@ void CBRWeights::RandomiseWeights(float delta)
 {
 	for (int i = 0; i < ElementCount; ++i)
 	{
-		Attr[i] += delta*(((rand() % 100) / (float)100) - 0.5);
+		DistanceAttributes[i] += delta*(((rand() % 100) / (float)100) - 0.5);
+		FitnessAttributes[i] += delta*(((rand() % 100) / (float)100) - 0.5);
 	}
-	//Difference in implementation for this and attr is due these constants being pulled over from 
+	//Difference in implementation for this and DistanceAttributes is due these constants being pulled over from 
 	IdenticalThreshold += delta*(((rand() % 100) / (float)100) - 0.5);
 	ExplorationConstant += delta*(((rand() % 100) / (float)100) - 0.5);
 	MaxSearchThreshold += delta*(((rand() % 100) / (float)100) - 0.5);
@@ -38,23 +40,30 @@ void CBRWeights::CopyWeights(CBRWeights weights)
 {
 	for (int i = 0; i < ElementCount; ++i)
 	{
-		Attr[i] = weights.GetAttribute(i);
+		DistanceAttributes[i] = weights.GetDistanceAttributes(i);
+		FitnessAttributes[i] = weights.GetFitnessAttributes(i);
 	}
 	IdenticalThreshold = weights.IdenticalThreshold;
 	ExplorationConstant = weights.ExplorationConstant;
 	MaxSearchThreshold = weights.MaxSearchThreshold;
 	ReplacingUtilityThreshold = weights.ReplacingUtilityThreshold;
 }
-float CBRWeights::GetAttribute(int n)
+float CBRWeights::GetDistanceAttributes(int n)
 {
-	return Attr[n];
+	return DistanceAttributes[n];
+}
+
+float CBRWeights::GetFitnessAttributes(int n)
+{
+	return DistanceAttributes[n];
 }
 
 void CBRWeights::Save(std::ofstream &s)
 {
 	for (int i = 0; i < ElementCount; ++i)
 	{
-		s << Attr[i] << " ";
+		s << DistanceAttributes[i] << " ";
+		s << FitnessAttributes[i] << " ";
 	}
 	s << IdenticalThreshold << " ";
 	s << ExplorationConstant << " ";
@@ -65,7 +74,8 @@ void CBRWeights::Load(std::ifstream &s)
 {
 	for (int i = 0; i < ElementCount; ++i)
 	{
-		s >> Attr[i];
+		s >> DistanceAttributes[i];
+		s >> FitnessAttributes[i];
 	}
 	s >> IdenticalThreshold;
 	s >> ExplorationConstant;

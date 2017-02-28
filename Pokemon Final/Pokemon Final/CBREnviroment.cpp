@@ -11,31 +11,31 @@ CBREnviroment::~CBREnviroment()
 {
 }
 
-float CBREnviroment::GetAttribute(int n)
+float CBREnviroment::GetAttributes(int n)
 {
-	return *(AttrMap[n]);
+	return *(AttributesMap[n]);
 }
-void CBREnviroment::SetAttribute(int n,float val)
+void CBREnviroment::SetAttributes(int n,float val)
 {
-	//More pointer magic, to use the Attr as a huge case switch system
-	(*(AttrMap[n])) = val;
+	//More pointer magic, to use the DistanceAttributes as a huge case switch system
+	(*(AttributesMap[n])) = val;
 }
 void CBREnviroment::Save(std::ofstream &s)
 {
 	s << ElementCount << " ";
 	for (int i = 0; i < ElementCount; ++i)
 	{
-		s << GetAttribute(i) << " ";
+		s << GetAttributes(i) << " ";
 	}
 }
 void CBREnviroment::Load(std::ifstream &s)
 {
-	//Although ElementCount SHOULD be constant, if an extended attribute system was implmented 
+	//Although ElementCount SHOULD be constant, if an extended DistanceAttributesibute system was implmented 
 	s >> ElementCount;
-	float Attribute;
+	float Attributes;
 	for (int i = 0; i < ElementCount; ++i)
 	{
-		s >> Attribute;
-		SetAttribute(i,Attribute);
+		s >> Attributes;
+		SetAttributes(i,Attributes);
 	}
 }

@@ -107,7 +107,7 @@ int CBRInstance::GetMoveFromCases(std::vector<CBRCaseDistance> cases)
 void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 {
 	CurrentCase->EndEnviroment = std::move(finalenv);
-	CurrentCase->CalculateUtility();
+	CurrentCase->CalculateUtility(&CaseBase->DistanceWeight);
 	
 	//Lending valitity to previous cases, or discrediting them
 	std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(10, expf(CaseBase->DistanceWeight.MaxSearchThreshold), CurrentCase->EndEnviroment.get());
