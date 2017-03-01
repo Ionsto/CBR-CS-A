@@ -3,13 +3,19 @@
 void TestAIInteraction()
 {
 	std::unique_ptr<CBRInstance> instance = std::make_unique<CBRInstance>();
-	CBRWeights Weight = CBRWeights();
-	std::ifstream stream = std::ifstream("Handicapedweights.txt");
-	if (stream) {
-		Weight.Load(std::move(stream));
-		instance->CaseBase->DistanceWeight.CopyWeights(Weight);
+	if (std::ifstream("BestAI.txt"))
+	{
+		instance->Load("BestAI.txt");
 	}
-	TPlayCBRvsRandomInstance(&instance, 2000);
+	else
+	{
+		std::ifstream stream = std::ifstream("Bestweights.txt");
+		if (stream) {
+			instance->CaseBase->DistanceWeight.Load(std::move(stream));
+		}
+		TPlayCBRvsRandomInstance(&instance, 500,true);
+		instance->Save("BestAI.txt");
+	}
 	TPlayCBRvsConsoleInstance(&instance, 1);
 	instance.reset();
 }
@@ -47,6 +53,29 @@ void TestPlayOverTime()
 	stream.close();
 	TPlayCBRvsRandomInstance(&instance, 2000,true);
 	instance.reset();
+}
+void TestPlayDetermanisim()
+{
+	std::unique_ptr<CBRInstance> instance = std::make_unique<CBRInstance>();
+	CBRWeights Weight = CBRWeights();
+	std::ifstream stream = std::ifstream("Bestweights.txt");
+	if (stream) {
+		Weight.Load(std::move(stream));
+		instance->CaseBase->DistanceWeight.CopyWeights(Weight);
+	}
+	stream.close();
+	TPlayCBRvsDeterministicInstance(&instance, 1000, true);
+	instance.reset();
+}
+//
+void TestMergeSort()
+{
+
+}
+//
+void TestKNN()
+{
+
 }
 
 static void TDisplayConsole(GameInstance * gi, std::unique_ptr<Player> * Players, GameInstance::MovePairs moves)
@@ -111,7 +140,8 @@ float TPlayCBRvsRandomInstance(std::unique_ptr<CBRInstance> * AI, int gamemax, b
 		for (int g = 0; g < 6 && !Game->Finished; ++g) {
 			Game->Update();
 		}
-		if (Game->GetPlayer(0)->TeamHealth > Game->GetPlayer(1)->TeamHealth)
+		//if (Game->GetPlayer(0)->TeamHealth > Game->GetPlayer(1)->TeamHealth)
+		if(Game->GetPlayer(0)->Alive && Game->Finished)
 		{
 			++won0;
 		}

@@ -4,7 +4,7 @@
 
 CBRWeights::CBRWeights()
 {
-	ElementCount = 56;
+	ElementCount = 48;
 	for (int i = 0; i < ElementCount; ++i)
 	{
 		DistanceAttributes[i] = 0;

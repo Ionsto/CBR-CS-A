@@ -67,7 +67,8 @@ float PlayOne(CBRWeights * Weights, int gamemax)
 		for (int g = 0; g < 6 && !Game->Finished; ++g) {
 			Game->Update();
 		}
-		if (Game->GetPlayer(0)->TeamHealth > Game->GetPlayer(1)->TeamHealth)
+		//if (Game->GetPlayer(0)->TeamHealth > Game->GetPlayer(1)->TeamHealth)
+		if (Game->GetPlayer(0)->Alive && Game->Finished)
 		{
 			++won0;
 		}
