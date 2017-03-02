@@ -36,10 +36,10 @@ float CBRCase::CalculateFitness(CBREnviroment * env,CBRWeights * weight)
 	//List all elements
 	for (int i = 0; i < env->ElementCount; ++i)
 	{
-		distancesqrd += expf(weight->GetFitnessAttributes(i)) * env->GetAttributes(i);
+		distancesqrd += weight->GetFitnessAttributes(i) * env->GetAttributes(i);
 	}
 	//
-	return sqrt(distancesqrd);
+	return (distancesqrd);
 	//return env->Owned.Health - env->Opponent.Health;
 }
 

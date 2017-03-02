@@ -1,4 +1,2 @@
-﻿  CBRInstance.cpp
-d:\github\cbr-cs-a\pokemon final\pokemon final\cbrinstance.cpp(70): warning C4018: '<': signed/unsigned mismatch
-d:\github\cbr-cs-a\pokemon final\pokemon final\cbrinstance.cpp(88): warning C4018: '<': signed/unsigned mismatch
+﻿  CBRCase.cpp
   Pokemon Final.vcxproj -> D:\Github\CBR-CS-A\Pokemon Final\Debug\Pokemon Final.lib
