@@ -100,7 +100,7 @@ void TestKNN()
 	auto CaseArray = Casebase.GetKNN(4, 4, new CBREnviroment());
 	for each (auto Case in CaseArray)
 	{
-		std::cout<<Case.Distance;
+		std::cout << Case.Distance <<  " ";
 	}
 }
 //
