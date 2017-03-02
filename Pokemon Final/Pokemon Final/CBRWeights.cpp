@@ -12,7 +12,7 @@ CBRWeights::CBRWeights()
 	}
 	IdenticalThreshold = 0;
 	ExplorationConstant = 0;
-	MaxSearchThreshold = 0;
+	MaxSearchThreshold = logf(60);
 	ReplacingUtilityThreshold = 0;
 	ExplorationMaxTests = logf(5);
 	SearchKNN = logf(15);

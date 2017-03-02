@@ -84,18 +84,20 @@ int CBRInstance::GetMoveModel(std::vector<CBRCaseDistance> cases)
 }
 int CBRInstance::GetMoveWeightedAv(std::vector<CBRCaseDistance> cases)
 {
+	
 	float AvCase[4] = {0,0,0,0};
 	for (int i = 0;i < cases.size();++i)
 	{
 		AvCase[cases[i].Case->Move] += cases[i].Case->Utility /(cases[i].Distance);
 	}
 	int BestMove = 0;
-	int MoveVotes = -INT_MAX;
+	float MoveVotes = -INT_MAX;
 	for (int i = 0;i < 4;++i)
 	{
 		if (AvCase[i] > MoveVotes)
 		{
 			BestMove = i;
+			MoveVotes = AvCase[i];
 		}
 	}
 	return BestMove;

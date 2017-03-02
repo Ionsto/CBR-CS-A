@@ -30,7 +30,8 @@ std::vector<CBRCaseDistance> CBRCaseBaseLinear::GetKNN(int K, float threshold, C
 	NearestCases = MergeSort(NearestCases);
 	std::vector<CBRCaseDistance> NearestCasesVec = std::vector<CBRCaseDistance>();
 	//Get all elements up to K cases
-	for (int i = 0;i < fminf(K,NearestCases.size());++i)
+	int Size = NearestCases.size();
+	for (int i = 0;i < fminf(K,Size);++i)
 	{
 		NearestCasesVec.push_back(NearestCases.front());
 		NearestCases.pop();
