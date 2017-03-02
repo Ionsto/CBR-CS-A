@@ -17,7 +17,7 @@ PlayerDeterministic::~PlayerDeterministic()
 
 int PlayerDeterministic::GetMove(Player * enemy)
 {
-	int Plays[] = {2,2,4,4,1,1,3,3};
+	int Plays[] = {1,3,3,0,0,2,2};
 	if (PlayCount > 7)
 	{
 		return 4;

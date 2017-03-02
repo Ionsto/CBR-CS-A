@@ -23,23 +23,27 @@ void PlayerCBR::PopulateEnviroment(CBREnviroment * env, Player * enemy)
 {
 	env->Owned.Health = GetActivePokemon()->Health;
 	env->Owned.Type = GetActivePokemon()->PokemonType;
+	env->Owned.Attack = GetActivePokemon()->Health;
+	env->Owned.Defence = GetActivePokemon()->PokemonType;
 	for (int i = 0;i < 4;++i) 
 	{
-		env->Owned.Moves[i].AttackSpeed = 0;// GetActivePokemon()->MoveSet[i]->AttackSpeed;
-		env->Owned.Moves[i].AttackType = 0;//GetActivePokemon()->MoveSet[i]->AttackType;
-		env->Owned.Moves[i].BaseDamage = 0;//GetActivePokemon()->MoveSet[i]->BaseDamage;
-		env->Owned.Moves[i].DefenseBuff = 0;//GetActivePokemon()->MoveSet[i]->DefenseBuff;
-		env->Owned.Moves[i].UsesLeft = GetActivePokemon()->MoveSet[i]->MaxUses - GetActivePokemon()->MoveSet[i]->CurrentUses;
+		env->Owned.Moves[i].AttackSpeed = GetActivePokemon()->MoveSet[i]->AttackSpeed;
+		env->Owned.Moves[i].AttackType = GetActivePokemon()->MoveSet[i]->AttackType;
+		env->Owned.Moves[i].BaseDamage = GetActivePokemon()->MoveSet[i]->BaseDamage;
+		env->Owned.Moves[i].DefenseBuff = GetActivePokemon()->MoveSet[i]->DefenseBuff;
+		env->Owned.Moves[i].UsesLeft =  (GetActivePokemon()->MoveSet[i]->CurrentUses < GetActivePokemon()->MoveSet[i]->MaxUses) ? 1 : 0;
 	}
 	env->Opponent.Health = enemy->GetActivePokemon()->Health;
 	env->Opponent.Type = enemy->GetActivePokemon()->PokemonType;
+	env->Opponent.Attack = GetActivePokemon()->Attack;
+	env->Opponent.Defence = GetActivePokemon()->Defense;
 	for (int i = 0;i < 4;++i)
 	{
 		env->Opponent.Moves[i].AttackSpeed = 0;//enemy->GetActivePokemon()->MoveSet[i]->AttackSpeed;
 		env->Opponent.Moves[i].AttackType = 0;//enemy->GetActivePokemon()->MoveSet[i]->AttackType;
 		env->Opponent.Moves[i].BaseDamage = 0;//enemy->GetActivePokemon()->MoveSet[i]->BaseDamage;
 		env->Opponent.Moves[i].DefenseBuff = 0;//enemy->GetActivePokemon()->MoveSet[i]->DefenseBuff;
-		env->Owned.Moves[i].UsesLeft = enemy->GetActivePokemon()->MoveSet[i]->MaxUses - GetActivePokemon()->MoveSet[i]->CurrentUses;
+		env->Opponent.Moves[i].UsesLeft = (enemy->GetActivePokemon()->MoveSet[i]->CurrentUses < enemy->GetActivePokemon()->MoveSet[i]->MaxUses) ? 1 : 0;
 	}
 }
 int PlayerCBR::GetMove(Player * enemy)
@@ -52,7 +56,10 @@ int PlayerCBR::GetMove(Player * enemy)
 void PlayerCBR::Update(Player * enemy)
 {
 	Player::Update(enemy);
-	std::unique_ptr<CBREnviroment> env = std::make_unique<CBREnviroment>();
-	PopulateEnviroment(env.get(), enemy);
-	AIInstance->ResolveAnswer(std::move(env));
+	if (Alive)
+	{
+		std::unique_ptr<CBREnviroment> env = std::make_unique<CBREnviroment>();
+		PopulateEnviroment(env.get(), enemy);
+		AIInstance->ResolveAnswer(std::move(env));
+	}
 }

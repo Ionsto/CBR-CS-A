@@ -17,10 +17,6 @@ PlayerConsole::~PlayerConsole()
 void PlayerConsole::Update(Player * enemy)
 {
 	Player::Update(enemy);
-	if (GetActivePokemon()->Health == 0)
-	{
-		ActivePokemon = -1;
-	}
 }
 int PlayerConsole::GetMove(Player * enemy)
 {

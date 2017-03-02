@@ -40,6 +40,7 @@ void Player::Update(Player * enemy)
 	if (TeamHealth <= 0)
 	{
 		Alive = false;
+		ActivePokemon = -1;
 	}
 }
 

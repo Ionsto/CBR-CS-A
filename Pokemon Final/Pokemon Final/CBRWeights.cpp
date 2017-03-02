@@ -14,6 +14,8 @@ CBRWeights::CBRWeights()
 	ExplorationConstant = 0;
 	MaxSearchThreshold = 0;
 	ReplacingUtilityThreshold = 0;
+	ExplorationMaxTests = logf(5);
+	SearchKNN = logf(15);
 }
 
 CBRWeights::~CBRWeights()
@@ -31,6 +33,16 @@ void CBRWeights::RandomiseWeights(float delta)
 	ExplorationConstant += delta*(((rand() % 100) / (float)100) - 0.5);
 	MaxSearchThreshold += delta*(((rand() % 100) / (float)100) - 0.5);
 	ReplacingUtilityThreshold += delta*(((rand() % 100) / (float)100) - 0.5);
+	ExplorationMaxTests += delta*(((rand() % 100) / (float)100) - 0.5);
+	SearchKNN += delta*(((rand() % 100) / (float)100) - 0.5);
+	if (SearchKNN > logf(60))
+	{
+		SearchKNN = logf(60);
+	}
+	if (SearchKNN < 0)
+	{
+		SearchKNN = 0;
+	}
 	//if (MaxSearchThreshold > 500)
 	//{
 	//	MaxSearchThreshold = 500;
@@ -47,6 +59,8 @@ void CBRWeights::CopyWeights(CBRWeights weights)
 	ExplorationConstant = weights.ExplorationConstant;
 	MaxSearchThreshold = weights.MaxSearchThreshold;
 	ReplacingUtilityThreshold = weights.ReplacingUtilityThreshold;
+	ExplorationMaxTests = weights.ExplorationMaxTests;
+	SearchKNN = weights.SearchKNN;
 }
 float CBRWeights::GetDistanceAttributes(int n)
 {
@@ -55,7 +69,7 @@ float CBRWeights::GetDistanceAttributes(int n)
 
 float CBRWeights::GetFitnessAttributes(int n)
 {
-	return DistanceAttributes[n];
+	return FitnessAttributes[n];
 }
 
 void CBRWeights::Save(std::ofstream &s)
@@ -69,6 +83,8 @@ void CBRWeights::Save(std::ofstream &s)
 	s << ExplorationConstant << " ";
 	s << MaxSearchThreshold << " ";
 	s << ReplacingUtilityThreshold << " ";
+	s << ExplorationMaxTests << " ";
+	s << SearchKNN << " ";
 }
 void CBRWeights::Load(std::ifstream &s)
 {
@@ -81,4 +97,6 @@ void CBRWeights::Load(std::ifstream &s)
 	s >> ExplorationConstant;
 	s >> MaxSearchThreshold;
 	s >> ReplacingUtilityThreshold;
+	s >> ExplorationMaxTests;
+	s >> SearchKNN;
 }

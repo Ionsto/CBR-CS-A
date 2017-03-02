@@ -19,8 +19,6 @@ public:
 	//This is a counter, it is reset every ExplorationMaxTests tests, and it increments slightly on a +utility, and increments greatly on a -utility
 	//This exploration value is used to pick randomly whether the AI will exploit, or explore 
 	float Exploration;
-	//This is the max amount of tests that may happen, before the exploration is reset
-	int ExplorationMaxTests;
 	//Counter to keep track of exploration events
 	int ExplorationTestsCount;
 	CBRCase();

@@ -2,7 +2,6 @@
 #include "CBREnviroment.h"
 CBRCase::CBRCase()
 {
-	ExplorationMaxTests = 10;
 	ExplorationTestsCount = 0;
 }
 
@@ -20,6 +19,8 @@ void CBRCase::GenerateRandomMove()
 
 bool CBRCase::Exploit()
 {
+	int randi = (rand() % 50);
+	float total = randi * exp(Exploration);
 	return !((exp(Exploration) * (rand()%50)) > 25);	
 }
 
@@ -49,7 +50,6 @@ void CBRCase::Save(std::ofstream &s)
 	s << Move << " ";
 	s << Utility << " ";
 	s << Exploration << " ";
-	s << ExplorationMaxTests << " ";
 	s << ExplorationTestsCount << " ";
 }
 void CBRCase::Load(std::ifstream &s)
@@ -61,6 +61,5 @@ void CBRCase::Load(std::ifstream &s)
 	s >> Move;
 	s >> Utility;
 	s >> Exploration;
-	s >> ExplorationMaxTests;
 	s >> ExplorationTestsCount;
 }

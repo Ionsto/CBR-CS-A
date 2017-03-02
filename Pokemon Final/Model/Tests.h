@@ -4,6 +4,9 @@
 #include "PlayerRandom.h"
 #include "PlayerCBR.h"
 #include "PlayerDeterministic.h"
+#include "Pokemon Final\CBRCaseBaseLinear.h"
+#include "Pokemon Final\CBRCase.h"
+#include "Pokemon Final\CBREnviroment.h"
 #include <iostream>
 //
 void TestAIInteraction();

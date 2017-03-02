@@ -1,0 +1,10 @@
+﻿  CBRWeights.cpp
+CBRWeights.cpp(28): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+CBRWeights.cpp(29): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+CBRWeights.cpp(32): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+CBRWeights.cpp(33): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+CBRWeights.cpp(34): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+CBRWeights.cpp(35): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+CBRWeights.cpp(36): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+CBRWeights.cpp(37): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  Pokemon Final.vcxproj -> D:\Github\CBR-CS-A\Pokemon Final\Release\Pokemon Final.lib

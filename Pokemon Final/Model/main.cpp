@@ -51,7 +51,7 @@ bool Playtwo(std::unique_ptr<CBRInstance> * AI0, std::unique_ptr<CBRInstance> * 
 	return false;
 }
 //Test program
-float PlayOne(CBRWeights * Weights, int gamemax)
+float PlayOne(CBRWeights * Weights, int gamemax,bool Display = false)
 {
 	float won0 = 0;
 	//Example program
@@ -59,12 +59,12 @@ float PlayOne(CBRWeights * Weights, int gamemax)
 	AI->CaseBase->DistanceWeight = CBRWeights(*Weights);
 	for (int i = 0; i < gamemax; ++i)
 	{
-		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(AI)), std::make_unique<PlayerRandom>());
-		//if (i % 100 == 0 || i-1 % 100 == 0)
-		//{
-		//Game->DisplayCallback = DisplayConsole;
-		//}
-		for (int g = 0; g < 6 && !Game->Finished; ++g) {
+		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(AI)), std::make_unique<PlayerDeterministic>());
+		if (Display)
+		{
+			Game->DisplayCallback = DisplayConsole;
+		}
+		for (int g = 0; g < 10 && !Game->Finished; ++g) {
 			Game->Update();
 		}
 		//if (Game->GetPlayer(0)->TeamHealth > Game->GetPlayer(1)->TeamHealth)
@@ -127,13 +127,12 @@ bool PlayWeights(CBRWeights * W0,CBRWeights * W1,int Games = 50)
 	}
 	return false;
 };
-void WeightingRoundRobin(float Target,std::string SaveLocation)
+void WeightingRoundRobin(float Target,std::string SaveLocation, float Delta = 5)
 {
 	std::ofstream LearningTrendFile;
 	LearningTrendFile.open(SaveLocation+"LearningTrend.txt", std::ios_base::app);
-	int WeightCount = 5;
-	int RoundCount = 100;
-	float Delta = 50;
+	int WeightCount = 50;
+	int RoundCount = 500;
 	std::deque<std::unique_ptr<CBRWeights>> Weights = std::deque<std::unique_ptr<CBRWeights>>();
 	for (int i = 0; i < WeightCount; ++i)
 	{
@@ -151,12 +150,12 @@ void WeightingRoundRobin(float Target,std::string SaveLocation)
 		}
 	}
 	stream.close();
-	for (int rounds = 0; rounds < RoundCount; ++rounds)
+	for (int rounds = 0; rounds >= 0; ++rounds)
 	{
 		float SumWinrate = 0;
 		std::cout << "---ROUND" << rounds << std::endl;
 		std::unique_ptr<CBRWeights> BestWeight = std::move(Weights.front());
-		const int GameCount = 100;
+		const int GameCount = 400;
 		float WinRate = PlayOne((BestWeight.get()), GameCount);
 		SumWinrate += WinRate;
 		Weights.pop_front();
@@ -178,13 +177,15 @@ void WeightingRoundRobin(float Target,std::string SaveLocation)
 				CurrentWeight.reset();
 			}
 		}
+		PlayOne(BestWeight.get(), 1, true);
+		std::cout << "---BEST---" << WinRate << std::endl;
 		for (int i = 1; i < WeightCount; ++i) {
 			std::unique_ptr<CBRWeights> Copy = std::make_unique<CBRWeights>(*BestWeight.get());
 			Copy->RandomiseWeights(Delta);
 			Weights.push_back(std::move(Copy));
 		}
 		LearningTrendFile << WinRate << std::endl;
-		std::ofstream streamout = std::ofstream(SaveLocation+"weights.txt");
+		std::ofstream streamout = std::ofstream(SaveLocation+"Weights.txt");
 		BestWeight->Save(std::move(streamout));
 		streamout.flush();
 		streamout.close();
@@ -196,7 +197,7 @@ int main(int argc, char **args)
 	/*float Delta = 1;
 	std::unique_ptr<CBRWeights> Weight0 = std::make_unique<CBRWeights>();
 	std::unique_ptr<CBRWeights> Weight1 = std::make_unique<CBRWeights>();
-	std::ifstream stream = std::ifstream("weights.txt");
+	std::ifstream stream = std::ifstream("Weights.txt");
 	if (stream) {
 		Weight0->Load(std::move(stream));
 		Weight1->CopyWeights(*Weight0.get());
@@ -208,8 +209,11 @@ int main(int argc, char **args)
 	//TestAIInteraction();
 	//TestCaseSaveLoad();
 	//TestPlayOverTime();
+	//TestPlayDetermanisim();
 	//TPlayCBRvsDeterministicInstance(NULL, 1);
-	WeightingRoundRobin(1,"Best");
+	WeightingRoundRobin(1, "Determ");
+	//TestKNN();
+	//TestMergeSort();
 	int i = 0;
 	std::cin >> i;
 	return 0;

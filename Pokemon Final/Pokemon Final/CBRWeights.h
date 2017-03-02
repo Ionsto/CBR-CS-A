@@ -8,6 +8,9 @@ public:
 	float ExplorationConstant;
 	float IdenticalThreshold;
 	float MaxSearchThreshold;
+	//This is the max amount of tests that may happen, before the exploration is reset
+	float ExplorationMaxTests;
+	float SearchKNN;
 	float ReplacingUtilityThreshold;
 	float DistanceAttributes[48];
 	float FitnessAttributes[48];

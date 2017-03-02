@@ -10,12 +10,27 @@ struct MoveCase {
 	float DefenseBuff;
 	float UsesLeft;
 	float AttackType;
+	MoveCase()
+	{
+		AttackSpeed = 0;
+		BaseDamage = 0;
+		DefenseBuff = 0;
+		UsesLeft = 0;
+		AttackType = 0;
+	}
 };
 struct PokmonCase {
 	float Health;
 	float Type;
 	float Attack;
 	float Defence;
+	PokmonCase()
+	{
+		Health = 0;
+		Type = 0;
+		Attack = 0;
+		Defence = 0;
+	}
 	MoveCase Moves[4];
 };
 
@@ -27,7 +42,7 @@ public:
 	//Mapping DistanceAttributesibutes to ids
 	//Poor coding style, but otherwise correct
 	//Also very fast, due to the fact it is one jump table, and one pointer
-	float* AttributesMap[56] = {
+	float* AttributesMap[48] = {
 		&Owned.Health,//0
 		&Owned.Type,
 		&Owned.Attack,

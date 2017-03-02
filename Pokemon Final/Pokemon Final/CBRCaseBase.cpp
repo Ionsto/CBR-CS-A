@@ -26,11 +26,15 @@ std::queue<CBRCaseDistance> CBRCaseBase::MergeSort(std::queue<CBRCaseDistance> l
 	for (int i = 0; i < floor(size / 2);++i)
 	{
 		left.push(list.front());
+		list.pop();
 	}
+	left = MergeSort(left);
 	for (int i = floor(size / 2); i < size;++i)
 	{
 		right.push(list.front());
+		list.pop();
 	}
+	right = MergeSort(right);
 	return MergeMerge(left, right);
 }
 
@@ -46,7 +50,7 @@ int CBRCaseBase::GetCaseCount()
 std::queue<CBRCaseDistance> CBRCaseBase::MergeMerge(std::queue<CBRCaseDistance> a, std::queue<CBRCaseDistance> b)
 {
 	std::queue<CBRCaseDistance> returnvec = std::queue<CBRCaseDistance>();
-	if (a.size() != 0 && b.size() != 0)
+	while (a.size() != 0 && b.size() != 0)
 	{
 		if (a.front().Distance < b.front().Distance)
 		{
@@ -81,7 +85,7 @@ float CBRCaseBase::GetDistance(CBREnviroment * a, CBREnviroment * b)
 		distancesqrd += expf(DistanceWeight.GetDistanceAttributes(i)) * (a->GetAttributes(i) - b->GetAttributes(i)) * (a->GetAttributes(i) - b->GetAttributes(i));
 	}
 	//
-	return (distancesqrd);
+	return sqrt(distancesqrd);
 }
 
 void CBRCaseBase::InsertCase(std::unique_ptr<CBRCase> Case)

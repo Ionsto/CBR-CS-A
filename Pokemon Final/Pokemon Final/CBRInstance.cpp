@@ -1,5 +1,6 @@
 #include "CBRInstance.h"
 #include "CBRCaseBaseLinear.h"
+#include <iostream>
 CBRInstance::CBRInstance()
 {
 	CaseBase = std::make_unique<CBRCaseBaseLinear>();
@@ -29,7 +30,7 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 	}
 	else
 	{
-		std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(10, expf(CaseBase->DistanceWeight.MaxSearchThreshold), CurrentCase->StartEnviroment.get());
+		std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN((int)expf(CaseBase->DistanceWeight.SearchKNN), expf(CaseBase->DistanceWeight.MaxSearchThreshold), CurrentCase->StartEnviroment.get());
 		if (NearestCases.size() == 0)
 		{
 			//Random moves
@@ -110,7 +111,7 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 	CurrentCase->CalculateUtility(&CaseBase->DistanceWeight);
 	
 	//Lending valitity to previous cases, or discrediting them
-	std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN(10, expf(CaseBase->DistanceWeight.MaxSearchThreshold), CurrentCase->EndEnviroment.get());
+	std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN((int)expf(CaseBase->DistanceWeight.SearchKNN), expf(CaseBase->DistanceWeight.MaxSearchThreshold), CurrentCase->EndEnviroment.get());
 	if (NearestCases.size() == 0)
 	{
 		//Random moves
@@ -138,7 +139,7 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 					DeltaExploration *= 5;
 				}
 				NearestCase.Case->Exploration += DeltaExploration;
-				if (++NearestCase.Case->ExplorationTestsCount >= NearestCase.Case->ExplorationMaxTests)
+				if (++NearestCase.Case->ExplorationTestsCount >= (int)(exp(CaseBase->DistanceWeight.ExplorationMaxTests)))
 				{
 					NearestCase.Case->ExplorationTestsCount = 0;
 					NearestCase.Case->Exploration = 0;
