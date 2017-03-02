@@ -59,7 +59,7 @@ float PlayOne(CBRWeights * Weights, int gamemax,bool Display = false)
 	AI->CaseBase->DistanceWeight = CBRWeights(*Weights);
 	for (int i = 0; i < gamemax; ++i)
 	{
-		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(AI)), std::make_unique<PlayerDeterministic>());
+		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(AI)), std::make_unique<PlayerRandom>());
 		if (Display)
 		{
 			Game->DisplayCallback = DisplayConsole;
@@ -127,11 +127,11 @@ bool PlayWeights(CBRWeights * W0,CBRWeights * W1,int Games = 50)
 	}
 	return false;
 };
-void WeightingRoundRobin(float Target,std::string SaveLocation, float Delta = 5)
+void WeightingRoundRobin(float Target,std::string SaveLocation, float Delta = 1)
 {
 	std::ofstream LearningTrendFile;
 	LearningTrendFile.open(SaveLocation+"LearningTrend.txt", std::ios_base::app);
-	int WeightCount = 40;
+	int WeightCount = 20;
 	int RoundCount = 500;
 	std::deque<std::unique_ptr<CBRWeights>> Weights = std::deque<std::unique_ptr<CBRWeights>>();
 	for (int i = 0; i < WeightCount; ++i)
@@ -211,7 +211,7 @@ int main(int argc, char **args)
 	//TestPlayOverTime();
 	//TestPlayDetermanisim();
 	//TPlayCBRvsDeterministicInstance(NULL, 1);
-	WeightingRoundRobin(1, "Determ");
+	WeightingRoundRobin(1, "Best");
 	//TestKNN();
 	//TestMergeSort();
 	int i = 0;
