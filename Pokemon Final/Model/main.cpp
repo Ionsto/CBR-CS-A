@@ -127,11 +127,11 @@ bool PlayWeights(CBRWeights * W0,CBRWeights * W1,int Games = 50)
 	}
 	return false;
 };
-void WeightingRoundRobin(float Target,std::string SaveLocation, float Delta = 1)
+void WeightingRoundRobin(float Target,std::string SaveLocation, float Delta = 5)
 {
 	std::ofstream LearningTrendFile;
 	LearningTrendFile.open(SaveLocation+"LearningTrend.txt", std::ios_base::app);
-	int WeightCount = 20;
+	int WeightCount = 40;
 	int RoundCount = 500;
 	std::deque<std::unique_ptr<CBRWeights>> Weights = std::deque<std::unique_ptr<CBRWeights>>();
 	for (int i = 0; i < WeightCount; ++i)
@@ -155,7 +155,7 @@ void WeightingRoundRobin(float Target,std::string SaveLocation, float Delta = 1)
 		float SumWinrate = 0;
 		std::cout << "---ROUND" << rounds << std::endl;
 		std::unique_ptr<CBRWeights> BestWeight = std::move(Weights.front());
-		const int GameCount = 100;
+		const int GameCount = 200;
 		float WinRate = PlayOne((BestWeight.get()), GameCount);
 		SumWinrate += WinRate;
 		Weights.pop_front();
