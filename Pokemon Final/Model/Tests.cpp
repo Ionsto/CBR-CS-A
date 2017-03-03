@@ -134,7 +134,7 @@ void TestCaseAdaption()
 {
 	std::unique_ptr<CBRInstance> instance = std::make_unique<CBRInstance>();
 	CBRWeights Weight = CBRWeights();
-	std::ifstream stream = std::ifstream("BestWeights.txt");
+	std::ifstream stream = std::ifstream("TransfereWeights.txt");
 	if (stream) {
 		Weight.Load(std::move(stream));
 		instance->CaseBase->DistanceWeight.CopyWeights(Weight);
@@ -144,7 +144,7 @@ void TestCaseAdaption()
 	std::ofstream LearnWater = std::ofstream("LearnWater.txt");
 
 	{
-		int GameCount = 200;
+		int GameCount = 400;
 		float won0 = 0;
 		float GameCounter = 0;
 		for (int i = 0; i < GameCount; ++i)
@@ -154,10 +154,11 @@ void TestCaseAdaption()
 			if (i == GameCount / 2)
 			{
 				GameCounter = 1;
+				won0 = 0;
 			}
 			if (i >= GameCount / 2) {
-				Game->GetPlayer(1)->MyPokemon[0].reset();
-				Game->GetPlayer(1)->MyPokemon[0] = std::make_unique<PokemonMareep>();
+				Game->GetPlayer(0)->MyPokemon[0].reset();
+				Game->GetPlayer(0)->MyPokemon[0] = std::make_unique<PokemonMareep>();
 			}
 			//if (i % 100 == 0 || i-1 % 100 == 0)
 			//{
@@ -177,7 +178,7 @@ void TestCaseAdaption()
 		}
 	} 
 	{
-		int GameCount = 200;
+		int GameCount = 400;
 		float won0 = 0;
 		float GameCounter = 0;
 		for (int i = 0; i < GameCount; ++i)
@@ -187,16 +188,17 @@ void TestCaseAdaption()
 			if (i == GameCount / 2)
 			{
 				GameCounter = 1;
+				won0 = 0;
 			}
 			if (i < GameCount / 2)
 			{
-				Game->GetPlayer(1)->MyPokemon[0].reset();
-				Game->GetPlayer(1)->MyPokemon[0] = std::make_unique<PokemonMagikarp>();
+				Game->GetPlayer(0)->MyPokemon[0].reset();
+				Game->GetPlayer(0)->MyPokemon[0] = std::make_unique<PokemonMagikarp>();
 			}
 			else
 			{
-				Game->GetPlayer(1)->MyPokemon[0].reset();
-				Game->GetPlayer(1)->MyPokemon[0] = std::make_unique<PokemonMareep>();
+				Game->GetPlayer(0)->MyPokemon[0].reset();
+				Game->GetPlayer(0)->MyPokemon[0] = std::make_unique<PokemonMareep>();
 			}
 			//if (i % 100 == 0 || i-1 % 100 == 0)
 			//{

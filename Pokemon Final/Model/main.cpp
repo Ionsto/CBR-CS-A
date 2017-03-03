@@ -60,6 +60,18 @@ float PlayOne(CBRWeights * Weights, int gamemax,bool Display = false)
 	for (int i = 0; i < gamemax; ++i)
 	{
 		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(AI)), std::make_unique<PlayerRandom>());
+		////TRANFER
+		if (i < gamemax / 2)
+		{
+			Game->GetPlayer(0)->MyPokemon[0].reset();
+			Game->GetPlayer(0)->MyPokemon[0] = std::make_unique<PokemonMagikarp>();
+		}
+		else
+		{
+			Game->GetPlayer(0)->MyPokemon[0].reset();
+			Game->GetPlayer(0)->MyPokemon[0] = std::make_unique<PokemonMareep>();
+		}
+		///
 		if (Display)
 		{
 			Game->DisplayCallback = DisplayConsole;
@@ -206,15 +218,15 @@ int main(int argc, char **args)
 	std::cout<<PlayOne(Weight0.get(), 1000);*/
 	//PlayWeights(Weight0.get(),Weight1.get(),200);
 	//WeightingRoundRobin();
-	TestAIInteraction();
+	//TestAIInteraction();
 	//TestCaseSaveLoad();
 	//TestPlayOverTime();
 	//TestPlayDetermanisim();
 	//TPlayCBRvsDeterministicInstance(NULL, 1);
-	//WeightingRoundRobin(0.5, "0.5");
+	WeightingRoundRobin(1, "Transfere");
 	//TestKNN();
 	//TestMergeSort();
-	//TestCaseAdaption();
+	TestCaseAdaption();
 	int i = 0;
 	std::cin >> i;
 	return 0;
