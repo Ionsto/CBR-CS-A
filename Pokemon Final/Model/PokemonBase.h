@@ -12,6 +12,7 @@ public:
 	TypeTypes PokemonType;
 	std::unique_ptr<PokemonMove> MoveSet[4];
 	PokemonBase();
+	PokemonBase(const PokemonBase & base);
 	~PokemonBase();
 };
 

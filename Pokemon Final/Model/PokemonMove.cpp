@@ -11,6 +11,15 @@ PokemonMove::PokemonMove()
 	DefenseBuff = 1;
 	AttackType = TypeTypes::Normal;
 }
+PokemonMove::PokemonMove(const PokemonMove & move)
+{
+	AttackSpeed = move.AttackSpeed;
+	BaseDamage = move.BaseDamage;
+	CurrentUses = move.CurrentUses;
+	MaxUses = move.MaxUses;
+	DefenseBuff = move.DefenseBuff;
+	AttackType = move.AttackType;
+}
 
 
 PokemonMove::~PokemonMove()

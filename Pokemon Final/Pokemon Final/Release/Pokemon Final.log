@@ -1,15 +1,15 @@
 ﻿  CBRCase.cpp
+  CBRCaseBase.cpp
+CBRCaseBase.cpp(32): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  CBRCaseBaseLinear.cpp
+CBRCaseBaseLinear.cpp(9): warning C4018: '<': signed/unsigned mismatch
+CBRCaseBaseLinear.cpp(18): warning C4018: '<': signed/unsigned mismatch
+CBRCaseBaseLinear.cpp(34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+CBRCaseBaseLinear.cpp(63): warning C4018: '<': signed/unsigned mismatch
+CBRCaseBaseLinear.cpp(76): warning C4018: '<': signed/unsigned mismatch
   CBRInstance.cpp
 CBRInstance.cpp(77): warning C4018: '<': signed/unsigned mismatch
 CBRInstance.cpp(96): warning C4018: '<': signed/unsigned mismatch
 CBRInstance.cpp(101): warning C4305: 'initializing': truncation from 'int' to 'float'
-  CBRWeights.cpp
-CBRWeights.cpp(28): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-CBRWeights.cpp(29): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-CBRWeights.cpp(32): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-CBRWeights.cpp(33): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-CBRWeights.cpp(34): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-CBRWeights.cpp(35): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-CBRWeights.cpp(36): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-CBRWeights.cpp(37): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  main.cpp
   Pokemon Final.vcxproj -> D:\Github\CBR-CS-A\Pokemon Final\Release\Pokemon Final.lib

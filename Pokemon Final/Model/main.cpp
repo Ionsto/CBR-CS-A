@@ -214,6 +214,7 @@ int main(int argc, char **args)
 	//WeightingRoundRobin(0.5, "0.5");
 	//TestKNN();
 	//TestMergeSort();
+	//TestCaseAdaption();
 	int i = 0;
 	std::cin >> i;
 	return 0;

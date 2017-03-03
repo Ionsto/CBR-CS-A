@@ -9,6 +9,7 @@
 #include "Pokemon Final\CBRCase.h"
 #include "Pokemon Final\CBREnviroment.h"
 #include "PokemonMareep.h"
+#include "PokemonMagikarp.h"
 #include <iostream>
 //
 void TestAIInteraction();
@@ -27,6 +28,6 @@ void TestCaseAdaption();
 
 static void TDisplayConsole(GameInstance * gi, std::unique_ptr<Player> * Players, GameInstance::MovePairs moves);
 float TPlayCBRvsRandomInstance(std::unique_ptr<CBRInstance> * AI, int gamemax, bool DisplayRoundP = false);
-template<PlayerClass> float TPlayCBRvsPlayer(std::unique_ptr<CBRInstance> * AI,std::unique_ptr<PlayerClass> player, int gamemax, bool DisplayRoundP = false);
+template<class PlayerClass> float TPlayCBRvsPlayer(std::unique_ptr<CBRInstance> * AI,PlayerClass * player, int gamemax, bool DisplayRoundP = false);
 float TPlayCBRvsDeterministicInstance(std::unique_ptr<CBRInstance> * AI, int gamemax, bool DisplayRoundP = false);
 float TPlayCBRvsConsoleInstance(std::unique_ptr<CBRInstance> * AI, int gamemax);

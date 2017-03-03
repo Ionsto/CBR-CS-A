@@ -1,2 +1,4 @@
-﻿  Model.vcxproj -> D:\Github\CBR-CS-A\Pokemon Final\Debug\Model.exe
+﻿  Tests.cpp
+d:\github\cbr-cs-a\pokemon final\model\tests.cpp(114): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Model.vcxproj -> D:\Github\CBR-CS-A\Pokemon Final\Debug\Model.exe
   Model.vcxproj -> D:\Github\CBR-CS-A\Pokemon Final\Debug\Model.pdb (Partial PDB)

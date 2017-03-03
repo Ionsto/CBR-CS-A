@@ -140,11 +140,81 @@ void TestCaseAdaption()
 		instance->CaseBase->DistanceWeight.CopyWeights(Weight);
 	}
 	stream.close();
-	auto RandPlayer = std::make_unique<PlayerRandom>();
-	std::cout<<TPlayCBRvsPlayer<PlayerRandom>(&instance, RandPlayer.get(), 100, true)<<std::endl;
-	RandPlayer->MyPokemon[0].reset();
-	RandPlayer->MyPokemon[0] = std::make_unique<PokemonMareep>();
-	TPlayCBRvsPlayer<PlayerRandom>(&instance, RandPlayer.get(), 100, true);
+	std::ofstream LearnElectric = std::ofstream("LearnElectric.txt");
+	std::ofstream LearnWater = std::ofstream("LearnWater.txt");
+
+	{
+		int GameCount = 200;
+		float won0 = 0;
+		float GameCounter = 0;
+		for (int i = 0; i < GameCount; ++i)
+		{
+			++GameCounter;
+			GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(instance)), std::make_unique<PlayerRandom>());
+			if (i == GameCount / 2)
+			{
+				GameCounter = 1;
+			}
+			if (i >= GameCount / 2) {
+				Game->GetPlayer(1)->MyPokemon[0].reset();
+				Game->GetPlayer(1)->MyPokemon[0] = std::make_unique<PokemonMareep>();
+			}
+			//if (i % 100 == 0 || i-1 % 100 == 0)
+			//{
+			//Game->DisplayCallback = DisplayConsole;
+			//}
+			for (int g = 0; g < 6 && !Game->Finished; ++g) {
+				Game->Update();
+			}
+			//if (Game->GetPlayer(0)->TeamHealth > Game->GetPlayer(1)->TeamHealth)
+			if (Game->GetPlayer(0)->Alive && Game->Finished)
+			{
+				++won0;
+			}
+			instance = std::move(((PlayerCBR*)Game->GetPlayer(0))->AIInstance);
+			delete Game;
+			LearnElectric << ((float)won0 / (GameCounter)) << std::endl;
+		}
+	} 
+	{
+		int GameCount = 200;
+		float won0 = 0;
+		float GameCounter = 0;
+		for (int i = 0; i < GameCount; ++i)
+		{
+			GameCounter++;
+			GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(instance)), std::make_unique<PlayerRandom>());
+			if (i == GameCount / 2)
+			{
+				GameCounter = 1;
+			}
+			if (i < GameCount / 2)
+			{
+				Game->GetPlayer(1)->MyPokemon[0].reset();
+				Game->GetPlayer(1)->MyPokemon[0] = std::make_unique<PokemonMagikarp>();
+			}
+			else
+			{
+				Game->GetPlayer(1)->MyPokemon[0].reset();
+				Game->GetPlayer(1)->MyPokemon[0] = std::make_unique<PokemonMareep>();
+			}
+			//if (i % 100 == 0 || i-1 % 100 == 0)
+			//{
+			//Game->DisplayCallback = DisplayConsole;
+			//}
+			for (int g = 0; g < 6 && !Game->Finished; ++g) {
+				Game->Update();
+			}
+			//if (Game->GetPlayer(0)->TeamHealth > Game->GetPlayer(1)->TeamHealth)
+			if (Game->GetPlayer(0)->Alive && Game->Finished)
+			{
+				++won0;
+			}
+			instance = std::move(((PlayerCBR*)Game->GetPlayer(0))->AIInstance);
+			delete Game;
+			LearnWater << ((float)won0 / (GameCounter)) << std::endl;
+		}
+	}
 	instance.reset();
 }
 
@@ -279,7 +349,7 @@ float TPlayCBRvsConsoleInstance(std::unique_ptr<CBRInstance> * AI, int gamemax)
 	return ((float)won0 / (gamemax));
 }
 
-template<PlayerClass>
+template<class PlayerClass>
 float TPlayCBRvsPlayer(std::unique_ptr<CBRInstance> * AI, PlayerClass * PlayerCopy, int gamemax, bool DisplayRoundP)
 {
 	float won0 = 0;

@@ -12,6 +12,15 @@ Player::Player()
 		MyPokemon[i]->Health = 0;
 	}
 }
+Player::Player(const Player &player)
+{
+	Alive = player.Alive;
+	ActivePokemon = player.ActivePokemon;
+	for (int i = 0; i < 4; ++i)
+	{
+		MyPokemon[i] = std::make_unique<PokemonBase>(*player.MyPokemon[i].get());
+	}
+}
 
 
 Player::~Player()

@@ -14,6 +14,7 @@ public:
 	float DefenseBuff;
 	TypeTypes AttackType;
 	PokemonMove();
+	PokemonMove(const PokemonMove & move);
 	~PokemonMove();
 };
 
