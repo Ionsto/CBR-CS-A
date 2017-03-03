@@ -155,7 +155,7 @@ void WeightingRoundRobin(float Target,std::string SaveLocation, float Delta = 1)
 		float SumWinrate = 0;
 		std::cout << "---ROUND" << rounds << std::endl;
 		std::unique_ptr<CBRWeights> BestWeight = std::move(Weights.front());
-		const int GameCount = 200;
+		const int GameCount = 400;
 		float WinRate = PlayOne((BestWeight.get()), GameCount);
 		SumWinrate += WinRate;
 		Weights.pop_front();
@@ -184,7 +184,7 @@ void WeightingRoundRobin(float Target,std::string SaveLocation, float Delta = 1)
 			Copy->RandomiseWeights(Delta);
 			Weights.push_back(std::move(Copy));
 		}
-		LearningTrendFile << WinRate << std::endl;
+		LearningTrendFile << (SumWinrate/WeightCount) << std::endl;
 		std::ofstream streamout = std::ofstream(SaveLocation+"Weights.txt");
 		BestWeight->Save(std::move(streamout));
 		streamout.flush();
@@ -206,12 +206,12 @@ int main(int argc, char **args)
 	std::cout<<PlayOne(Weight0.get(), 1000);*/
 	//PlayWeights(Weight0.get(),Weight1.get(),200);
 	//WeightingRoundRobin();
-	//TestAIInteraction();
+	TestAIInteraction();
 	//TestCaseSaveLoad();
 	//TestPlayOverTime();
 	//TestPlayDetermanisim();
 	//TPlayCBRvsDeterministicInstance(NULL, 1);
-	WeightingRoundRobin(1, "Best");
+	//WeightingRoundRobin(0.5, "0.5");
 	//TestKNN();
 	//TestMergeSort();
 	int i = 0;

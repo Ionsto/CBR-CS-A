@@ -130,6 +130,24 @@ void TestMergeSort()
 	}
 }
 
+void TestCaseAdaption()
+{
+	std::unique_ptr<CBRInstance> instance = std::make_unique<CBRInstance>();
+	CBRWeights Weight = CBRWeights();
+	std::ifstream stream = std::ifstream("BestWeights.txt");
+	if (stream) {
+		Weight.Load(std::move(stream));
+		instance->CaseBase->DistanceWeight.CopyWeights(Weight);
+	}
+	stream.close();
+	auto RandPlayer = std::make_unique<PlayerRandom>();
+	std::cout<<TPlayCBRvsPlayer<PlayerRandom>(&instance, RandPlayer.get(), 100, true)<<std::endl;
+	RandPlayer->MyPokemon[0].reset();
+	RandPlayer->MyPokemon[0] = std::make_unique<PokemonMareep>();
+	TPlayCBRvsPlayer<PlayerRandom>(&instance, RandPlayer.get(), 100, true);
+	instance.reset();
+}
+
 static void TDisplayConsole(GameInstance * gi, std::unique_ptr<Player> * Players, GameInstance::MovePairs moves)
 {
 	std::cout << "Round Played" << std::endl;
@@ -138,14 +156,14 @@ static void TDisplayConsole(GameInstance * gi, std::unique_ptr<Player> * Players
 	}
 	else
 	{
-		std::cout << "Player 0 is out - attempted " << std::endl;
+		std::cout << "Player 0 is out" << std::endl;
 	}
 	if (Players[1]->Alive) {
 		std::cout << "Player 1: " << Players[1]->GetActivePokemon()->PokemonType << " Health:" << Players[1]->GetActivePokemon()->Health << ": " << Players[1]->GetActivePokemon()->MoveSet[moves.B]->Name << std::endl;
 	}
 	else
 	{
-		std::cout << "Player 1 is out - attempted " << std::endl;
+		std::cout << "Player 1 is out" << std::endl;
 	}
 	std::cout << "---------------------------------------" << std::endl;
 }
@@ -258,5 +276,37 @@ float TPlayCBRvsConsoleInstance(std::unique_ptr<CBRInstance> * AI, int gamemax)
 		//std::cout << ((float)won0 / (i + 1)) << std::endl;
 	}
 	//std::cout << ((float)won0 / (gamemax))<< " ";
+	return ((float)won0 / (gamemax));
+}
+
+template<PlayerClass>
+float TPlayCBRvsPlayer(std::unique_ptr<CBRInstance> * AI, PlayerClass * PlayerCopy, int gamemax, bool DisplayRoundP)
+{
+	float won0 = 0;
+	//Example program
+	for (int i = 0; i < gamemax; ++i)
+	{
+		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move((*AI))), std::make_unique<PlayerClass>(*PlayerCopy));
+		//if (i % 100 == 0 || i-1 % 100 == 0)
+		//{
+		//Game->DisplayCallback = DisplayConsole;
+		//}
+		for (int g = 0; g < 6 && !Game->Finished; ++g) {
+			Game->Update();
+		}
+		//if (Game->GetPlayer(0)->TeamHealth > Game->GetPlayer(1)->TeamHealth)
+		if (Game->GetPlayer(0)->Alive && Game->Finished)
+		{
+			++won0;
+		}
+		*AI = std::move(((PlayerCBR*)Game->GetPlayer(0))->AIInstance);
+		delete Game;
+		//std::cout << "Win % for p0:" << (won0*(float)100.0 / (i + 1)) << std::endl;
+		if (DisplayRoundP)
+		{
+			std::cout << ((float)won0 / (i + 1)) << std::endl;
+		}
+	}
+	std::cout << ((float)won0 / (gamemax)) << " ";
 	return ((float)won0 / (gamemax));
 }
