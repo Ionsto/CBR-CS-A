@@ -57,7 +57,14 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 				//Use weighted linear regression based on (learned values of importance) and (utility of each case).
 				//Alternitivly use modal move from knearest cases
 				//Adaption
-				CurrentCase->Move = GetMoveFromCases(NearestCases);
+				if (NearestCase.Case->Exploit())
+				{
+					CurrentCase->Move = GetMoveFromCases(NearestCases);
+				}
+				else
+				{
+					CurrentCase->GenerateRandomMove();
+				}
 			}
 		}
 	}
@@ -117,6 +124,11 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 	if (NearestCases.size() == 0)
 	{
 		//Random moves
+		float DeltaExploration = -CurrentCase->Utility * expf(CaseBase->DistanceWeight.ExplorationConstant);
+		if (CurrentCase->Utility < 0) {
+			DeltaExploration *= 5;
+		}
+		CurrentCase->Exploration += DeltaExploration;
 		CaseBase->InsertCase(std::move(CurrentCase));
 	}
 	else
@@ -150,7 +162,11 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 		}
 		else
 		{
-			//Insert the case
+			float DeltaExploration = -CurrentCase->Utility * expf(CaseBase->DistanceWeight.ExplorationConstant);
+			if (CurrentCase->Utility < 0) {
+				DeltaExploration *= 5;
+			}
+			CurrentCase->Exploration += DeltaExploration;
 			CaseBase->InsertCase(std::move(CurrentCase));
 		}
 	}
