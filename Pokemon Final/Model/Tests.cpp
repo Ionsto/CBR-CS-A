@@ -3,18 +3,18 @@
 void TestAIInteraction()
 {
 	std::unique_ptr<CBRInstance> instance = std::make_unique<CBRInstance>();
-	if (std::ifstream("BestAI.txt"))
+	if (std::ifstream("0.5AI.txt"))
 	{
-		instance->Load("BestAI.txt");
+		instance->Load("0.5AI.txt");
 	}
 	else
 	{
-		std::ifstream stream = std::ifstream("BestWeights.txt");
+		std::ifstream stream = std::ifstream("0.5Weights.txt");
 		if (stream) {
 			instance->CaseBase->DistanceWeight.Load(std::move(stream));
 		}
 		TPlayCBRvsRandomInstance(&instance, 500,true);
-		instance->Save("BestAI.txt");
+		instance->Save("0.5AI.txt");
 	}
 	TPlayCBRvsConsoleInstance(&instance, 6);
 	instance.reset();
@@ -45,7 +45,7 @@ void TestPlayOverTime()
 {
 	std::unique_ptr<CBRInstance> instance = std::make_unique<CBRInstance>();
 	CBRWeights Weight = CBRWeights();
-	std::ifstream stream = std::ifstream("HandicapedWeights.txt");
+	std::ifstream stream = std::ifstream("BestWeights.txt");
 	if (stream) {
 		Weight.Load(std::move(stream));
 		instance->CaseBase->DistanceWeight.CopyWeights(Weight);
@@ -133,11 +133,9 @@ void TestMergeSort()
 void TestCaseAdaption()
 {
 	std::unique_ptr<CBRInstance> instance = std::make_unique<CBRInstance>();
-	CBRWeights Weight = CBRWeights();
 	std::ifstream stream = std::ifstream("TransfereWeights.txt");
 	if (stream) {
-		Weight.Load(std::move(stream));
-		instance->CaseBase->DistanceWeight.CopyWeights(Weight);
+		instance->CaseBase->DistanceWeight.Load(std::move(stream));
 	}
 	stream.close();
 	std::ofstream LearnElectric = std::ofstream("LearnElectric.txt");
@@ -220,6 +218,46 @@ void TestCaseAdaption()
 	instance.reset();
 }
 
+void TestTurnTime()
+{
+	std::unique_ptr<CBRInstance> instance = std::make_unique<CBRInstance>();
+	std::ifstream stream = std::ifstream("BestWeights.txt");
+	if (stream) {
+		instance->CaseBase->DistanceWeight.Load(std::move(stream));
+	}
+	stream.close();
+	std::ofstream TurnTimerFile = std::ofstream("TurnTimer.txt");
+
+	{
+		int GameCount = 5000;
+		//offsetTime is the time it takes for the update to move without CBR
+		GameInstance * TestGame = new GameInstance(std::make_unique<PlayerRandom>(), std::make_unique<PlayerRandom>());
+		auto StartTime = std::chrono::high_resolution_clock::now();
+		int g = 0;
+		for (g = 0; g < 6 && !TestGame->Finished; ++g) {
+			TestGame->Update();
+		}
+		auto EndTime = std::chrono::high_resolution_clock::now();
+		auto TimeOffset = (EndTime - StartTime)/g;
+		delete TestGame;
+		for (int i = 0; i < GameCount; ++i)
+		{
+			GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(instance)), std::make_unique<PlayerRandom>());
+			StartTime = std::chrono::high_resolution_clock::now();
+			int g = 0;
+			for (g = 0; g < 6 && !Game->Finished; ++g) {
+				Game->Update();
+			}
+			EndTime = std::chrono::high_resolution_clock::now();
+			auto CBRTime = ((EndTime - StartTime)/g) - TimeOffset;
+			TurnTimerFile << std::chrono::duration_cast<std::chrono::microseconds>(CBRTime).count() << std::endl;
+			if (i % 100 == 0) { std::cout << i << std::endl; }
+			instance = std::move(((PlayerCBR*)Game->GetPlayer(0))->AIInstance);
+			delete Game;
+		}
+	}
+	TurnTimerFile.close();
+}
 static void TDisplayConsole(GameInstance * gi, std::unique_ptr<Player> * Players, GameInstance::MovePairs moves)
 {
 	std::cout << "Round Played" << std::endl;

@@ -11,6 +11,7 @@
 #include "PokemonMareep.h"
 #include "PokemonMagikarp.h"
 #include <iostream>
+#include <chrono>
 //
 void TestAIInteraction();
 //This test checks whether the save load mechanics work
@@ -25,6 +26,8 @@ void TestMergeSort();
 void TestKNN();
 //
 void TestCaseAdaption();
+//
+void TestTurnTime();
 
 static void TDisplayConsole(GameInstance * gi, std::unique_ptr<Player> * Players, GameInstance::MovePairs moves);
 float TPlayCBRvsRandomInstance(std::unique_ptr<CBRInstance> * AI, int gamemax, bool DisplayRoundP = false);

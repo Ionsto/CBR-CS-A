@@ -61,7 +61,7 @@ float PlayOne(CBRWeights * Weights, int gamemax,bool Display = false)
 	{
 		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(AI)), std::make_unique<PlayerRandom>());
 		////TRANFER
-		if (i < gamemax / 2)
+		/*if (i < gamemax / 2)
 		{
 			Game->GetPlayer(0)->MyPokemon[0].reset();
 			Game->GetPlayer(0)->MyPokemon[0] = std::make_unique<PokemonMagikarp>();
@@ -70,7 +70,7 @@ float PlayOne(CBRWeights * Weights, int gamemax,bool Display = false)
 		{
 			Game->GetPlayer(0)->MyPokemon[0].reset();
 			Game->GetPlayer(0)->MyPokemon[0] = std::make_unique<PokemonMareep>();
-		}
+		}*/
 		///
 		if (Display)
 		{
@@ -144,7 +144,7 @@ void WeightingRoundRobin(float Target,std::string SaveLocation, float Delta = 1)
 	std::ofstream LearningTrendFile;
 	LearningTrendFile.open(SaveLocation+"LearningTrend.txt", std::ios_base::app);
 	int WeightCount = 20;
-	int RoundCount = 500;
+	int RoundCount = 15;
 	std::deque<std::unique_ptr<CBRWeights>> Weights = std::deque<std::unique_ptr<CBRWeights>>();
 	for (int i = 0; i < WeightCount; ++i)
 	{
@@ -162,12 +162,12 @@ void WeightingRoundRobin(float Target,std::string SaveLocation, float Delta = 1)
 		}
 	}
 	stream.close();
-	for (int rounds = 0; rounds >= 0; ++rounds)
+	for (int rounds = 0; rounds < RoundCount; ++rounds)
 	{
 		float SumWinrate = 0;
 		std::cout << "---ROUND" << rounds << std::endl;
 		std::unique_ptr<CBRWeights> BestWeight = std::move(Weights.front());
-		const int GameCount = 400;
+		const int GameCount = 200;
 		float WinRate = PlayOne((BestWeight.get()), GameCount);
 		SumWinrate += WinRate;
 		Weights.pop_front();
@@ -218,15 +218,20 @@ int main(int argc, char **args)
 	std::cout<<PlayOne(Weight0.get(), 1000);*/
 	//PlayWeights(Weight0.get(),Weight1.get(),200);
 	//WeightingRoundRobin();
-	//TestAIInteraction();
+	TestAIInteraction();
 	//TestCaseSaveLoad();
 	//TestPlayOverTime();
 	//TestPlayDetermanisim();
 	//TPlayCBRvsDeterministicInstance(NULL, 1);
-	WeightingRoundRobin(1, "Transfere");
+	//WeightingRoundRobin(0, "0.0");
+	//WeightingRoundRobin(0.25 , "0.25");
+	//WeightingRoundRobin(0.5, "0.5");
+	//WeightingRoundRobin(0.75, "0.75");
+	//WeightingRoundRobin(1, "1.0");
 	//TestKNN();
 	//TestMergeSort();
-	TestCaseAdaption();
+	//TestTurnTime();
+	//TestCaseAdaption();
 	int i = 0;
 	std::cin >> i;
 	return 0;
