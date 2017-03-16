@@ -1,0 +1,20 @@
+﻿  CBRWeights.cpp
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrweights.cpp(28): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrweights.cpp(29): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrweights.cpp(32): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrweights.cpp(33): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrweights.cpp(34): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrweights.cpp(35): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrweights.cpp(36): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrweights.cpp(37): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  CBRInstance.cpp
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrinstance.cpp(77): warning C4018: '<': signed/unsigned mismatch
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrinstance.cpp(96): warning C4018: '<': signed/unsigned mismatch
+d:\github\cbr-cs-a\pokemon final\pokemon final\cbrinstance.cpp(101): warning C4305: 'initializing': truncation from 'int' to 'float'
+  CBRCase.cpp
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  main.cpp
+  CBRCaseBaseLinear.cpp
+  CBRCaseBase.cpp
+  Pokemon Final.vcxproj -> D:\Github\CBR-CS-A\Pokemon Final\Debug\Pokemon Final.lib

@@ -17,7 +17,7 @@ float CBREnviroment::GetAttributes(int n)
 }
 void CBREnviroment::SetAttributes(int n,float val)
 {
-	//More pointer magic, to use the DistanceAttributes as a huge case switch system
+	//More pointer magic, to use the DistanceAttributes as a huge switch-case system
 	(*(AttributesMap[n])) = val;
 }
 void CBREnviroment::Save(std::ofstream &s)
@@ -30,7 +30,7 @@ void CBREnviroment::Save(std::ofstream &s)
 }
 void CBREnviroment::Load(std::ifstream &s)
 {
-	//Although ElementCount SHOULD be constant, if an extended DistanceAttributesibute system was implmented 
+	//Although ElementCount SHOULD be constant, it is loaded so that if an smaller DistanceAttributes system was implmented - no error 
 	s >> ElementCount;
 	float Attributes;
 	for (int i = 0; i < ElementCount; ++i)

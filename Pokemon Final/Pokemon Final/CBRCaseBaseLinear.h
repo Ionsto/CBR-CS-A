@@ -1,11 +1,13 @@
 #pragma once
+//This class is an implementation of the CaseBase using an linear storage system
 #include "CBRCaseBase.h"
 //Dummy class 
 class CBRCaseBaseLinear : public CBRCaseBase {
 public:
-	//This is a dummy class
+	//Linear vector
 	std::vector<std::unique_ptr<CBRCase>> CaseBase;
 	CBRCaseBaseLinear();
+	//Implementations of parent class functions 
 	virtual ~CBRCaseBaseLinear() override; 
 	std::vector<CBRCaseDistance> GetKNN(int K,float threshold, CBREnviroment * env) override; 
 	//float GetDistance(CBRCase * a, CBRCase * b) override;

@@ -26,7 +26,7 @@ void TestMergeSort();
 void TestKNN();
 //
 void TestCaseAdaption();
-//
+//Times AI turns
 void TestTurnTime();
 
 static void TDisplayConsole(GameInstance * gi, std::unique_ptr<Player> * Players, GameInstance::MovePairs moves);

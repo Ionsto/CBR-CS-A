@@ -1,4 +1,6 @@
 #include "CBRCaseBaseLinear.h"
+//Linear implementation of the CaseBase
+
 
 CBRCaseBaseLinear::CBRCaseBaseLinear()
 {
@@ -57,9 +59,6 @@ void CBRCaseBaseLinear::InsertCase(std::unique_ptr<CBRCase> Case)
 
 void CBRCaseBaseLinear::RemoveCase(CBRCase * Case)
 {
-	//Get passed a view of the case, then remove it from ownership
-	//Find Case
-	//Delete Case
 	for (int i = 0; i < CaseBase.size();++i)
 	{
 		if (CaseBase[i].get() == Case)
@@ -71,7 +70,7 @@ void CBRCaseBaseLinear::RemoveCase(CBRCase * Case)
 }
 void CBRCaseBaseLinear::Save(std::ofstream &s)
 {
-	DistanceWeight.Save(s);
+	BehaviorWeight.Save(s);
 	s << GetCaseCount() << " ";
 	for (int i = 0; i < CaseBase.size(); ++i)
 	{
@@ -80,7 +79,7 @@ void CBRCaseBaseLinear::Save(std::ofstream &s)
 }
 void CBRCaseBaseLinear::Load(std::ifstream &s)
 {
-	DistanceWeight.Load(s);
+	BehaviorWeight.Load(s);
 	int CaseCount = 0;
 	s >> CaseCount;
 	for (int i = 0; i < CaseCount; ++i)

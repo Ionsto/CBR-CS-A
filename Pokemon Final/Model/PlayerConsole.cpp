@@ -46,7 +46,7 @@ int PlayerConsole::GetMove(Player * enemy)
 			std::cout << i << ":" << GetActivePokemon()->MoveSet[i]->Name <<" :"<< GetActivePokemon()->MoveSet[i]->MaxUses - GetActivePokemon()->MoveSet[i]->CurrentUses << std::endl;
 		}
 		int SelectedMove = -1;
-		while (SelectedMove == -1)
+		while (SelectedMove < 0 || SelectedMove >= 4)
 		{
 			std::cin >> SelectedMove;
 		}

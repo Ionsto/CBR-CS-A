@@ -21,6 +21,7 @@ CBRWeights::CBRWeights()
 CBRWeights::~CBRWeights()
 {
 }
+
 void CBRWeights::RandomiseWeights(float delta)
 {
 	for (int i = 0; i < ElementCount; ++i)
@@ -28,7 +29,6 @@ void CBRWeights::RandomiseWeights(float delta)
 		DistanceAttributes[i] += delta*(((rand() % 100) / (float)100) - 0.5);
 		FitnessAttributes[i] += delta*(((rand() % 100) / (float)100) - 0.5);
 	}
-	//Difference in implementation for this and DistanceAttributes is due these constants being pulled over from 
 	IdenticalThreshold += delta*(((rand() % 100) / (float)100) - 0.5);
 	ExplorationConstant += delta*(((rand() % 100) / (float)100) - 0.5);
 	MaxSearchThreshold += delta*(((rand() % 100) / (float)100) - 0.5);
@@ -43,10 +43,6 @@ void CBRWeights::RandomiseWeights(float delta)
 	{
 		SearchKNN = 0;
 	}
-	//if (MaxSearchThreshold > 500)
-	//{
-	//	MaxSearchThreshold = 500;
-	//}
 }
 void CBRWeights::CopyWeights(CBRWeights weights)
 {

@@ -23,24 +23,22 @@ bool CBRCase::Exploit()
 	float total = randi * exp(Exploration);
 	return !((exp(Exploration) * (rand()%50)) > 25);	
 }
-
+//Calculates much the move has helped the AI
 void CBRCase::CalculateUtility(CBRWeights * weight)
 {
 	Utility = CalculateFitness(EndEnviroment.get(),weight) - CalculateFitness(StartEnviroment.get(),weight);
 }
 
+//Calcuates the "fitness"/ how desirable an ENVIRONMENT is
 float CBRCase::CalculateFitness(CBREnviroment * env,CBRWeights * weight)
 {
 	//This is the fittness function
 	float distancesqrd = 0;
-	//List all elements
 	for (int i = 0; i < env->ElementCount; ++i)
 	{
 		distancesqrd += weight->GetFitnessAttributes(i) * env->GetAttributes(i);
 	}
-	//
 	return (distancesqrd);
-	//return env->Owned.Health - env->Opponent.Health;
 }
 
 void CBRCase::Save(std::ofstream &s)

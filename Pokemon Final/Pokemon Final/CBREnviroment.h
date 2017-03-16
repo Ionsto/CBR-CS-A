@@ -4,6 +4,7 @@ The enviroments can be objectivly compared in similarity, with different weighti
 */
 #pragma once
 #include <fstream>
+//Represents the attributes of a single move
 struct MoveCase {
 	float AttackSpeed; 
 	float BaseDamage;
@@ -19,6 +20,7 @@ struct MoveCase {
 		AttackType = 0;
 	}
 };
+//Represents the attributes of a single pokemon
 struct PokmonCase {
 	float Health;
 	float Type;
@@ -33,15 +35,15 @@ struct PokmonCase {
 	}
 	MoveCase Moves[4];
 };
-
+//Represents the attributes of a single turn
 class CBREnviroment{
 public:
 	PokmonCase Owned;
 	PokmonCase Opponent;
 	int ElementCount;
-	//Mapping DistanceAttributesibutes to ids
+	//Mapping DistanceAttributes to ids
 	//Poor coding style, but otherwise correct
-	//Also very fast, due to the fact it is one jump table, and one pointer
+	//Also very fast, due to the fact it is effectivly a jumptable, with data contiguous
 	float* AttributesMap[48] = {
 		&Owned.Health,//0
 		&Owned.Type,
@@ -99,8 +101,10 @@ public:
 		&Opponent.Moves[3].AttackType};
 	CBREnviroment();
 	~CBREnviroment();
+	//Gets & sets the value AT the pointer in the AttributeMap
 	float GetAttributes(int n);
 	void SetAttributes(int n,float val);
+	//Saves and loads all of the attributes
 	void Save(std::ofstream &s);
 	void Load(std::ifstream &s);
 };

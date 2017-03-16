@@ -11,7 +11,7 @@ void TestAIInteraction()
 	{
 		std::ifstream stream = std::ifstream("0.5Weights.txt");
 		if (stream) {
-			instance->CaseBase->DistanceWeight.Load(std::move(stream));
+			instance->CaseBase->BehaviorWeight.Load(std::move(stream));
 		}
 		TPlayCBRvsRandomInstance(&instance, 500,true);
 		instance->Save("0.5AI.txt");
@@ -48,7 +48,7 @@ void TestPlayOverTime()
 	std::ifstream stream = std::ifstream("BestWeights.txt");
 	if (stream) {
 		Weight.Load(std::move(stream));
-		instance->CaseBase->DistanceWeight.CopyWeights(Weight);
+		instance->CaseBase->BehaviorWeight.CopyWeights(Weight);
 	}
 	stream.close();
 	TPlayCBRvsRandomInstance(&instance, 2000,true);
@@ -61,7 +61,7 @@ void TestPlayDetermanisim()
 	std::ifstream stream = std::ifstream("BestWeights.txt");
 	if (stream) {
 		Weight.Load(std::move(stream));
-		instance->CaseBase->DistanceWeight.CopyWeights(Weight);
+		instance->CaseBase->BehaviorWeight.CopyWeights(Weight);
 	}
 	stream.close();
 	TPlayCBRvsDeterministicInstance(&instance, 1000, true);
@@ -135,7 +135,7 @@ void TestCaseAdaption()
 	std::unique_ptr<CBRInstance> instance = std::make_unique<CBRInstance>();
 	std::ifstream stream = std::ifstream("TransfereWeights.txt");
 	if (stream) {
-		instance->CaseBase->DistanceWeight.Load(std::move(stream));
+		instance->CaseBase->BehaviorWeight.Load(std::move(stream));
 	}
 	stream.close();
 	std::ofstream LearnElectric = std::ofstream("LearnElectric.txt");
@@ -223,7 +223,7 @@ void TestTurnTime()
 	std::unique_ptr<CBRInstance> instance = std::make_unique<CBRInstance>();
 	std::ifstream stream = std::ifstream("BestWeights.txt");
 	if (stream) {
-		instance->CaseBase->DistanceWeight.Load(std::move(stream));
+		instance->CaseBase->BehaviorWeight.Load(std::move(stream));
 	}
 	stream.close();
 	std::ofstream TurnTimerFile = std::ofstream("TurnTimer.txt");
@@ -283,7 +283,7 @@ float TPlayOneWeight(CBRWeights * Weights, int gamemax)
 	float won0 = 0;
 	//Example program
 	std::unique_ptr<CBRInstance> AI = std::make_unique<CBRInstance>();
-	AI->CaseBase->DistanceWeight = CBRWeights(*Weights);
+	AI->CaseBase->BehaviorWeight = CBRWeights(*Weights);
 	for (int i = 0; i < gamemax; ++i)
 	{
 		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(AI)), std::make_unique<PlayerRandom>());
@@ -313,10 +313,7 @@ float TPlayCBRvsRandomInstance(std::unique_ptr<CBRInstance> * AI, int gamemax, b
 	for (int i = 0; i < gamemax; ++i)
 	{
 		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move((*AI))), std::make_unique<PlayerRandom>());
-		//if (i % 100 == 0 || i-1 % 100 == 0)
-		//{
-		//Game->DisplayCallback = DisplayConsole;
-		//}
+	
 		for (int g = 0; g < 6 && !Game->Finished; ++g) {
 			Game->Update();
 		}

@@ -8,12 +8,14 @@ CBRCaseBase::CBRCaseBase()
 CBRCaseBase::~CBRCaseBase()
 {
 } 
+
 //K-Nearest neighbor 
 std::vector<CBRCaseDistance> CBRCaseBase::GetKNN(int K,float threshold,CBREnviroment * env)
 {
 	std::vector<CBRCaseDistance> NearestCases = std::vector<CBRCaseDistance>();
 	return NearestCases;
 }
+//Recursive merge sort
 std::queue<CBRCaseDistance> CBRCaseBase::MergeSort(std::queue<CBRCaseDistance> list)
 {
 	if (list.size() <= 1)
@@ -37,7 +39,7 @@ std::queue<CBRCaseDistance> CBRCaseBase::MergeSort(std::queue<CBRCaseDistance> l
 	right = MergeSort(right);
 	return MergeMerge(left, right);
 }
-
+//Semi-abstract functions, these get overriden
 CBRCase * CBRCaseBase::GetCaseView(int i)
 {
 	return NULL;
@@ -82,7 +84,7 @@ float CBRCaseBase::GetDistance(CBREnviroment * a, CBREnviroment * b)
 	//List all elements
 	for (int i = 0;i < a->ElementCount;++i)
 	{
-		distancesqrd += expf(DistanceWeight.GetDistanceAttributes(i)) * (a->GetAttributes(i) - b->GetAttributes(i)) * (a->GetAttributes(i) - b->GetAttributes(i));
+		distancesqrd += expf(BehaviorWeight.GetDistanceAttributes(i)) * (a->GetAttributes(i) - b->GetAttributes(i)) * (a->GetAttributes(i) - b->GetAttributes(i));
 	}
 	//
 	return sqrt(distancesqrd);
@@ -101,15 +103,17 @@ void CBRCaseBase::RemoveCase(CBRCase * Case)
 	//Delete Case
 }
 
+//Default behevior
 bool CBRCaseBase::IsEmpty()
 {
 	return true;
 }
+
 void CBRCaseBase::Save(std::ofstream &s)
 {
-	DistanceWeight.Save(s);
+	BehaviorWeight.Save(s);
 }
 void CBRCaseBase::Load(std::ifstream &s)
 {
-	DistanceWeight.Load(s);
+	BehaviorWeight.Load(s);
 }

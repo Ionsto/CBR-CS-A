@@ -12,9 +12,7 @@ CBRInstance::~CBRInstance()
 	CaseBase.reset();
 	CurrentCase.reset();
 }
-/*
--First find nearest case
-*/
+//Get move for the upcoming turn
 int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 {
 	//Reset Current case
@@ -30,32 +28,35 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 	}
 	else
 	{
-		std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN((int)expf(CaseBase->DistanceWeight.SearchKNN), expf(CaseBase->DistanceWeight.MaxSearchThreshold), CurrentCase->StartEnviroment.get());
+		//Get nearby cases, to compare notes with CaseBase
+		std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN((int)expf(CaseBase->BehaviorWeight.SearchKNN), expf(CaseBase->BehaviorWeight.MaxSearchThreshold), CurrentCase->StartEnviroment.get());
 		if (NearestCases.size() == 0)
 		{
-			//Random moves
+			//Random move, as we have no previous data
 			CurrentCase->GenerateRandomMove();
 		}
 		else
 		{
 			CBRCaseDistance NearestCase = NearestCases[0];
-			if (NearestCase.Distance < expf(CaseBase->DistanceWeight.IdenticalThreshold))
+			if (NearestCase.Distance < expf(CaseBase->BehaviorWeight.IdenticalThreshold))
 			{
+				//We know the case is identical now
 				//Chose whether to exploit or explore
 				if (NearestCase.Case->Exploit())
 				{
+					//We want to exploit the NearestCases known utility
 					CurrentCase->Move = NearestCase.Case->Move;
 				}
 				else
 				{
+					//Going out on a limb to find new solutions
 					CurrentCase->GenerateRandomMove();
 				}
 			}
 			else
 			{
-				//Get nearest 10 cases
-				//Use weighted linear regression based on (learned values of importance) and (utility of each case).
-				//Alternitivly use modal move from knearest cases
+				//Get nearest k cases
+				//Use weighted modal move from k nearest cases to select a good move
 				//Adaption
 				if (NearestCase.Case->Exploit())
 				{
@@ -63,6 +64,7 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 				}
 				else
 				{
+					//Find a new solution
 					CurrentCase->GenerateRandomMove();
 				}
 			}
@@ -70,7 +72,7 @@ int CBRInstance::GetMove(std::unique_ptr<CBREnviroment> startenv)
 	}
 	return CurrentCase->Move;
 }
-
+//Unused
 int CBRInstance::GetMoveModel(std::vector<CBRCaseDistance> cases)
 {
 	int ModalCase[4] = { 0,0,0,0 };
@@ -95,10 +97,12 @@ int CBRInstance::GetMoveWeightedAv(std::vector<CBRCaseDistance> cases)
 	float AvCase[4] = {0,0,0,0};
 	for (int i = 0;i < cases.size();++i)
 	{
-		AvCase[cases[i].Case->Move] += cases[i].Case->Utility /(cases[i].Distance);
+		//We want to push down cases that have -utility, as they are bad
+		AvCase[cases[i].Case->Move] += cases[i].Case->Utility / (cases[i].Distance);
 	}
 	int BestMove = 0;
 	float MoveVotes = -INT_MAX;
+	//Find best move
 	for (int i = 0;i < 4;++i)
 	{
 		if (AvCase[i] > MoveVotes)
@@ -116,15 +120,17 @@ int CBRInstance::GetMoveFromCases(std::vector<CBRCaseDistance> cases)
 
 void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 {
+	//Populate end envionment and complete the case
 	CurrentCase->EndEnviroment = std::move(finalenv);
-	CurrentCase->CalculateUtility(&CaseBase->DistanceWeight);
+	CurrentCase->CalculateUtility(&CaseBase->BehaviorWeight);
 	
 	//Lending valitity to previous cases, or discrediting them
-	std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN((int)expf(CaseBase->DistanceWeight.SearchKNN), expf(CaseBase->DistanceWeight.MaxSearchThreshold), CurrentCase->EndEnviroment.get());
+	std::vector<CBRCaseDistance> NearestCases = CaseBase->GetKNN((int)expf(CaseBase->BehaviorWeight.SearchKNN), expf(CaseBase->BehaviorWeight.MaxSearchThreshold), CurrentCase->EndEnviroment.get());
 	if (NearestCases.size() == 0)
 	{
-		//Random moves
-		float DeltaExploration = -CurrentCase->Utility * expf(CaseBase->DistanceWeight.ExplorationConstant);
+		//Empty case, whack the new case right in there
+		//dont forget to update exploration values
+		float DeltaExploration = -CurrentCase->Utility * expf(CaseBase->BehaviorWeight.ExplorationConstant);
 		if (CurrentCase->Utility < 0) {
 			DeltaExploration *= 5;
 		}
@@ -134,13 +140,15 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 	else
 	{
 		CBRCaseDistance NearestCase = NearestCases[0];
-		if (NearestCase.Distance < expf(CaseBase->DistanceWeight.IdenticalThreshold))
+		if (NearestCase.Distance < expf(CaseBase->BehaviorWeight.IdenticalThreshold))
 		{
+			//CurrentCase is identical to a previouse case
 			if (NearestCase.Case->Move != CurrentCase->Move)
 			{
-				if ((CurrentCase->Utility - NearestCase.Case->Utility) > expf(CaseBase->DistanceWeight.ReplacingUtilityThreshold))
+				if ((CurrentCase->Utility - NearestCase.Case->Utility) > expf(CaseBase->BehaviorWeight.ReplacingUtilityThreshold))
 				{
-					//Remove the NearstCas
+					//CurrentCase is better than the old one, so replace it
+					//Remove the NearstCase
 					CaseBase->RemoveCase(NearestCase.Case);
 					//Insert the CurrentCase
 					CaseBase->InsertCase(std::move(CurrentCase));
@@ -148,12 +156,13 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 			}
 			else
 			{
-				float DeltaExploration = -CurrentCase->Utility * expf(CaseBase->DistanceWeight.ExplorationConstant);
+				//Either discredit, or lend support to the previouse case
+				float DeltaExploration = -CurrentCase->Utility * expf(CaseBase->BehaviorWeight.ExplorationConstant);
 				if (CurrentCase->Utility < 0) {
 					DeltaExploration *= 5;
 				}
 				NearestCase.Case->Exploration += DeltaExploration;
-				if (++NearestCase.Case->ExplorationTestsCount >= (int)(exp(CaseBase->DistanceWeight.ExplorationMaxTests)))
+				if (++NearestCase.Case->ExplorationTestsCount >= (int)(exp(CaseBase->BehaviorWeight.ExplorationMaxTests)))
 				{
 					NearestCase.Case->ExplorationTestsCount = 0;
 					NearestCase.Case->Exploration = 0;
@@ -162,7 +171,8 @@ void CBRInstance::ResolveAnswer(std::unique_ptr<CBREnviroment> finalenv)
 		}
 		else
 		{
-			float DeltaExploration = -CurrentCase->Utility * expf(CaseBase->DistanceWeight.ExplorationConstant);
+			//No simalar cases, just add our case in
+			float DeltaExploration = -CurrentCase->Utility * expf(CaseBase->BehaviorWeight.ExplorationConstant);
 			if (CurrentCase->Utility < 0) {
 				DeltaExploration *= 5;
 			}

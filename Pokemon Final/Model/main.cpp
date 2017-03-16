@@ -56,7 +56,7 @@ float PlayOne(CBRWeights * Weights, int gamemax,bool Display = false)
 	float won0 = 0;
 	//Example program
 	std::unique_ptr<CBRInstance> AI = std::make_unique<CBRInstance>();
-	AI->CaseBase->DistanceWeight = CBRWeights(*Weights);
+	AI->CaseBase->BehaviorWeight = CBRWeights(*Weights);
 	for (int i = 0; i < gamemax; ++i)
 	{
 		GameInstance * Game = new GameInstance(std::make_unique<PlayerCBR>(std::move(AI)), std::make_unique<PlayerRandom>());
@@ -97,8 +97,8 @@ bool PlayWeights(CBRWeights * W0,CBRWeights * W1,int Games = 50)
 {
 	std::unique_ptr<CBRInstance> AI0 = std::make_unique<CBRInstance>();
 	std::unique_ptr<CBRInstance> AI1 = std::make_unique<CBRInstance>();
-	AI0->CaseBase->DistanceWeight = CBRWeights(*W0);
-	AI1->CaseBase->DistanceWeight = CBRWeights(*W1);
+	AI0->CaseBase->BehaviorWeight = CBRWeights(*W0);
+	AI1->CaseBase->BehaviorWeight = CBRWeights(*W1);
 	int win0 = 0;
 	int win1 = 0;
 	int PlayGames = Games;
